@@ -1,0 +1,83 @@
+button, input, textarea, select{
+    font-family:inherit;font-size:inherit;color:inherit;
+    background:none;border:none;appearance:none;-webkit-appearance:none;-moz-appearance:none;
+    border-radius:0;box-shadow:none;
+  }
+  button{cursor:pointer;}
+/* ===== BLOG HERO ===== */
+  .blog-hero{background:var(--negro);padding:150px 0 60px;position:relative;overflow:hidden;}
+  .blog-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--naranja);}
+  .blog-hero h1{color:#fff;font-size:clamp(2.1rem,5vw,3.3rem);letter-spacing:-0.025em;max-width:680px;}
+  .blog-hero p{color:#b0b0b0;font-size:0.95rem;max-width:480px;margin-top:14px;line-height:1.6;}
+
+  /* ===== CATEGORY FILTER ===== */
+  .blog-filter-bar{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:73px;z-index:90;}
+  .blog-filter-track{display:flex;gap:10px;overflow-x:auto;padding:18px 0;-webkit-overflow-scrolling:touch;}
+  .blog-chip{
+    flex:0 0 auto;padding:10px 20px;border:1px solid var(--line);border-radius:var(--r-pill);
+    font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.76rem;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--gris-oscuro);cursor:pointer;transition:all .2s ease;background:var(--blanco);
+  }
+  .blog-chip:hover{border-color:var(--negro);}
+  .blog-chip.active{background:var(--negro);border-color:var(--negro);color:#fff;}
+
+  /* ===== FEATURED POST ===== */
+  .blog-featured{padding:64px 0 20px;background:var(--paper);}
+  .featured-card{
+    display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+    background:#fff;transition:box-shadow .3s ease;
+  }
+  .featured-card:hover{box-shadow:0 20px 50px rgba(0,0,0,0.08);}
+  @media(min-width:860px){.featured-card{grid-template-columns:1.2fr 1fr;}}
+  .featured-media{aspect-ratio:16/10;overflow:hidden;position:relative;background:#111;}
+  @media(min-width:860px){.featured-media{aspect-ratio:auto;height:100%;}}
+  .featured-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .featured-card:hover .featured-media img{transform:scale(1.03);}
+  .featured-media .fm-badge{position:absolute;top:18px;left:18px;background:var(--naranja);color:#fff;font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;padding:8px 16px;border-radius:var(--r-pill);}
+  .featured-body{padding:36px;display:flex;flex-direction:column;justify-content:center;}
+  @media(min-width:600px){.featured-body{padding:44px;}}
+  .featured-body .fb-tag{color:var(--naranja);font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;}
+  .featured-body h2{font-size:clamp(1.3rem,2.6vw,1.8rem);line-height:1.25;margin-bottom:16px;letter-spacing:-0.015em;}
+  .featured-body p{color:var(--gris-oscuro);font-size:0.94rem;line-height:1.65;margin-bottom:22px;}
+  .featured-meta{display:flex;align-items:center;gap:14px;font-size:0.8rem;color:var(--gris-plata);margin-bottom:24px;}
+  .featured-meta .fm-dot{width:3px;height:3px;background:var(--gris-plata);border-radius:50%;}
+  .featured-body .btn{align-self:flex-start;}
+
+  /* ===== BLOG GRID ===== */
+  .blog-grid-section{padding:50px 0 100px;background:var(--paper);}
+  .blog-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+  @media(min-width:700px){.blog-grid{grid-template-columns:1fr 1fr;}}
+  @media(min-width:1080px){.blog-grid{grid-template-columns:repeat(3,1fr);}}
+  .post-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease;
+  }
+  .post-card:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(0,0,0,0.08);}
+  .post-media{aspect-ratio:16/11;overflow:hidden;position:relative;background:#111;}
+  .post-media img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease;filter:grayscale(15%);}
+  .post-card:hover .post-media img{transform:scale(1.05);filter:grayscale(0%);}
+  .post-media .pm-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.65);color:#fff;font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;padding:7px 14px;border-radius:var(--r-pill);}
+  .post-body{padding:24px;flex:1;display:flex;flex-direction:column;}
+  .post-body h3{font-size:1.02rem;line-height:1.35;margin-bottom:12px;letter-spacing:-0.01em;flex:0;}
+  .post-body p{color:var(--gris-oscuro);font-size:0.86rem;line-height:1.6;margin-bottom:18px;flex:1;}
+  .post-meta{display:flex;align-items:center;gap:10px;font-size:0.76rem;color:var(--gris-plata);padding-top:16px;border-top:1px solid var(--line);}
+  .post-meta .pm-dot{width:3px;height:3px;background:var(--gris-plata);border-radius:50%;}
+  .post-meta .pm-author{color:var(--negro);font-family:'Century Gothic',sans-serif;font-weight:700;}
+
+  /* ===== NEWSLETTER STRIP ===== */
+  .newsletter-strip{background:var(--negro);padding:80px 0;}
+  .newsletter-inner{
+    display:flex;flex-direction:column;gap:26px;
+    border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);padding:44px 0;
+  }
+  @media(min-width:800px){.newsletter-inner{flex-direction:row;align-items:center;justify-content:space-between;}}
+  .newsletter-inner h3{color:#fff;font-size:clamp(1.4rem,2.8vw,1.9rem);max-width:440px;letter-spacing:-0.02em;}
+  .newsletter-inner p{color:#b0b0b0;font-size:0.88rem;margin-top:10px;max-width:400px;}
+  .newsletter-form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:380px;}
+  @media(min-width:460px){.newsletter-form{flex-direction:row;}}
+  .newsletter-form input{
+    flex:1;background:#161616;border:1px solid #2a2a2a;color:#fff;padding:14px 18px;
+    border-radius:var(--r-pill);font-family:'Avalon',sans-serif;font-size:0.9rem;
+  }
+  .newsletter-form input:focus{outline:2px solid var(--naranja);}
+  .newsletter-form button{white-space:nowrap;}

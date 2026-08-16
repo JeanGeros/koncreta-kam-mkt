@@ -1,49 +1,289 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Base from '../layouts/Base.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Base title="Koncreta Prefabricados — Ingeniería de hormigón a medida">
+<!-- ===================== HERO (imagen oficial del cliente) ===================== -->
+<section class="hero" id="inicio">
+  <img src="/img/k-8fd93c86.jpg" alt="Imagen institucional oficial de Koncreta Prefabricados">
+  <div class="hero-content">
+    <h1>Prefabricados de hormigón con <span class="accent">entrega garantizada</span> en obra</h1>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://wa.me/56900000000?text=Hola%20Koncreta%2C%20quiero%20cotizar%20un%20proyecto" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.9 1-.4.2-.6.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5s.2-.3.4-.4.2-.2.3-.4a.5.5 0 0 0 0-.5c-.1-.1-.6-1.5-.8-2s-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.1 5 5 0 0 0 1.1 2.7 11.4 11.4 0 0 0 4.4 3.9c1.5.6 2.1.7 2.9.6a2.5 2.5 0 0 0 1.6-1.1 1.9 1.9 0 0 0 .1-1.1c-.1-.1-.2-.2-.5-.3z"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+      <a class="btn btn-outline" href="tel:+56900000000">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.9 15.9 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11 11 0 0 0 3.5.6 1 1 0 0 1 1 1v3.4a1 1 0 0 1-1 1A18 18 0 0 1 2 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .6 3.5 1 1 0 0 1-.2 1z"/></svg>
+        Llamada directa
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="dossier-bar">
+  <div class="dossier-inner">
+    <div class="dossier-cell"><span class="mono">Plantas operativas</span><span class="val">2</span></div>
+    <div class="dossier-cell"><span class="mono">Rechazo en terreno</span><span class="val">0</span></div>
+    <div class="dossier-cell"><span class="mono">Proyectos ejecutados</span><span class="val">40<span class="accent">+</span></span></div>
+  </div>
+</div>
+
+<!-- ===================== DIFERENCIADORES (minimal) ===================== -->
+<section class="diff" id="servicios">
+  <div class="container">
+    <div class="idx" data-reveal>Por qué Koncreta</div>
+    <div class="diff-grid" data-reveal>
+      <div class="diff-card"><span class="diff-num mono">01</span><h4>2 plantas operativas propias</h4></div>
+      <div class="diff-card"><span class="diff-num mono">02</span><h4>Oficina Técnica sin intermediarios</h4></div>
+      <div class="diff-card"><span class="diff-num mono">03</span><h4>Trazabilidad certificada NCh</h4></div>
+      <div class="diff-card"><span class="diff-num mono">04</span><h4>Logística homologada a faena</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SELECTOR DE PROYECTOS ===================== -->
+<section class="selector" id="proyectos">
+  <div class="container">
+    <div class="idx" data-reveal>Nuestra capacidad</div>
+    <div class="section-head" data-reveal><h3>Explora los proyectos disponibles</h3></div>
+    <div class="selector-wrap" data-reveal>
+      <div class="selector-visual">
+        <span class="selector-tag mono" id="sel-tag">FUNDACIONES</span>
+        <img src="/img/k-21fdd5a6.jpg" id="sel-image" alt="Fundaciones con pedestales">
+      </div>
+      <div class="selector-info">
+        <h4 id="sel-title">Fundaciones con pedestales</h4>
+        <p id="sel-desc">Base estructural prefabricada para baterías y equipos industriales, fabricada bajo especificación exacta de tu ingeniería.</p>
+        <a class="btn btn-primary" href="https://wa.me/56900000000">Consultar disponibilidad</a>
+      </div>
+    </div>
+    <div class="selector-track" id="sel-track"></div>
+  </div>
+</section>
+
+<!-- ===================== VIDEO INSTITUCIONAL ===================== -->
+<section class="video-section">
+  <div class="container">
+    <div class="idx" data-reveal>Conócenos</div>
+    <div class="section-head" data-reveal><h3>Koncreta en 90 segundos</h3></div>
+    <div class="video-frame frame" data-reveal onclick="this.querySelector('.video-play').style.display='none'; this.innerHTML='<video controls autoplay style=\'width:100%;height:100%;object-fit:cover;\'><source src=\'video-institucional-koncreta.mp4\' type=\'video/mp4\'></video>';">
+      <img src="/img/k-7aebb69b.jpg" alt="Fotograma del video institucional de Koncreta Prefabricados, equipo técnico en faena">
+      <div class="video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <span class="video-caption mono">Video institucional — reproducir</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALERIA / PLANTAS ===================== -->
+<section class="plantas">
+  <div class="container">
+    <div class="idx" data-reveal>En terreno</div>
+  </div>
+  <div class="plantas-grid">
+    <figure class="big" data-reveal>
+      <img src="/img/k-21fdd5a6.jpg" alt="Piezas de hormigón prefabricado Koncreta con marca en pallets, listas para despacho en la planta">
+      <div class="fig-caption"><span class="tag">Fig. 01</span>Planta Antofagasta</div>
+    </figure>
+    <figure data-reveal>
+      <img src="/img/k-debd514c.jpg" alt="Cámara cilíndrica de hormigón prefabricado sobre camión plano, lista para transporte a faena minera">
+      <div class="fig-caption"><span class="tag">Fig. 02</span>Transporte homologado</div>
+    </figure>
+    <figure data-reveal>
+      <img src="/img/k-188c1eba.jpg" alt="Piezas de hormigón Koncreta apiladas en patio de acopio de la planta, con montaje en curso al fondo">
+      <div class="fig-caption"><span class="tag">Fig. 03</span>Montaje en obra</div>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== CONFIANZA ===================== -->
+<section class="confianza">
+  <div class="container">
+    <div class="idx" data-reveal>Confianza y respaldo</div>
+    <div class="rechazo-line" data-reveal><b>Rechazo 0</b>&nbsp; en terreno</div>
+    <div class="quote-slider" data-reveal>
+      <div class="quote-card">
+        <span class="q-num mono">01</span>
+        <p>"Entregaron cada pieza en la fecha comprometida, con la tolerancia exacta. Cero rechazos en la recepción."</p>
+        <div class="quote-person"><img src="/img/k-1b9a7fc9.jpg" alt="Jefe de proyecto cliente"><div><div class="name">Jefe de Proyecto</div><div class="role">Faena minera, Antofagasta</div></div></div>
+      </div>
+      <div class="quote-card">
+        <span class="q-num mono">02</span>
+        <p>"El acompañamiento de la Oficina Técnica nos evitó reprocesos. Trabajo serio y directo."</p>
+        <div class="quote-person"><img src="/img/k-7aebb69b.jpg" alt="Ingeniero de compras cliente"><div><div class="name">Ingeniero de Compras</div><div class="role">Constructora, Pozo Almonte</div></div></div>
+      </div>
+      <div class="quote-card">
+        <span class="q-num mono">03</span>
+        <p>"Trazabilidad NCh pieza a pieza y logística homologada. Justo lo que pedía nuestra licitación."</p>
+        <div class="quote-person"><img src="/img/k-21fdd5a6.jpg" alt="Referencia de obra"><div><div class="name">Administrador de Obra</div><div class="role">Proyecto industrial, Antofagasta</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOG / CASOS DE EXITO ===================== -->
+<section class="blog-section" id="blog">
+  <div class="container">
+    <div class="idx" data-reveal>Blog &amp; casos de éxito</div>
+    <div class="section-head" data-reveal><h3>Últimas publicaciones</h3></div>
+    <div class="blog-grid" data-reveal>
+      <a class="blog-card" href="#">
+        <div class="blog-img"><img src="/img/k-debd514c.jpg" alt="Despacho de cámara cilíndrica minera a faena en Pozo Almonte"></div>
+        <div class="blog-body">
+          <span class="blog-tag">Caso de éxito</span>
+          <h4>Despacho de cámaras cilíndricas a faena minera en Pozo Almonte</h4>
+          <span class="blog-link">Leer caso <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="blog-card" href="#">
+        <div class="blog-img"><img src="/img/k-21fdd5a6.jpg" alt="Trazabilidad NCh con código QR en piezas prefabricadas"></div>
+        <div class="blog-body">
+          <span class="blog-tag">Innovación</span>
+          <h4>Trazabilidad NCh: cómo seguimos cada pieza con código QR</h4>
+          <span class="blog-link">Leer artículo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="blog-card" href="#">
+        <div class="blog-img"><img src="/img/k-7aebb69b.jpg" alt="Oficina técnica validando memorias de cálculo de izaje"></div>
+        <div class="blog-body">
+          <span class="blog-tag">Ingeniería</span>
+          <h4>Memorias de cálculo de izaje: el paso que evita reprocesos</h4>
+          <span class="blog-link">Leer artículo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LINKEDIN — ACTUALIZACIÓN AUTOMÁTICA ===================== -->
+<section class="linkedin-section">
+  <div class="container">
+    <div class="idx" data-reveal>Actividad reciente</div>
+    <div class="lk-panel" data-reveal>
+      <div class="lk-head">
+        <div class="lk-head-left">
+          <span class="lk-logo">in</span>
+          <div><div class="lk-name">Koncreta Prefabricados</div><div class="lk-sub">Fabricación de hormigón · Antofagasta</div></div>
+        </div>
+        <div class="lk-live"><span class="dot"></span>En vivo</div>
+      </div>
+      <div class="lk-posts">
+        <div class="lk-post"><span class="lk-tag">Caso de éxito</span>Despacho de cámaras cilíndricas mineras a faena en Pozo Almonte, cumpliendo cronograma comprometido.</div>
+        <div class="lk-post"><span class="lk-tag">Innovación</span>Incorporamos códigos QR de trazabilidad pieza a pieza, bajo Norma Chilena.</div>
+        <div class="lk-post"><span class="lk-tag">Equipo</span>Oficina Técnica en terreno, validando memorias de cálculo de izaje antes del montaje.</div>
+      </div>
+      <div class="lk-cta"><a href="https://www.linkedin.com/search/results/all/?keywords=koncreta%20prefabricados&origin=TYPEAHEAD_HISTORY&position=0" target="_blank" rel="noopener">Ver perfil en LinkedIn <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <p class="mono" style="font-size:0.66rem;color:var(--gris-plata);margin-top:14px;">* Módulo conectado vía API oficial de LinkedIn — se actualiza automáticamente con cada publicación nueva de la página de empresa.</p>
+  </div>
+</section>
+
+<!-- ===================== MAPAS DE PLANTAS ===================== -->
+<section class="mapas" id="plantas">
+  <div class="container">
+    <div class="idx" data-reveal>Ubicaciones</div>
+    <div class="section-head" data-reveal><h3>Nuestras plantas</h3></div>
+    <div class="mapas-grid" data-reveal>
+      <div class="mapa-card">
+        <div class="mapa-head"><h4>Planta Antofagasta</h4><span class="mono">Km 12, Antofagasta</span></div>
+        <div class="mapa-frame"><img src="/img/k-ce9b16b8.jpg" alt="Mapa de ubicación de Planta Antofagasta, Koncreta Prefabricados, Km 12" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div style="padding:16px 24px;border-top:1px solid var(--line-dark);"><a href="https://www.google.com/maps/search/?api=1&query=Km+12+Antofagasta+Chile" target="_blank" rel="noopener" style="font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.76rem;color:var(--naranja);">Cómo llegar →</a></div>
+      </div>
+      <div class="mapa-card">
+        <div class="mapa-head"><h4>Planta Pozo Almonte</h4><span class="mono">Ruta 5, cruce Ruta A-687</span></div>
+        <div class="mapa-frame"><img src="/img/k-c78146c8.jpg" alt="Mapa de ubicación de Planta Pozo Almonte, Koncreta Prefabricados, Ruta 5 cruce Ruta A-687" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div style="padding:16px 24px;border-top:1px solid var(--line-dark);"><a href="https://www.google.com/maps/search/?api=1&query=Ruta+5+cruce+Ruta+A-687+Pozo+Almonte+Chile" target="_blank" rel="noopener" style="font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.76rem;color:var(--naranja);">Cómo llegar →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FORMULARIO DE CONTACTO ===================== -->
+<section class="form-section" id="contacto">
+  <div class="container form-wrap">
+    <div class="form-copy" data-reveal>
+      <div class="idx">Hablemos</div>
+      <h3 style="font-size:1.8rem;margin-bottom:16px;">Cuéntanos tu proyecto</h3>
+      <p>La Oficina Técnica revisa tu requerimiento y te responde en menos de 24 horas.</p>
+      <div class="contact-alt">¿Prefieres hablar directo? <a href="tel:+56900000000">+56 9 0000 0000</a> · <a href="https://wa.me/56900000000">WhatsApp</a></div>
+    </div>
+    <form data-reveal onsubmit="event.preventDefault(); alert('Formulario de demostración — boceto de diseño.');">
+      <div class="field-row">
+        <div class="field"><label for="nombre">Nombre</label><input type="text" id="nombre" required></div>
+        <div class="field"><label for="empresa">Empresa</label><input type="text" id="empresa" required></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="correo">Correo</label><input type="email" id="correo" required></div>
+        <div class="field"><label for="telefono">Teléfono</label><input type="tel" id="telefono" required></div>
+      </div>
+      <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" placeholder="Cuéntanos sobre tu proyecto"></textarea></div>
+      <input type="hidden" id="url_origen">
+      <script is:inline>document.getElementById('url_origen').value = window.location.href;</script>
+      <button type="submit" class="submit-btn">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="container">
+    <h3>¿Tienes planos que cotizar?</h3>
+    <div class="ctas">
+      <a class="btn btn-primary" href="https://wa.me/56900000000" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+      <a class="btn btn-outline" href="tel:+56900000000">Llamada directa</a>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+const reveals = document.querySelectorAll('[data-reveal]');
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
+reveals.forEach(el=>io.observe(el));
+
+// Selector de proyectos
+const projects = [
+  {tag:'FUNDACIONES', title:'Fundaciones con pedestales', desc:'Base estructural prefabricada para baterías y equipos industriales, fabricada bajo especificación exacta de tu ingeniería.', img:'/img/k-21fdd5a6.jpg'},
+  {tag:'CÁMARAS MINERAS', title:'Cámaras cilíndricas mineras', desc:'Cámara prefabricada para instalaciones eléctricas y de servicios en faena, con insertos metálicos embebidos.', img:'/img/k-debd514c.jpg'},
+  {tag:'MONTAJE', title:'Muros y dados de fundación', desc:'Piezas de contención y anclaje fabricadas a medida, con montaje realizado por nuestro propio equipo en terreno.', img:'/img/k-188c1eba.jpg'},
+  {tag:'BARRERAS', title:'Barreras New Jersey', desc:'Barreras de contención vial prefabricadas bajo especificación de proyecto. Imagen referencial disponible en levantamiento fotográfico.', img:null}
+];
+const track = document.getElementById('sel-track');
+const selImage = document.getElementById('sel-image');
+const selVisual = document.querySelector('.selector-visual');
+const selTag = document.getElementById('sel-tag');
+const selTitle = document.getElementById('sel-title');
+const selDesc = document.getElementById('sel-desc');
+
+function renderThumbs(){
+  track.innerHTML = '';
+  projects.forEach((p, i)=>{
+    const div = document.createElement('div');
+    div.className = 'selector-thumb' + (i===0 ? ' active' : '');
+    div.innerHTML = (p.img ? `<img src="${p.img}" alt="${p.title}">` : `<div class="ph-mini"></div>`) + `<span class="thumb-label mono">${p.tag}</span>`;
+    div.addEventListener('click', ()=> selectProject(i));
+    track.appendChild(div);
+  });
+}
+function selectProject(i){
+  const p = projects[i];
+  selTag.textContent = p.tag;
+  selTitle.textContent = p.title;
+  selDesc.textContent = p.desc;
+  if(p.img){
+    selVisual.querySelector('.placeholder-pattern')?.remove();
+    if(!selVisual.querySelector('img')){ selVisual.appendChild(selImage); }
+    selImage.src = p.img;
+    selImage.style.display = 'block';
+  } else {
+    selImage.style.display = 'none';
+    if(!selVisual.querySelector('.placeholder-pattern')){
+      const ph = document.createElement('div');
+      ph.className = 'placeholder-pattern';
+      ph.innerHTML = '<span class="ph-text">Imagen referencial<br>disponible en levantamiento fotográfico</span>';
+      selVisual.appendChild(ph);
+    }
+  }
+  document.querySelectorAll('.selector-thumb').forEach((t,idx)=> t.classList.toggle('active', idx===i));
+}
+renderThumbs();
+</script>
+</Base>

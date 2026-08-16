@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# bocetos HTML originales (ya migrados a src/ y public/img/)
+origin-template/

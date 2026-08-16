@@ -1,114 +1,128 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
-
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+import '../../styles/global.css';
+import '../../styles/blog.css';
+import Base from '../../layouts/Base.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Base title="Blog — Koncreta Prefabricados">
+<!-- ===================== BLOG HERO ===================== -->
+<section class="blog-hero" id="inicio">
+  <div class="container">
+    <div class="idx">Recursos &amp; noticias</div>
+    <h1>Blog Koncreta</h1>
+    <p>Novedades de la industria del hormigón prefabricado, innovación en planta y participación en el sector.</p>
+  </div>
+</section>
+
+<!-- ===================== CATEGORY FILTER ===================== -->
+<div class="blog-filter-bar">
+  <div class="container">
+    <div class="blog-filter-track" id="blog-filter-track">
+      <span class="blog-chip active" data-cat="todos">Todos</span>
+      <span class="blog-chip" data-cat="industria">Industria &amp; eventos</span>
+      <span class="blog-chip" data-cat="innovacion">Innovación</span>
+      <span class="blog-chip" data-cat="sostenibilidad">Sostenibilidad</span>
+      <span class="blog-chip" data-cat="tecnologia">Tecnología</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FEATURED POST ===================== -->
+<section class="blog-featured">
+  <div class="container">
+    <a class="featured-card" href="https://www.koncretaprefabricados.cl/post/reflexiones-del-1-congreso-nacional-de-cemento-y-hormig%C3%B3n-sostenibilidad-innovaci%C3%B3n-y-productivid" target="_blank" rel="noopener" data-reveal data-cat="industria">
+      <div class="featured-media">
+        <span class="fm-badge">Destacado</span>
+        <img src="/img/k-14dd9010.jpg" alt="Reflexiones del 1° Congreso Nacional de Cemento y Hormigón, sostenibilidad e innovación">
+      </div>
+      <div class="featured-body">
+        <span class="fb-tag">Industria &amp; eventos</span>
+        <h2>Reflexiones del 1° Congreso Nacional de Cemento y Hormigón: sostenibilidad, innovación y productividad como eje del futuro</h2>
+        <p>El 12 de noviembre asistimos al Primer Congreso Nacional del Cemento y Hormigón, organizado por el Centro UC y patrocinado por el Instituto del Cemento y Hormigón de Chile (ICH), un espacio que reunió a la academia y a las principales empresas del sector.</p>
+        <div class="featured-meta">
+          <span>Koncreta Prefabricados</span><span class="fm-dot"></span><span>20 nov 2025</span><span class="fm-dot"></span><span>3 min de lectura</span>
+        </div>
+        <span class="btn btn-outline-dark">Leer artículo completo</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== BLOG GRID ===================== -->
+<section class="blog-grid-section">
+  <div class="container">
+    <div class="blog-grid" id="blog-grid" data-reveal>
+
+      <a class="post-card" href="https://www.koncretaprefabricados.cl/post/koncreta-y-la-nueva-era-del-hormig%C3%B3n-prefabricado" target="_blank" rel="noopener" data-cat="innovacion">
+        <div class="post-media"><span class="pm-badge">Innovación</span><img src="/img/k-45cb7ef0.jpg" alt="Koncreta y la nueva era del Hormigón Prefabricado"></div>
+        <div class="post-body">
+          <h3>Koncreta y la nueva era del Hormigón Prefabricado</h3>
+          <p>Estamos a la vanguardia de la evolución del hormigón prefabricado, adaptándonos a las tendencias que están redefiniendo la industria de la construcción.</p>
+          <div class="post-meta"><span class="pm-author">Koncreta Prefabricados</span><span class="pm-dot"></span><span>9 jun 2025</span><span class="pm-dot"></span><span>2 min</span></div>
+        </div>
+      </a>
+
+      <a class="post-card" href="https://www.koncretaprefabricados.cl/post/c%C3%B3mo-la-prefabricaci%C3%B3n-aumenta-la-sostenibilidad-en-proyectos-de-infraestructura" target="_blank" rel="noopener" data-cat="sostenibilidad">
+        <div class="post-media"><span class="pm-badge">Sostenibilidad</span><img src="/img/k-8451b9e6.jpg" alt="Cómo la prefabricación aumenta la sostenibilidad en proyectos de infraestructura"></div>
+        <div class="post-body">
+          <h3>Cómo la prefabricación aumenta la sostenibilidad en proyectos de infraestructura</h3>
+          <p>La prefabricación está redefiniendo la sostenibilidad en infraestructura: cómo los elementos prefabricados contribuyen a prácticas más ecológicas y eficientes.</p>
+          <div class="post-meta"><span class="pm-author">Koncreta Prefabricados</span><span class="pm-dot"></span><span>6 jun 2025</span><span class="pm-dot"></span><span>2 min</span></div>
+        </div>
+      </a>
+
+      <a class="post-card" href="https://www.koncretaprefabricados.cl/post/transformaci%C3%B3n-digital-en-la-construcci%C3%B3n-el-futuro-del-hormig%C3%B3n-prefabricado" target="_blank" rel="noopener" data-cat="tecnologia">
+        <div class="post-media"><span class="pm-badge">Tecnología</span><img src="/img/k-d403133a.jpg" alt="Transformación digital en la construcción: el futuro del hormigón prefabricado"></div>
+        <div class="post-body">
+          <h3>Transformación digital en la construcción: el futuro del hormigón prefabricado</h3>
+          <p>La transformación digital está redefiniendo la construcción: cómo la digitalización mejora la eficiencia, precisión y sostenibilidad del hormigón prefabricado.</p>
+          <div class="post-meta"><span class="pm-author">Koncreta Prefabricados</span><span class="pm-dot"></span><span>4 jun 2025</span><span class="pm-dot"></span><span>2 min</span></div>
+        </div>
+      </a>
+
+    </div>
+    <p id="blog-empty" style="display:none;color:var(--gris-plata);font-size:0.9rem;padding:40px 0;">No hay artículos en esta categoría todavía.</p>
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section class="newsletter-strip">
+  <div class="container">
+    <div class="newsletter-inner" data-reveal>
+      <div>
+        <h3>Novedades de la industria, directo a tu correo</h3>
+        <p>Un correo ocasional con nuevos artículos técnicos y noticias del sector. Sin spam.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Formulario de demostración — boceto de diseño.');">
+        <input type="email" placeholder="Tu correo" required>
+        <button type="submit" class="btn btn-primary">Suscribirme</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+const reveals = document.querySelectorAll('[data-reveal]');
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.08});
+reveals.forEach(el=>io.observe(el));
+
+// Category filter
+const chips = document.querySelectorAll('.blog-chip');
+const cards = document.querySelectorAll('.post-card, .featured-card');
+const emptyMsg = document.getElementById('blog-empty');
+chips.forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    chips.forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    const cat = chip.dataset.cat;
+    let visibleCount = 0;
+    cards.forEach(card=>{
+      const match = cat === 'todos' || card.dataset.cat === cat;
+      card.style.display = match ? '' : 'none';
+      if(match) visibleCount++;
+    });
+    emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+  });
+});
+</script>
+</Base>

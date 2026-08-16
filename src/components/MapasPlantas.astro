@@ -1,0 +1,52 @@
+---
+// Seccion de ubicaciones. Se usa en la home y en /contacto, asi que las
+// direcciones viven aca y no duplicadas en cada pagina.
+//
+// `query` es lo que se le pide a Google Maps. Conviene reemplazarlo por
+// coordenadas exactas ("-23.5432,-70.3891") para que el pin caiga en la planta
+// y no donde Google resuelva la direccion aproximada.
+const plantas = [
+	{
+		nombre: 'Planta Antofagasta',
+		direccion: 'Km 12, Antofagasta',
+		query: 'Km 12, Antofagasta, Chile',
+	},
+	{
+		nombre: 'Planta Pozo Almonte',
+		direccion: 'Ruta 5, cruce Ruta A-687',
+		query: 'Ruta 5 cruce Ruta A-687, Pozo Almonte, Chile',
+	},
+];
+
+interface Props {
+	class?: string;
+}
+
+const { class: extraClass } = Astro.props;
+---
+
+<section class:list={['mapas', extraClass]} id="plantas">
+  <div class="container">
+    <div class="idx" data-reveal>Ubicaciones</div>
+    <div class="section-head" data-reveal><h3>Nuestras plantas</h3></div>
+    <div class="mapas-grid" data-reveal>
+      {plantas.map((p) => (
+        <div class="mapa-card">
+          <div class="mapa-head"><h4>{p.nombre}</h4><span class="mono">{p.direccion}</span></div>
+          <div class="mapa-frame">
+            <iframe
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(p.query)}&z=13&output=embed`}
+              title={`Mapa de ubicación de ${p.nombre}, Koncreta Prefabricados`}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="mapa-cta">
+            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.query)}`} target="_blank" rel="noopener">Cómo llegar →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+---
+// Marca de Koncreta, vectorizada desde public/logo.png.
+// El circulo usa currentColor para que el header (negro sobre claro) y el
+// footer (blanco sobre negro) compartan el mismo componente.
+interface Props {
+	size?: number;
+	/** Color del glifo interior. */
+	glyph?: string;
+}
+
+const { size = 26, glyph = 'var(--paper)' } = Astro.props;
+
+const d =
+	'M28.50 18.33 L29.33 18.75 L49.83 54.50 L51.00 53.92 L71.42 18.33 L72.42 18.92 ' +
+	'L83.00 37.17 L82.83 38.25 L77.17 47.67 L76.92 48.92 L98.75 49.08 L98.58 54.58 ' +
+	'L97.50 61.17 L95.83 66.75 L93.67 71.75 L63.25 71.92 L50.92 93.50 L50.00 94.08 ' +
+	'L17.25 37.58 L28.50 18.42 Z';
+---
+
+<svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true" focusable="false">
+	<circle cx="50" cy="50" r="50" fill="currentColor"></circle>
+	<path d={d} fill={glyph}></path>
+</svg>

@@ -30,6 +30,7 @@
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;max-width:1280px;margin:0 auto;}
     .logo{color:var(--negro);font-family:'Century Gothic',sans-serif;font-weight:700;font-size:1rem;display:flex;align-items:center;gap:11px;}
     .logo .mark{width:26px;height:26px;color:var(--negro);display:flex;}
+    .logo img{height:34px;width:auto;display:block;}
     .logo span.pref{color:var(--gris-plata);font-family:'JetBrains Mono',monospace;font-weight:400;font-size:0.52em;display:block;letter-spacing:0.2em;margin-top:3px;text-transform:uppercase;}
     nav.desktop-nav{display:none;}
     nav.desktop-nav ul{display:flex;gap:34px;}

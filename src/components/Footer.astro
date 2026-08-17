@@ -1,6 +1,5 @@
 ---
 // Styles live in src/styles/global.css (footer rules copied verbatim from the template).
-import Logo from './Logo.astro';
 
 const today = new Date();
 ---
@@ -9,11 +8,8 @@ const today = new Date();
 	<div class="container">
 		<div class="footer-grid">
 			<div>
-				<div class="logo" style="margin-bottom:16px;color:#fff;">
-					<span class="mark" style="color:#fff;">
-						<Logo glyph="#000" />
-					</span>
-					<span>KONCRETA<span class="pref">Prefabricados</span></span>
+				<div class="logo" style="margin-bottom:16px;">
+					<img src="/logo-lockup-light.png" alt="Koncreta Prefabricados" width="379" height="146" />
 				</div>
 				<p style="max-width:300px;font-size:0.84rem;line-height:1.7;">
 					Fabricamos soluciones de hormigón 100% a la medida. Plantas en Antofagasta y Pozo

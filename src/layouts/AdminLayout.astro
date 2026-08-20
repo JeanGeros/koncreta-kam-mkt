@@ -20,7 +20,7 @@ const path = Astro.url.pathname;
 	</head>
 	<body class="admin-body">
 		{
-			user && (
+			user && path !== '/admin/login' && (
 				<div class="admin-bar">
 					<div class="admin-bar-inner">
 						<div class="admin-brand">Koncreta <span class="tag">Panel</span></div>

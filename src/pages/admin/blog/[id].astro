@@ -18,7 +18,10 @@ if (!post) {
 
 <AdminLayout title={`Editar: ${post.title}`}>
 	<div class="admin-head">
-		<h1>Editar post</h1>
+		<div>
+			<div class="idx">Blog</div>
+			<h1>Editar post</h1>
+		</div>
 	</div>
 	{result?.error && <p class="action-error">{result.error.message}</p>}
 	<div class="admin-card">
@@ -43,7 +46,7 @@ if (!post) {
 			</div>
 			<div class="field">
 				<label for="content">Contenido (Markdown)</label>
-				<textarea id="content" name="content" rows="14" required>{post.content}</textarea>
+				<textarea id="content" name="content" rows="14" required class="mono">{post.content}</textarea>
 				<p class="field-hint">Soporta Markdown: títulos con #, listas con -, negritas con **texto**.</p>
 			</div>
 			<div class="field">
@@ -56,17 +59,19 @@ if (!post) {
 				<label for="hero_image_alt">Texto alternativo de la imagen</label>
 				<input type="text" id="hero_image_alt" name="hero_image_alt" value={post.hero_image_alt ?? ''} />
 			</div>
-			<div class="field checkbox-field">
-				<input type="checkbox" id="featured" name="featured" checked={post.featured} />
-				<label for="featured" style="margin:0;">Destacado (aparece como post principal del blog)</label>
-			</div>
-			<div class="field checkbox-field">
-				<input type="checkbox" id="published" name="published" checked={post.published} />
-				<label for="published" style="margin:0;">Publicado</label>
+			<div class="field-row">
+				<div class="field checkbox-field">
+					<input type="checkbox" id="featured" name="featured" checked={post.featured} />
+					<label for="featured" style="margin:0;">Destacado</label>
+				</div>
+				<div class="field checkbox-field">
+					<input type="checkbox" id="published" name="published" checked={post.published} />
+					<label for="published" style="margin:0;">Publicado</label>
+				</div>
 			</div>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary">Guardar cambios</button>
-				<a href="/admin/blog">Cancelar</a>
+				<a href="/admin/blog" class="btn btn-outline-dark">Cancelar</a>
 			</div>
 		</form>
 	</div>

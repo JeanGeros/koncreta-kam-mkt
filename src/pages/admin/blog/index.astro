@@ -1,19 +1,24 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { getAllPosts } from '../../../lib/blog';
+import { BLOG_CATEGORIES } from '../../../lib/constants';
 import { actions } from 'astro:actions';
 
 const result = Astro.getActionResult(actions.deletePost);
 const posts = await getAllPosts();
+const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value === value)?.label ?? value;
 ---
 
 <AdminLayout title="Blog">
 	<div class="admin-head">
-		<h1>Blog</h1>
+		<div>
+			<div class="idx">{posts.length} en total</div>
+			<h1>Blog</h1>
+		</div>
 		<a href="/admin/blog/nuevo" class="btn btn-primary">+ Nuevo post</a>
 	</div>
 	{result?.error && <p class="action-error">{result.error.message}</p>}
-	<div class="admin-card">
+	<div class="admin-card table-card">
 		<table class="admin-table">
 			<thead>
 				<tr>
@@ -29,7 +34,7 @@ const posts = await getAllPosts();
 					posts.map((p) => (
 						<tr>
 							<td>{p.title}</td>
-							<td>{p.category}</td>
+							<td><span class="category-pill">{categoryLabel(p.category)}</span></td>
 							<td>
 								<span class={`status-pill ${p.published ? 'on' : 'off'}`}>
 									{p.published ? 'Publicado' : 'Borrador'}
@@ -53,7 +58,9 @@ const posts = await getAllPosts();
 				{
 					posts.length === 0 && (
 						<tr>
-							<td colspan="5">Sin posts todavía.</td>
+							<td colspan="5" class="empty-cell">
+								Todavía no hay posts. <a href="/admin/blog/nuevo">Escribe el primero →</a>
+							</td>
 						</tr>
 					)
 				}

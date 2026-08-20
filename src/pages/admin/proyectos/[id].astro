@@ -18,7 +18,10 @@ if (!project) {
 
 <AdminLayout title={`Editar: ${project.title}`}>
 	<div class="admin-head">
-		<h1>Editar proyecto</h1>
+		<div>
+			<div class="idx">Proyectos</div>
+			<h1>Editar proyecto</h1>
+		</div>
 	</div>
 	{result?.error && <p class="action-error">{result.error.message}</p>}
 	<div class="admin-card">
@@ -29,17 +32,19 @@ if (!project) {
 				<label for="title">Título</label>
 				<input type="text" id="title" name="title" required value={project.title} />
 			</div>
-			<div class="field">
-				<label for="category">Categoría</label>
-				<select id="category" name="category" required>
-					{PROJECT_CATEGORIES.map((c) => (
-						<option value={c} selected={c === project.category}>{c}</option>
-					))}
-				</select>
-			</div>
-			<div class="field">
-				<label for="location">Ubicación</label>
-				<input type="text" id="location" name="location" required value={project.location} />
+			<div class="field-row">
+				<div class="field">
+					<label for="category">Categoría</label>
+					<select id="category" name="category" required>
+						{PROJECT_CATEGORIES.map((c) => (
+							<option value={c} selected={c === project.category}>{c}</option>
+						))}
+					</select>
+				</div>
+				<div class="field">
+					<label for="location">Ubicación</label>
+					<input type="text" id="location" name="location" required value={project.location} />
+				</div>
 			</div>
 			<div class="field">
 				<label for="bullets">Detalles (uno por línea)</label>
@@ -55,17 +60,19 @@ if (!project) {
 				<label for="image_alt">Texto alternativo de la imagen</label>
 				<input type="text" id="image_alt" name="image_alt" value={project.image_alt ?? ''} />
 			</div>
-			<div class="field">
-				<label for="sort_order">Orden</label>
-				<input type="number" id="sort_order" name="sort_order" value={project.sort_order} />
-			</div>
-			<div class="field checkbox-field">
-				<input type="checkbox" id="published" name="published" checked={project.published} />
-				<label for="published" style="margin:0;">Publicado</label>
+			<div class="field-row">
+				<div class="field">
+					<label for="sort_order">Orden</label>
+					<input type="number" id="sort_order" name="sort_order" value={project.sort_order} />
+				</div>
+				<div class="field checkbox-field" style="align-self:end;padding-bottom:13px;">
+					<input type="checkbox" id="published" name="published" checked={project.published} />
+					<label for="published" style="margin:0;">Publicado</label>
+				</div>
 			</div>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary">Guardar cambios</button>
-				<a href="/admin/proyectos">Cancelar</a>
+				<a href="/admin/proyectos" class="btn btn-outline-dark">Cancelar</a>
 			</div>
 		</form>
 	</div>

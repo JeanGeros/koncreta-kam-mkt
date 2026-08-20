@@ -10,14 +10,17 @@ const publishedPosts = posts.filter((p) => p.published).length;
 
 <AdminLayout title="Inicio">
 	<div class="admin-head">
-		<h1>Hola, {Astro.locals.user?.email}</h1>
+		<div>
+			<div class="idx">Panel de contenido</div>
+			<h1>Hola, {Astro.locals.user?.email}</h1>
+		</div>
 	</div>
 	<div class="admin-stats">
 		<div class="stat-card">
 			<div class="n">{projects.length}</div>
 			<div class="l">Proyectos ({publishedProjects} publicados)</div>
 			<div class="links">
-				<a href="/admin/proyectos">Ver listado</a>
+				<a href="/admin/proyectos" class="see-all">Ver listado</a>
 				<a href="/admin/proyectos/nuevo">+ Nuevo proyecto</a>
 			</div>
 		</div>
@@ -25,7 +28,7 @@ const publishedPosts = posts.filter((p) => p.published).length;
 			<div class="n">{posts.length}</div>
 			<div class="l">Posts de blog ({publishedPosts} publicados)</div>
 			<div class="links">
-				<a href="/admin/blog">Ver listado</a>
+				<a href="/admin/blog" class="see-all">Ver listado</a>
 				<a href="/admin/blog/nuevo">+ Nuevo post</a>
 			</div>
 		</div>

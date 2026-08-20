@@ -8,7 +8,8 @@ const result = Astro.getActionResult(actions.login);
 <AdminLayout title="Iniciar sesión">
 	<div class="login-wrap">
 		<div class="login-card admin-card">
-			<h1 style="margin-bottom:24px;">Panel Koncreta</h1>
+			<div class="idx">Acceso privado</div>
+				<h1>Panel Koncreta</h1>
 			{result?.error && <p class="action-error">{result.error.message}</p>}
 			<form method="POST" action={actions.login} class="admin-form">
 				<div class="field">

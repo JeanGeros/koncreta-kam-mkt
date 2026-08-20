@@ -31,7 +31,10 @@ const path = Astro.url.pathname;
 							<a href="/" target="_blank">Ver sitio ↗</a>
 						</nav>
 						<div class="admin-user">
-							<span>{user.email}</span>
+							<div class="who">
+								<span class="avatar">{user.email[0]?.toUpperCase()}</span>
+								<span>{user.email}</span>
+							</div>
 							<form method="POST" action={actions.logout}>
 								<button type="submit">Cerrar sesión</button>
 							</form>

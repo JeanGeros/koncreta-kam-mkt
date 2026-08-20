@@ -14,7 +14,7 @@ const salt = randomBytes(16).toString('hex');
 const hash = scryptSync(password, salt, 64).toString('hex');
 const passwordHash = `${salt}:${hash}`;
 
-const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
+const sql = postgres(process.env.DATABASE_URL, { ssl: 'require', prepare: false });
 
 await sql`
 	INSERT INTO admin_users (email, password_hash)

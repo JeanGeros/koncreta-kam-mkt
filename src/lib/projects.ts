@@ -27,20 +27,28 @@ export type ProjectInput = {
 	sort_order: number;
 };
 
+// El pooler de algunos proveedores (ej. Supabase en modo transacción) hace
+// que jsonb vuelva como string en vez de ya parseado. Normalizamos acá.
+function normalize(row: any): Project {
+	return { ...row, bullets: Array.isArray(row.bullets) ? row.bullets : JSON.parse(row.bullets) };
+}
+
 export async function getPublishedProjects(): Promise<Project[]> {
-	return (await sql`
+	const rows = (await sql`
 		SELECT * FROM projects WHERE published = true
 		ORDER BY sort_order ASC, created_at DESC
-	`) as Project[];
+	`) as any[];
+	return rows.map(normalize);
 }
 
 export async function getAllProjects(): Promise<Project[]> {
-	return (await sql`SELECT * FROM projects ORDER BY created_at DESC`) as Project[];
+	const rows = (await sql`SELECT * FROM projects ORDER BY created_at DESC`) as any[];
+	return rows.map(normalize);
 }
 
 export async function getProjectById(id: number): Promise<Project | null> {
-	const rows = (await sql`SELECT * FROM projects WHERE id = ${id}`) as Project[];
-	return rows[0] ?? null;
+	const rows = (await sql`SELECT * FROM projects WHERE id = ${id}`) as any[];
+	return rows[0] ? normalize(rows[0]) : null;
 }
 
 async function projectSlugExists(slug: string, excludeId?: number): Promise<boolean> {
@@ -58,8 +66,8 @@ export async function createProject(input: ProjectInput): Promise<Project> {
 		VALUES (${input.title}, ${slug}, ${input.category}, ${input.location}, ${bulletsJson}::jsonb,
 		        ${input.image_url}, ${input.image_alt}, ${input.published}, ${input.sort_order})
 		RETURNING *
-	`) as Project[];
-	return rows[0];
+	`) as any[];
+	return normalize(rows[0]);
 }
 
 export async function updateProject(id: number, input: ProjectInput): Promise<Project | null> {
@@ -77,8 +85,8 @@ export async function updateProject(id: number, input: ProjectInput): Promise<Pr
 			updated_at = now()
 		WHERE id = ${id}
 		RETURNING *
-	`) as Project[];
-	return rows[0] ?? null;
+	`) as any[];
+	return rows[0] ? normalize(rows[0]) : null;
 }
 
 export async function deleteProject(id: number): Promise<void> {

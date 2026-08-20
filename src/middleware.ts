@@ -9,6 +9,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		return next();
 	}
 
+	// ponytail: bypass de login SOLO en `astro dev` local, para revisar el
+	// diseño del panel sin tener la DB configurada. import.meta.env.DEV es
+	// falso en cualquier build de producción, así que esto nunca llega a Vercel.
+	// Quitar este bloque cuando se pruebe el login real.
+	if (import.meta.env.DEV && import.meta.env.ADMIN_DEV_BYPASS === 'true') {
+		context.locals.user = { id: 0, email: 'dev@local' };
+		return next();
+	}
+
 	const { cookies, url, request, redirect } = context;
 
 	// CSRF: cualquier POST debe venir del mismo origin (formularios/actions propios).

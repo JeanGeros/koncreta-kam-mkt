@@ -21,5 +21,9 @@
     "astro": "^7.2.2",
     "marked": "^18.0.10",
     "sharp": "^0.35.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }

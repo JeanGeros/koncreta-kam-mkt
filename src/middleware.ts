@@ -3,6 +3,12 @@ import { verifySessionToken, SESSION_COOKIE_NAME } from './lib/auth';
 import { getUserById } from './lib/users';
 
 export const onRequest = defineMiddleware(async (context, next) => {
+	// Páginas estáticas (marketing) no necesitan sesión ni tocan la DB.
+	if (context.isPrerendered) {
+		context.locals.user = null;
+		return next();
+	}
+
 	const { cookies, url, request, redirect } = context;
 
 	// CSRF: cualquier POST debe venir del mismo origin (formularios/actions propios).

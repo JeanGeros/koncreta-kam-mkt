@@ -2,6 +2,12 @@
 import '../../styles/global.css';
 import '../../styles/blog.css';
 import Base from '../../layouts/Base.astro';
+import { getBlogHome } from '../../lib/blog';
+import { BLOG_CATEGORIES } from '../../lib/constants';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const { featured, rest } = await getBlogHome();
+const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value === value)?.label ?? value;
 ---
 
 <Base title="Blog — Koncreta Prefabricados">
@@ -19,69 +25,57 @@ import Base from '../../layouts/Base.astro';
   <div class="container">
     <div class="blog-filter-track" id="blog-filter-track">
       <span class="blog-chip active" data-cat="todos">Todos</span>
-      <span class="blog-chip" data-cat="industria">Industria &amp; eventos</span>
-      <span class="blog-chip" data-cat="innovacion">Innovación</span>
-      <span class="blog-chip" data-cat="sostenibilidad">Sostenibilidad</span>
-      <span class="blog-chip" data-cat="tecnologia">Tecnología</span>
+      {BLOG_CATEGORIES.map((c) => <span class="blog-chip" data-cat={c.value}>{c.label}</span>)}
     </div>
   </div>
 </div>
 
 <!-- ===================== FEATURED POST ===================== -->
-<section class="blog-featured">
-  <div class="container">
-    <a class="featured-card" href="https://www.koncretaprefabricados.cl/post/reflexiones-del-1-congreso-nacional-de-cemento-y-hormig%C3%B3n-sostenibilidad-innovaci%C3%B3n-y-productivid" target="_blank" rel="noopener" data-reveal data-cat="industria">
-      <div class="featured-media">
-        <span class="fm-badge">Destacado</span>
-        <img src="/img/k-14dd9010.jpg" alt="Reflexiones del 1° Congreso Nacional de Cemento y Hormigón, sostenibilidad e innovación">
-      </div>
-      <div class="featured-body">
-        <span class="fb-tag">Industria &amp; eventos</span>
-        <h2>Reflexiones del 1° Congreso Nacional de Cemento y Hormigón: sostenibilidad, innovación y productividad como eje del futuro</h2>
-        <p>El 12 de noviembre asistimos al Primer Congreso Nacional del Cemento y Hormigón, organizado por el Centro UC y patrocinado por el Instituto del Cemento y Hormigón de Chile (ICH), un espacio que reunió a la academia y a las principales empresas del sector.</p>
-        <div class="featured-meta">
-          <span>Koncreta Prefabricados</span><span class="fm-dot"></span><span>20 nov 2025</span><span class="fm-dot"></span><span>3 min de lectura</span>
+{featured && (
+  <section class="blog-featured">
+    <div class="container">
+      <a class="featured-card" href={`/blog/${featured.slug}`} data-reveal data-cat={featured.category}>
+        <div class="featured-media">
+          <span class="fm-badge">Destacado</span>
+          {featured.hero_image_url && <img src={featured.hero_image_url} alt={featured.hero_image_alt ?? featured.title} />}
         </div>
-        <span class="btn btn-outline-dark">Leer artículo completo</span>
-      </div>
-    </a>
-  </div>
-</section>
+        <div class="featured-body">
+          <span class="fb-tag">{categoryLabel(featured.category)}</span>
+          <h2>{featured.title}</h2>
+          <p>{featured.excerpt}</p>
+          <div class="featured-meta">
+            <span>Koncreta Prefabricados</span><span class="fm-dot"></span><span><FormattedDate date={new Date(featured.published_at)} /></span>
+          </div>
+          <span class="btn btn-outline-dark">Leer artículo completo</span>
+        </div>
+      </a>
+    </div>
+  </section>
+)}
 
 <!-- ===================== BLOG GRID ===================== -->
 <section class="blog-grid-section">
   <div class="container">
     <div class="blog-grid" id="blog-grid" data-reveal>
 
-      <a class="post-card" href="https://www.koncretaprefabricados.cl/post/koncreta-y-la-nueva-era-del-hormig%C3%B3n-prefabricado" target="_blank" rel="noopener" data-cat="innovacion">
-        <div class="post-media"><span class="pm-badge">Innovación</span><img src="/img/k-45cb7ef0.jpg" alt="Koncreta y la nueva era del Hormigón Prefabricado"></div>
-        <div class="post-body">
-          <h3>Koncreta y la nueva era del Hormigón Prefabricado</h3>
-          <p>Estamos a la vanguardia de la evolución del hormigón prefabricado, adaptándonos a las tendencias que están redefiniendo la industria de la construcción.</p>
-          <div class="post-meta"><span class="pm-author">Koncreta Prefabricados</span><span class="pm-dot"></span><span>9 jun 2025</span><span class="pm-dot"></span><span>2 min</span></div>
-        </div>
-      </a>
-
-      <a class="post-card" href="https://www.koncretaprefabricados.cl/post/c%C3%B3mo-la-prefabricaci%C3%B3n-aumenta-la-sostenibilidad-en-proyectos-de-infraestructura" target="_blank" rel="noopener" data-cat="sostenibilidad">
-        <div class="post-media"><span class="pm-badge">Sostenibilidad</span><img src="/img/k-8451b9e6.jpg" alt="Cómo la prefabricación aumenta la sostenibilidad en proyectos de infraestructura"></div>
-        <div class="post-body">
-          <h3>Cómo la prefabricación aumenta la sostenibilidad en proyectos de infraestructura</h3>
-          <p>La prefabricación está redefiniendo la sostenibilidad en infraestructura: cómo los elementos prefabricados contribuyen a prácticas más ecológicas y eficientes.</p>
-          <div class="post-meta"><span class="pm-author">Koncreta Prefabricados</span><span class="pm-dot"></span><span>6 jun 2025</span><span class="pm-dot"></span><span>2 min</span></div>
-        </div>
-      </a>
-
-      <a class="post-card" href="https://www.koncretaprefabricados.cl/post/transformaci%C3%B3n-digital-en-la-construcci%C3%B3n-el-futuro-del-hormig%C3%B3n-prefabricado" target="_blank" rel="noopener" data-cat="tecnologia">
-        <div class="post-media"><span class="pm-badge">Tecnología</span><img src="/img/k-d403133a.jpg" alt="Transformación digital en la construcción: el futuro del hormigón prefabricado"></div>
-        <div class="post-body">
-          <h3>Transformación digital en la construcción: el futuro del hormigón prefabricado</h3>
-          <p>La transformación digital está redefiniendo la construcción: cómo la digitalización mejora la eficiencia, precisión y sostenibilidad del hormigón prefabricado.</p>
-          <div class="post-meta"><span class="pm-author">Koncreta Prefabricados</span><span class="pm-dot"></span><span>4 jun 2025</span><span class="pm-dot"></span><span>2 min</span></div>
-        </div>
-      </a>
+      {rest.map((post) => (
+        <a class="post-card" href={`/blog/${post.slug}`} data-cat={post.category}>
+          <div class="post-media">
+            <span class="pm-badge">{categoryLabel(post.category)}</span>
+            {post.hero_image_url && <img src={post.hero_image_url} alt={post.hero_image_alt ?? post.title} />}
+          </div>
+          <div class="post-body">
+            <h3>{post.title}</h3>
+            <p>{post.excerpt}</p>
+            <div class="post-meta"><span class="pm-author">Koncreta Prefabricados</span><span class="pm-dot"></span><span><FormattedDate date={new Date(post.published_at)} /></span></div>
+          </div>
+        </a>
+      ))}
 
     </div>
-    <p id="blog-empty" style="display:none;color:var(--gris-plata);font-size:0.9rem;padding:40px 0;">No hay artículos en esta categoría todavía.</p>
+    <p id="blog-empty" style={`display:${!featured && rest.length === 0 ? 'block' : 'none'};color:var(--gris-plata);font-size:0.9rem;padding:40px 0;`}>
+      {!featured && rest.length === 0 ? 'Aún no hay artículos publicados.' : 'No hay artículos en esta categoría todavía.'}
+    </p>
   </div>
 </section>
 

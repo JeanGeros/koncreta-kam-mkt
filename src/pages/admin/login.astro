@@ -1,0 +1,26 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { actions } from 'astro:actions';
+
+const result = Astro.getActionResult(actions.login);
+---
+
+<AdminLayout title="Iniciar sesión">
+	<div class="login-wrap">
+		<div class="login-card admin-card">
+			<h1 style="margin-bottom:24px;">Panel Koncreta</h1>
+			{result?.error && <p class="action-error">{result.error.message}</p>}
+			<form method="POST" action={actions.login} class="admin-form">
+				<div class="field">
+					<label for="email">Correo</label>
+					<input type="email" id="email" name="email" required autofocus />
+				</div>
+				<div class="field">
+					<label for="password">Contraseña</label>
+					<input type="password" id="password" name="password" required />
+				</div>
+				<button type="submit" class="submit-btn">Ingresar</button>
+			</form>
+		</div>
+	</div>
+</AdminLayout>

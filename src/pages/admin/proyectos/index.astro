@@ -1,0 +1,71 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getAllProjects } from '../../../lib/projects';
+import { actions } from 'astro:actions';
+
+const result = Astro.getActionResult(actions.deleteProject);
+const projects = await getAllProjects();
+---
+
+<AdminLayout title="Proyectos">
+	<div class="admin-head">
+		<h1>Proyectos</h1>
+		<a href="/admin/proyectos/nuevo" class="btn btn-primary">+ Nuevo proyecto</a>
+	</div>
+	{result?.error && <p class="action-error">{result.error.message}</p>}
+	<div class="admin-card">
+		<table class="admin-table">
+			<thead>
+				<tr>
+					<th>Título</th>
+					<th>Categoría</th>
+					<th>Ubicación</th>
+					<th>Estado</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{
+					projects.map((p) => (
+						<tr>
+							<td>{p.title}</td>
+							<td>{p.category}</td>
+							<td>{p.location}</td>
+							<td>
+								<span class={`status-pill ${p.published ? 'on' : 'off'}`}>
+									{p.published ? 'Publicado' : 'Borrador'}
+								</span>
+							</td>
+							<td>
+								<div class="row-actions">
+									<a href={`/admin/proyectos/${p.id}`}>Editar</a>
+									<form method="POST" action={actions.deleteProject}>
+										<input type="hidden" name="id" value={p.id} />
+										<button type="submit" data-confirm="¿Eliminar este proyecto?">
+											Eliminar
+										</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					))
+				}
+				{
+					projects.length === 0 && (
+						<tr>
+							<td colspan="5">Sin proyectos todavía.</td>
+						</tr>
+					)
+				}
+			</tbody>
+		</table>
+	</div>
+</AdminLayout>
+
+<script is:inline>
+	document.querySelectorAll('button[data-confirm]').forEach((btn) => {
+		btn.addEventListener('click', (e) => {
+			if (!confirm(btn.dataset.confirm)) e.preventDefault();
+		});
+	});
+</script>

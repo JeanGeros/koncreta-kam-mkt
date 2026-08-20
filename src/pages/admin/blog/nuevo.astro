@@ -1,0 +1,61 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { actions } from 'astro:actions';
+import { BLOG_CATEGORIES } from '../../../lib/constants';
+
+const result = Astro.getActionResult(actions.createPost);
+if (result && !result.error) {
+	return Astro.redirect('/admin/blog');
+}
+---
+
+<AdminLayout title="Nuevo post">
+	<div class="admin-head">
+		<h1>Nuevo post</h1>
+	</div>
+	{result?.error && <p class="action-error">{result.error.message}</p>}
+	<div class="admin-card">
+		<form method="POST" action={actions.createPost} enctype="multipart/form-data" class="admin-form">
+			<div class="field">
+				<label for="title">Título</label>
+				<input type="text" id="title" name="title" required />
+			</div>
+			<div class="field">
+				<label for="category">Categoría</label>
+				<select id="category" name="category" required>
+					{BLOG_CATEGORIES.map((c) => <option value={c.value}>{c.label}</option>)}
+				</select>
+			</div>
+			<div class="field">
+				<label for="excerpt">Extracto (resumen corto)</label>
+				<textarea id="excerpt" name="excerpt" rows="2" required></textarea>
+			</div>
+			<div class="field">
+				<label for="content">Contenido (Markdown)</label>
+				<textarea id="content" name="content" rows="14" required></textarea>
+				<p class="field-hint">Soporta Markdown: títulos con #, listas con -, negritas con **texto**.</p>
+			</div>
+			<div class="field">
+				<label for="hero_image">Imagen principal</label>
+				<input type="file" id="hero_image" name="hero_image" accept="image/jpeg,image/png,image/webp" />
+				<p class="field-hint">JPG, PNG o WebP, máx. 5MB.</p>
+			</div>
+			<div class="field">
+				<label for="hero_image_alt">Texto alternativo de la imagen</label>
+				<input type="text" id="hero_image_alt" name="hero_image_alt" />
+			</div>
+			<div class="field checkbox-field">
+				<input type="checkbox" id="featured" name="featured" />
+				<label for="featured" style="margin:0;">Destacado (aparece como post principal del blog)</label>
+			</div>
+			<div class="field checkbox-field">
+				<input type="checkbox" id="published" name="published" checked />
+				<label for="published" style="margin:0;">Publicado</label>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Crear post</button>
+				<a href="/admin/blog">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</AdminLayout>

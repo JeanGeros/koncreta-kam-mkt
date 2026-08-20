@@ -1,0 +1,33 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getAllProjects } from '../../lib/projects';
+import { getAllPosts } from '../../lib/blog';
+
+const [projects, posts] = await Promise.all([getAllProjects(), getAllPosts()]);
+const publishedProjects = projects.filter((p) => p.published).length;
+const publishedPosts = posts.filter((p) => p.published).length;
+---
+
+<AdminLayout title="Inicio">
+	<div class="admin-head">
+		<h1>Hola, {Astro.locals.user?.email}</h1>
+	</div>
+	<div class="admin-stats">
+		<div class="stat-card">
+			<div class="n">{projects.length}</div>
+			<div class="l">Proyectos ({publishedProjects} publicados)</div>
+			<div class="links">
+				<a href="/admin/proyectos">Ver listado</a>
+				<a href="/admin/proyectos/nuevo">+ Nuevo proyecto</a>
+			</div>
+		</div>
+		<div class="stat-card">
+			<div class="n">{posts.length}</div>
+			<div class="l">Posts de blog ({publishedPosts} publicados)</div>
+			<div class="links">
+				<a href="/admin/blog">Ver listado</a>
+				<a href="/admin/blog/nuevo">+ Nuevo post</a>
+			</div>
+		</div>
+	</div>
+</AdminLayout>

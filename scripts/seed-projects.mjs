@@ -1,9 +1,9 @@
 // Inserta los 7 proyectos reales que estaban hardcodeados en proyectos.astro.
 // Ejecutar una sola vez: node --env-file=.env.local scripts/seed-projects.mjs
 
-import { neon } from '@neondatabase/serverless';
+import postgres from 'postgres';
 
-const sql = neon(process.env.DATABASE_URL);
+const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
 
 const projects = [
 	{
@@ -123,3 +123,4 @@ for (const [index, p] of projects.entries()) {
 }
 
 console.log(`Listo: ${projects.length} proyectos procesados.`);
+await sql.end();

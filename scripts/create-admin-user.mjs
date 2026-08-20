@@ -1,7 +1,7 @@
 // Crea (o actualiza la contraseña de) un usuario admin del panel.
 // Uso: node --env-file=.env.local scripts/create-admin-user.mjs correo@cliente.cl "contraseña segura"
 
-import { neon } from '@neondatabase/serverless';
+import postgres from 'postgres';
 import { randomBytes, scryptSync } from 'node:crypto';
 
 const [email, password] = process.argv.slice(2);
@@ -14,7 +14,7 @@ const salt = randomBytes(16).toString('hex');
 const hash = scryptSync(password, salt, 64).toString('hex');
 const passwordHash = `${salt}:${hash}`;
 
-const sql = neon(process.env.DATABASE_URL);
+const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
 
 await sql`
 	INSERT INTO admin_users (email, password_hash)
@@ -23,3 +23,4 @@ await sql`
 `;
 
 console.log(`✓ Usuario admin listo: ${email}`);
+await sql.end();

@@ -9,6 +9,7 @@ interface Props {
 const { title } = Astro.props;
 const user = Astro.locals.user;
 const path = Astro.url.pathname;
+const showChrome = user && path !== '/admin/login';
 ---
 
 <html lang="es">
@@ -17,27 +18,33 @@ const path = Astro.url.pathname;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="noindex, nofollow" />
 		<title>{title} — Panel Koncreta</title>
+		<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1&display=swap" rel="stylesheet" />
 	</head>
 	<body class="admin-body">
 		{
-			user && path !== '/admin/login' && (
+			showChrome && (
 				<div class="admin-bar">
 					<div class="admin-bar-inner">
-						<div class="admin-brand">Koncreta <span class="tag">Panel</span></div>
+						<div class="admin-brand">
+							<span class="name">Koncreta</span>
+							<span class="tag">Panel</span>
+						</div>
 						<nav class="admin-nav">
 							<a href="/admin" class={path === '/admin' ? 'active' : ''}>Inicio</a>
 							<a href="/admin/proyectos" class={path.startsWith('/admin/proyectos') ? 'active' : ''}>Proyectos</a>
 							<a href="/admin/blog" class={path.startsWith('/admin/blog') ? 'active' : ''}>Blog</a>
-							<a href="/" target="_blank">Ver sitio ↗</a>
 						</nav>
-						<div class="admin-user">
-							<div class="who">
-								<span class="avatar">{user.email[0]?.toUpperCase()}</span>
-								<span>{user.email}</span>
+						<div class="admin-topbar-actions">
+							<a href="/" target="_blank" class="admin-view-site">Ver sitio ↗</a>
+							<div class="admin-user">
+								<div class="who">
+									<span class="avatar">{user.email[0]?.toUpperCase()}</span>
+								</div>
+								<form method="POST" action={actions.logout}>
+									<button type="submit">Salir</button>
+								</form>
 							</div>
-							<form method="POST" action={actions.logout}>
-								<button type="submit">Cerrar sesión</button>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -46,5 +53,18 @@ const path = Astro.url.pathname;
 		<main class="admin-main">
 			<slot />
 		</main>
+		{
+			showChrome && (
+				<footer class="admin-footer">
+					<div class="admin-footer-inner">
+						<span>© {new Date().getFullYear()} Koncreta Prefabricados — Panel interno</span>
+						<div class="admin-footer-links">
+							<a href="/" target="_blank">Ver sitio</a>
+							<a href="mailto:viveka.guarino@koncretaprefabricados.cl">Soporte</a>
+						</div>
+					</div>
+				</footer>
+			)
+		}
 	</body>
 </html>

@@ -79,7 +79,7 @@
     /* ===== DIFERENCIADORES — minimal iconic ===== */
     .diff{padding:100px 0 80px;background:var(--paper);}
     .diff-grid{display:grid;grid-template-columns:1fr;gap:10px;}
-    @media(min-width:700px){.diff-grid{grid-template-columns:repeat(4,1fr);}}
+    @media(min-width:700px){.diff-grid{grid-template-columns:repeat(5,1fr);}}
     .diff-card{background:var(--paper);border:1px solid var(--line);padding:32px 26px;transition:all .3s ease;border-radius:var(--r-md);}
     .diff-card:hover{background:var(--negro);border-color:var(--negro);}
     .diff-card:hover h4, .diff-card:hover .diff-num{color:#fff;}

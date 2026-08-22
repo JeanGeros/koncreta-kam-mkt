@@ -10,7 +10,7 @@ const result = Astro.getActionResult(actions.login);
 		<div class="login-shell">
 			<div class="login-brand">
 				<span class="name">Koncreta</span>
-				<span class="tag">Panel de administración</span>
+				<span class="tag">Acceso al sistema</span>
 			</div>
 			<div class="login-card">
 				{result?.error && <p class="action-error">{result.error.message}</p>}
@@ -32,10 +32,13 @@ const result = Astro.getActionResult(actions.login);
 							</button>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">Ingresar</button>
+					<button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">
+						Ingresar
+						<span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+					</button>
 				</form>
 			</div>
-			<div class="login-meta">Acceso restringido // Solo personal autorizado</div>
+			<div class="login-meta">Conexión segura // Acceso restringido</div>
 		</div>
 	</div>
 </AdminLayout>

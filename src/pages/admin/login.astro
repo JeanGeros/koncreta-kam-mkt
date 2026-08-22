@@ -7,21 +7,67 @@ const result = Astro.getActionResult(actions.login);
 
 <AdminLayout title="Iniciar sesión">
 	<div class="login-wrap">
-		<div class="login-card admin-card">
-			<div class="idx">Acceso privado</div>
-				<h1>Panel Koncreta</h1>
-			{result?.error && <p class="action-error">{result.error.message}</p>}
-			<form method="POST" action={actions.login} class="admin-form">
-				<div class="field">
-					<label for="email">Correo</label>
-					<input type="email" id="email" name="email" required autofocus />
-				</div>
-				<div class="field">
-					<label for="password">Contraseña</label>
-					<input type="password" id="password" name="password" required />
-				</div>
-				<button type="submit" class="submit-btn">Ingresar</button>
-			</form>
+		<div class="login-shell">
+			<div class="login-brand">
+				<span class="name">Koncreta</span>
+				<span class="tag">Panel de administración</span>
+			</div>
+			<div class="login-card">
+				{result?.error && <p class="action-error">{result.error.message}</p>}
+				<form method="POST" action={actions.login} class="admin-form">
+					<div class="field">
+						<label for="email">Correo</label>
+						<div class="input-icon">
+							<span class="material-symbols-outlined">person</span>
+							<input type="email" id="email" name="email" required autofocus />
+						</div>
+					</div>
+					<div class="field">
+						<label for="password">Contraseña</label>
+						<div class="input-icon">
+							<span class="material-symbols-outlined">key</span>
+							<input type="password" id="password" name="password" required />
+							<button type="button" id="toggle-password" aria-label="Mostrar contraseña">
+								<span class="material-symbols-outlined">visibility</span>
+							</button>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">Ingresar</button>
+				</form>
+			</div>
+			<div class="login-meta">Acceso restringido // Solo personal autorizado</div>
 		</div>
 	</div>
 </AdminLayout>
+
+<script is:inline>
+	const toggleBtn = document.getElementById('toggle-password');
+	const passwordInput = document.getElementById('password');
+	if (toggleBtn && passwordInput) {
+		toggleBtn.addEventListener('click', () => {
+			const isPassword = passwordInput.getAttribute('type') === 'password';
+			passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+			toggleBtn.querySelector('.material-symbols-outlined').textContent = isPassword
+				? 'visibility_off'
+				: 'visibility';
+		});
+	}
+</script>
+
+<style>
+	.login-card .field .input-icon button {
+		position: absolute;
+		right: 13px;
+		top: 50%;
+		transform: translateY(-50%);
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		color: var(--gris-plata);
+		display: flex;
+	}
+	.login-card .field .input-icon input {
+		padding-right: 38px;
+	}
+</style>

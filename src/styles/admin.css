@@ -25,11 +25,19 @@
 	--a-shadow-md:0 8px 24px rgba(0,0,0,0.08);
 	font-family:'Hanken Grotesk','Avalon',-apple-system,'Segoe UI',sans-serif;
 	color:var(--negro);
-	background:var(--paper);min-height:100vh;
+	background:var(--paper);
+	min-height:100vh;
+	display:flex;
+	flex-direction:column;
 }
-/* global.css estiliza cualquier <form> como card (bg/borde/padding) para el sitio público;
-   dentro del admin cada form define su propio contenedor (.panel/.login-card/etc), así que lo neutralizamos. */
+/* global.css estiliza cualquier <form>/<footer> pensando en el sitio público (cards, footer oscuro);
+   dentro del admin cada uno define su propio look (.panel/.login-card/.admin-footer), así que lo neutralizamos. */
 .admin-body form{background:none;border:none;padding:0;border-radius:0;}
+.admin-body footer{background:none;color:inherit;padding:0;}
+
+/* Las vistas siempre ocupan el 100% del viewport: el main crece y empuja el footer al fondo. */
+.admin-main{flex:1 0 auto;}
+.admin-footer{flex-shrink:0;}
 .admin-body h1,.admin-body h2,.admin-body h3,.admin-body h4{font-family:'Hanken Grotesk','Century Gothic',sans-serif;font-weight:700;letter-spacing:-0.02em;}
 
 .material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;font-size:20px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}

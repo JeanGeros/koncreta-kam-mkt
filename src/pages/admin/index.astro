@@ -5,31 +5,53 @@ import { getAllPosts } from '../../lib/blog';
 
 const [projects, posts] = await Promise.all([getAllProjects(), getAllPosts()]);
 const publishedProjects = projects.filter((p) => p.published).length;
+const draftProjects = projects.length - publishedProjects;
 const publishedPosts = posts.filter((p) => p.published).length;
+const draftPosts = posts.length - publishedPosts;
 ---
 
 <AdminLayout title="Inicio">
 	<div class="admin-head">
 		<div>
-			<div class="idx">Panel de contenido</div>
+			<div class="crumb">KONCRETA ADMIN // INICIO</div>
 			<h1>Hola, {Astro.locals.user?.email}</h1>
 		</div>
 	</div>
 	<div class="admin-stats">
 		<div class="stat-card">
-			<div class="n">{projects.length}</div>
-			<div class="l">Proyectos ({publishedProjects} publicados)</div>
+			<div class="eyebrow">
+				<span>PROYECTOS DEL PORTAFOLIO</span>
+				<div class="rule"></div>
+			</div>
+			<div class="n-row">
+				<span class="n">{projects.length}</span>
+				<div class="n-pills">
+					<span>{publishedProjects} publicados</span>
+					<span>{draftProjects} borradores</span>
+				</div>
+			</div>
+			<p class="desc">Proyectos de ingeniería y prefabricados administrados en el sistema.</p>
 			<div class="links">
-				<a href="/admin/proyectos" class="see-all">Ver listado</a>
-				<a href="/admin/proyectos/nuevo">+ Nuevo proyecto</a>
+				<a href="/admin/proyectos/nuevo" class="btn btn-primary">+ Nuevo</a>
+				<a href="/admin/proyectos" class="btn btn-outline-dark">Ver listado</a>
 			</div>
 		</div>
 		<div class="stat-card">
-			<div class="n">{posts.length}</div>
-			<div class="l">Posts de blog ({publishedPosts} publicados)</div>
+			<div class="eyebrow">
+				<span>POSTS DEL BLOG</span>
+				<div class="rule"></div>
+			</div>
+			<div class="n-row">
+				<span class="n">{posts.length}</span>
+				<div class="n-pills">
+					<span>{publishedPosts} publicados</span>
+					<span>{draftPosts} borradores</span>
+				</div>
+			</div>
+			<p class="desc">Artículos técnicos y novedades listos para su distribución.</p>
 			<div class="links">
-				<a href="/admin/blog" class="see-all">Ver listado</a>
-				<a href="/admin/blog/nuevo">+ Nuevo post</a>
+				<a href="/admin/blog/nuevo" class="btn btn-primary">+ Nuevo</a>
+				<a href="/admin/blog" class="btn btn-outline-dark">Ver listado</a>
 			</div>
 		</div>
 	</div>

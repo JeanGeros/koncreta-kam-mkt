@@ -1,5 +1,4 @@
 ---
-import { marked } from 'marked';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { getPublishedPostBySlug } from '../../lib/blog';
 import { BLOG_CATEGORIES } from '../../lib/constants';
@@ -10,7 +9,6 @@ if (!post) {
 }
 
 const categoryLabel = BLOG_CATEGORIES.find((c) => c.value === post.category)?.label ?? post.category;
-const contentHtml = await marked.parse(post.content);
 ---
 
 <BlogPost
@@ -21,5 +19,5 @@ const contentHtml = await marked.parse(post.content);
 	heroImage={post.hero_image_url}
 	heroImageAlt={post.hero_image_alt}
 >
-	<Fragment set:html={contentHtml} />
+	<Fragment set:html={post.content} />
 </BlogPost>

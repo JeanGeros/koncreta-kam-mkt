@@ -4,6 +4,7 @@ import { actions } from 'astro:actions';
 import { BLOG_CATEGORIES } from '../../../lib/constants';
 import { getPostById } from '../../../lib/blog';
 import { Icon } from 'astro-icon/components';
+import RichTextEditor from '../../../components/RichTextEditor.astro';
 
 const id = Number(Astro.params.id);
 const result = Astro.getActionResult(actions.updatePost);
@@ -56,9 +57,8 @@ if (!post) {
 				<div class="panel">
 					<div class="crumb">Contenido<div class="rule"></div></div>
 					<div class="field">
-						<label for="content">Contenido (Markdown)</label>
-						<textarea id="content" name="content" rows="14" required class="mono">{post.content}</textarea>
-						<p class="field-hint">Soporta Markdown: títulos con #, listas con -, negritas con **texto**.</p>
+						<label for="content">Contenido</label>
+						<RichTextEditor name="content" id="content" value={post.content} required />
 					</div>
 				</div>
 			</div>

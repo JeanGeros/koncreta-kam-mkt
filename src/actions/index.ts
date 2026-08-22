@@ -13,6 +13,8 @@ import { createPost, deletePost, updatePost } from '../lib/blog';
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
+const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
+const ALLOWED_VIDEO_TYPES = new Set(['video/mp4', 'video/webm']);
 
 function requireUser(locals: App.Locals) {
 	if (!locals.user) {
@@ -213,6 +215,35 @@ export const server = {
 			requireUser(context.locals);
 			await deletePost(id);
 			return { success: true };
+		},
+	}),
+
+	// Sube una imagen o video insertado dentro del editor de contenido del blog.
+	uploadEditorAsset: defineAction({
+		accept: 'form',
+		input: z.object({ file: z.instanceof(File) }),
+		handler: async ({ file }, context) => {
+			requireUser(context.locals);
+			const isImage = ALLOWED_IMAGE_TYPES.has(file.type);
+			const isVideo = ALLOWED_VIDEO_TYPES.has(file.type);
+			if (!isImage && !isVideo) {
+				throw new ActionError({
+					code: 'BAD_REQUEST',
+					message: 'Formato no permitido (usa JPG, PNG, WebP, MP4 o WebM).',
+				});
+			}
+			const maxBytes = isVideo ? MAX_VIDEO_BYTES : MAX_IMAGE_BYTES;
+			if (file.size > maxBytes) {
+				throw new ActionError({
+					code: 'BAD_REQUEST',
+					message: `El archivo supera el máximo permitido (${isVideo ? '50MB' : '5MB'}).`,
+				});
+			}
+			const blob = await put(`uploads/${Date.now()}-${file.name}`, file, {
+				access: 'public',
+				token: import.meta.env.BLOB_READ_WRITE_TOKEN,
+			});
+			return { url: blob.url, kind: isVideo ? 'video' : 'image' };
 		},
 	}),
 };

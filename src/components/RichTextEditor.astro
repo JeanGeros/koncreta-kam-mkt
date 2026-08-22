@@ -1,0 +1,151 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+	name: string;
+	id?: string;
+	value?: string;
+	required?: boolean;
+}
+const { name, id = name, value = '', required = false } = Astro.props;
+---
+
+<div class="rte" data-rte>
+	<div class="rte-toolbar" data-rte-toolbar>
+		<button type="button" data-cmd="bold" title="Negrita"><Icon name="material-symbols:format-bold" class="icon" /></button>
+		<button type="button" data-cmd="italic" title="Cursiva"><Icon name="material-symbols:format-italic" class="icon" /></button>
+		<span class="rte-sep"></span>
+		<button type="button" data-cmd="h2" title="Título"><Icon name="material-symbols:format-h2" class="icon" /></button>
+		<button type="button" data-cmd="h3" title="Subtítulo"><Icon name="material-symbols:format-h3" class="icon" /></button>
+		<span class="rte-sep"></span>
+		<button type="button" data-cmd="bulletList" title="Lista"><Icon name="material-symbols:format-list-bulleted" class="icon" /></button>
+		<button type="button" data-cmd="orderedList" title="Lista numerada"><Icon name="material-symbols:format-list-numbered" class="icon" /></button>
+		<button type="button" data-cmd="link" title="Link"><Icon name="material-symbols:link" class="icon" /></button>
+		<span class="rte-sep"></span>
+		<button type="button" data-cmd="image" title="Imagen"><Icon name="material-symbols:image" class="icon" /></button>
+		<button type="button" data-cmd="video" title="Video"><Icon name="material-symbols:videocam" class="icon" /></button>
+		<span class="rte-status" data-rte-status></span>
+	</div>
+	<div class="rte-editor" data-rte-editor></div>
+	<textarea name={name} id={id} required={required} hidden data-rte-source>{value}</textarea>
+	<input type="file" accept="image/jpeg,image/png,image/webp" hidden data-rte-file-image />
+	<input type="file" accept="video/mp4,video/webm" hidden data-rte-file-video />
+</div>
+
+<script>
+	import { Editor, Node, mergeAttributes } from '@tiptap/core';
+	import StarterKit from '@tiptap/starter-kit';
+	import Image from '@tiptap/extension-image';
+	import Link from '@tiptap/extension-link';
+	import Placeholder from '@tiptap/extension-placeholder';
+	import { actions } from 'astro:actions';
+
+	const Video = Node.create({
+		name: 'video',
+		group: 'block',
+		atom: true,
+		addAttributes() {
+			return { src: { default: null } };
+		},
+		parseHTML() {
+			return [{ tag: 'video' }];
+		},
+		renderHTML({ HTMLAttributes }) {
+			return ['video', mergeAttributes(HTMLAttributes, { controls: 'true' })];
+		},
+	});
+
+	document.querySelectorAll('[data-rte]').forEach((root) => {
+		const editorEl = root.querySelector<HTMLElement>('[data-rte-editor]');
+		const sourceEl = root.querySelector<HTMLTextAreaElement>('[data-rte-source]');
+		const statusEl = root.querySelector<HTMLElement>('[data-rte-status]');
+		const fileImageEl = root.querySelector<HTMLInputElement>('[data-rte-file-image]');
+		const fileVideoEl = root.querySelector<HTMLInputElement>('[data-rte-file-video]');
+		if (!editorEl || !sourceEl) return;
+		const form = sourceEl.closest('form');
+
+		const editor = new Editor({
+			element: editorEl,
+			extensions: [
+				StarterKit,
+				Image,
+				Video,
+				Link.configure({ openOnClick: false }),
+				Placeholder.configure({ placeholder: 'Escribe el contenido del post…' }),
+			],
+			content: sourceEl.value,
+			onUpdate: ({ editor }) => {
+				sourceEl.value = editor.getHTML();
+			},
+		});
+
+		form?.addEventListener('submit', () => {
+			sourceEl.value = editor.getHTML();
+		});
+
+		root.querySelectorAll<HTMLButtonElement>('[data-cmd]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const chain = editor.chain().focus();
+				switch (btn.dataset.cmd) {
+					case 'bold':
+						chain.toggleBold().run();
+						break;
+					case 'italic':
+						chain.toggleItalic().run();
+						break;
+					case 'h2':
+						chain.toggleHeading({ level: 2 }).run();
+						break;
+					case 'h3':
+						chain.toggleHeading({ level: 3 }).run();
+						break;
+					case 'bulletList':
+						chain.toggleBulletList().run();
+						break;
+					case 'orderedList':
+						chain.toggleOrderedList().run();
+						break;
+					case 'link': {
+						const url = window.prompt('URL del link:');
+						if (url) chain.setLink({ href: url }).run();
+						break;
+					}
+					case 'image':
+						fileImageEl?.click();
+						break;
+					case 'video':
+						fileVideoEl?.click();
+						break;
+				}
+			});
+		});
+
+		async function uploadAndInsert(file: File, kind: 'image' | 'video') {
+			if (statusEl) statusEl.textContent = 'Subiendo…';
+			const formData = new FormData();
+			formData.set('file', file);
+			const { data, error } = await actions.uploadEditorAsset(formData);
+			if (error) {
+				if (statusEl) statusEl.textContent = error.message || 'Error al subir el archivo.';
+				return;
+			}
+			if (kind === 'video') {
+				editor.chain().focus().insertContent({ type: 'video', attrs: { src: data.url } }).run();
+			} else {
+				editor.chain().focus().setImage({ src: data.url }).run();
+			}
+			if (statusEl) statusEl.textContent = '';
+		}
+
+		fileImageEl?.addEventListener('change', () => {
+			const file = fileImageEl.files?.[0];
+			if (file) uploadAndInsert(file, 'image');
+			fileImageEl.value = '';
+		});
+		fileVideoEl?.addEventListener('change', () => {
+			const file = fileVideoEl.files?.[0];
+			if (file) uploadAndInsert(file, 'video');
+			fileVideoEl.value = '';
+		});
+	});
+</script>

@@ -13,8 +13,11 @@ import Base from '../layouts/Base.astro';
     <div class="servicios-hero-row">
       <div>
         <div class="idx">Lo que hacemos</div>
-        <h1>Nuestros Servicios</h1>
-        <p>Seis frentes de trabajo bajo un mismo techo: de la asesoría de ingeniería al montaje final en obra, sin subcontratar ni intermediarios.</p>
+        <h1>Nuestros Servicios y Productos</h1>
+        <p style="text-align: justify;">Nos especializamos en la modulación y fabricación de piezas especiales y de línea de hormigón, tanto para proyectos de energía, minería, construcción y vialidad.
+          <br><br>
+          Nuestros servicios abarcan desde la asesoría de la ingeniería de modulación hasta el montaje final en obra, sin subcontratar ni intermediarios.
+        </p>
       </div>
       <a class="btn btn-primary" href="https://wa.me/56983984326?text=Hola%20Koncreta%2C%20quiero%20cotizar%20un%20servicio" target="_blank" rel="noopener">Cotiza aquí</a>
     </div>
@@ -27,12 +30,12 @@ import Base from '../layouts/Base.astro';
     <div class="explorer-wrap" data-reveal>
 
       <div class="explorer-tabs" id="explorer-tabs">
-        <button class="explorer-tab active" data-service="0"><span class="et-num mono">01</span><span class="et-title">Asesoría de cambio in situ a prefabricado</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="1"><span class="et-num mono">02</span><span class="et-title">Fabricación de piezas de hormigón</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="2"><span class="et-num mono">03</span><span class="et-title">Ingeniería de modulación e izajes</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        <button class="explorer-tab active" data-service="0"><span class="et-num mono">01</span><span class="et-title">Asesoría del cambio de obra “in situ” a piezas prefabricadas en tu proyecto</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        <button class="explorer-tab" data-service="1"><span class="et-num mono">02</span><span class="et-title">Ingeniería de modulación e izajes</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        <button class="explorer-tab" data-service="2"><span class="et-num mono">03</span><span class="et-title">Fabricación de piezas de hormigón</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
         <button class="explorer-tab" data-service="3"><span class="et-num mono">04</span><span class="et-title">Transporte de piezas de hormigón</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
         <button class="explorer-tab" data-service="4"><span class="et-num mono">05</span><span class="et-title">Montaje de piezas en obra</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="5"><span class="et-num mono">06</span><span class="et-title">Piezas ornamentales y áreas verdes</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        <button class="explorer-tab" data-service="5"><span class="et-num mono">06</span><span class="et-title">Piezas para proyectos ornamentales y áreas verdes.</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
       </div>
 
       <div class="explorer-panel" id="explorer-panel">
@@ -71,7 +74,7 @@ import Base from '../layouts/Base.astro';
         </button>
         <div class="diff-full-panel">
           <div class="diff-full-panel-inner">
-            <p>Brindamos una atención cercana respaldada por nuestro equipo profesional. No hablas con intermediarios: te reúnes directamente con nuestro calculista o proyectista para resolver problemas y ajustar la ingeniería en tiempo real.</p>
+            <p>Brindamos una atención cercana respaldada por nuestro equipo profesional y experto. No hablas con intermediarios; te reúnes directamente con nuestro calculista o proyectista para ser parte de la solución a tus problemas y ajustar la ingeniería en tiempo real.</p>
           </div>
         </div>
       </div>
@@ -110,7 +113,7 @@ import Base from '../layouts/Base.astro';
   <div class="container">
     <div class="servicios-cta-inner" data-reveal>
       <h3>¿No sabes cuál de estos servicios necesitas?</h3>
-      <a class="btn btn-primary" href="https://wa.me/56983984326?text=Hola%20Koncreta%2C%20no%20s%C3%A9%20qu%C3%A9%20servicio%20necesito%2C%20%C2%BFme%20pueden%20orientar%3F" target="_blank" rel="noopener">Que un ingeniero de Koncreta me oriente</a>
+      <a class="btn btn-primary" href="https://wa.me/56983984326?text=Hola%20Koncreta%2C%20no%20s%C3%A9%20qu%C3%A9%20servicio%20necesito%2C%20%C2%BFme%20pueden%20orientar%3F" target="_blank" rel="noopener">Que un ingeniero de Koncreta Prefabricados me oriente</a>
     </div>
   </div>
 </section>
@@ -124,22 +127,13 @@ reveals.forEach(el=>io.observe(el));
 const services = [
   {
     tag: 'ASESORÍA',
-    title: 'Asesoría de cambio in situ a prefabricado',
+    title: 'Asesoría del cambio de obra “in situ” a piezas prefabricadas en tu proyecto',
     img: '/img/k-21fdd5a6.jpg',
     bullets: [
+      'Asesoría del cambio de obra “in situ” a piezas prefabricadas.',
       'Optimización del proyecto junto a tu equipo de ingeniería',
       'Transformación de partidas de hormigón in situ a piezas prefabricadas',
-      'Ahorro real de tiempo y recursos en obra'
-    ]
-  },
-  {
-    tag: 'FABRICACIÓN',
-    title: 'Fabricación de piezas de hormigón',
-    img: '/img/k-188c1eba.jpg',
-    bullets: [
-      'Planificación y diseño de estructuras prefabricadas',
-      'Montaje seguro en obra por equipo propio',
-      'Eficiencia en la instalación, sin tiempos muertos'
+      'Beneficios en ahorro de tiempo, mano de obra y recursos en obra.'
     ]
   },
   {
@@ -153,10 +147,22 @@ const services = [
     ]
   },
   {
+    tag: 'FABRICACIÓN',
+    title: 'Fabricación de piezas de hormigón',
+    img: '/img/k-188c1eba.jpg',
+    bullets: [
+      'Trazabilidad y comunicación directa sobre avances del proceso de fabricación.',
+      'Control de calidad del proceso de fabricación.',
+      'Aseguramiento de la calidad normativa de los insumos como de las dimensiones de la modulación de cada pieza.',
+      'Proceso continuo, sin tiempos muertos.'
+    ]
+  },
+  {
     tag: 'LOGÍSTICA',
     title: 'Transporte de piezas de hormigón',
     img: '/img/k-debd514c.jpg',
     bullets: [
+      'Trazabilidad y comunicación sobre el despacho y stock de piezas',
       'Transporte seguro y confiable de piezas prefabricadas',
       'Traslado directo desde planta hasta tu proyecto',
       'Garantía de integridad y puntualidad en la entrega'
@@ -167,14 +173,13 @@ const services = [
     title: 'Montaje de piezas en obra',
     img: '/img/k-188c1eba.jpg',
     bullets: [
-      'Instalación rápida y precisa de cada componente',
-      'Montaje ejecutado por nuestro propio equipo técnico',
-      'Optimización del tiempo total de construcción en obra'
+      'Soporte para la instalación rápida y precisa de cada componente',
+      'Opciones de montaje, ejecutado por nuestro propio equipo técnico en obra del proyecto'
     ]
   },
   {
     tag: 'ORNAMENTAL',
-    title: 'Piezas ornamentales y áreas verdes',
+    title: 'Piezas para proyectos ornamentales y áreas verdes.',
     img: '/img/k-21fdd5a6.jpg',
     bullets: [
       'Elementos decorativos y funcionales de hormigón',
@@ -201,7 +206,7 @@ function renderService(i){
     <div class="ep-scope">Alcance del servicio</div>
     <h3>${s.title}</h3>
     <ul>${s.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
-    <div class="ep-cta"><a class="btn btn-primary" href="https://wa.me/56983984326?text=${waMessages[i]}" target="_blank" rel="noopener">Consultar por WhatsApp</a></div>
+    <div class="ep-cta"><a class="btn btn-primary" href="https://wa.me/56983984326?text=${waMessages[i]}" target="_blank" rel="noopener">Cotizar aquí</a></div>
   `;
 }
 document.querySelectorAll('.explorer-tab').forEach(tab=>{

@@ -75,7 +75,7 @@
 .user-dropdown form{width:100%;}
 
 /* ===== FOOTER ===== */
-.admin-footer{border-top:1px solid var(--line);margin-top:60px;}
+.admin-footer{background:var(--a-white);border-top:1px solid var(--line);margin-top:60px;}
 .admin-footer-inner{max-width:1280px;margin:0 auto;padding:22px 32px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--gris-plata);}
 .admin-footer-inner a{color:var(--gris-oscuro);transition:color .2s;}
 .admin-footer-inner a:hover{color:var(--naranja);}

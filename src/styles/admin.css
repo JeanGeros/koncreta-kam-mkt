@@ -209,3 +209,12 @@
 .login-card .field .input-icon .material-symbols-outlined{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gris-plata);font-size:19px;}
 .login-card .field .input-icon input{padding-left:40px;}
 .login-meta{text-align:center;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:0.66rem;color:var(--gris-plata);letter-spacing:0.06em;text-transform:uppercase;}
+
+.field-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.field-label-row label{margin-bottom:0;}
+.reset-link{font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--naranja);text-transform:uppercase;letter-spacing:0.06em;}
+.reset-link:hover{color:var(--naranja-deep);}
+
+.checkbox-field{display:flex;align-items:center;gap:10px;margin-top:2px;}
+.checkbox-field input{width:16px;height:16px;accent-color:var(--naranja);border-radius:4px;}
+.checkbox-field label{font-family:'Hanken Grotesk',sans-serif;font-size:0.84rem;color:var(--gris-oscuro);cursor:pointer;}

@@ -48,8 +48,9 @@ export const server = {
 		input: z.object({
 			email: z.string().email(),
 			password: z.string().min(1),
+			remember: z.string().optional(),
 		}),
-		handler: async ({ email, password }, context) => {
+		handler: async ({ email, password, remember }, context) => {
 			const user = await getUserByEmail(email);
 			if (!user || !verifyPassword(password, user.password_hash)) {
 				throw new ActionError({ code: 'UNAUTHORIZED', message: 'Correo o contraseña incorrectos.' });
@@ -59,7 +60,9 @@ export const server = {
 				secure: import.meta.env.PROD,
 				sameSite: 'lax',
 				path: '/',
-				maxAge: SESSION_MAX_AGE_SECONDS,
+				// Sin "Mantener sesión activa" la cookie muere al cerrar el navegador
+				// (el token igual expira a los 7 días del lado del servidor).
+				...(remember === 'on' ? { maxAge: SESSION_MAX_AGE_SECONDS } : {}),
 			});
 			return { success: true };
 		},

@@ -28,7 +28,6 @@ const showChrome = user && path !== '/admin/login';
 					<div class="admin-bar-inner">
 						<div class="admin-brand">
 							<span class="name">Koncreta</span>
-							<span class="tag">Panel</span>
 						</div>
 						<nav class="admin-nav">
 							<a href="/admin" class={path === '/admin' ? 'active' : ''}>Inicio</a>
@@ -36,6 +35,16 @@ const showChrome = user && path !== '/admin/login';
 							<a href="/admin/blog" class={path.startsWith('/admin/blog') ? 'active' : ''}>Blog</a>
 						</nav>
 						<div class="admin-topbar-actions">
+							<div class="search-field">
+								<span class="material-symbols-outlined">search</span>
+								<input type="text" id="header-search" placeholder="Buscar..." />
+							</div>
+							<button type="button" class="admin-icon-btn" title="Notificaciones" aria-label="Notificaciones">
+								<span class="material-symbols-outlined">notifications</span>
+							</button>
+							<button type="button" class="admin-icon-btn" title="Configuración" aria-label="Configuración">
+								<span class="material-symbols-outlined">settings</span>
+							</button>
 							<a href="/" target="_blank" class="admin-view-site">Ver sitio ↗</a>
 							<div class="admin-user">
 								<div class="who">
@@ -64,6 +73,20 @@ const showChrome = user && path !== '/admin/login';
 						</div>
 					</div>
 				</footer>
+			)
+		}
+		{
+			showChrome && (
+				<script is:inline>
+					const headerSearch = document.getElementById('header-search');
+					const pageSearch = document.getElementById('filter-search');
+					if (headerSearch && pageSearch) {
+						headerSearch.addEventListener('input', () => {
+							pageSearch.value = headerSearch.value;
+							pageSearch.dispatchEvent(new Event('input'));
+						});
+					}
+				</script>
 			)
 		}
 	</body>

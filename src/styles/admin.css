@@ -44,11 +44,15 @@
 .admin-brand{display:flex;align-items:center;gap:14px;}
 .admin-brand .name{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:1.15rem;color:var(--naranja);letter-spacing:-0.01em;}
 .admin-brand .tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--gris-plata);text-transform:uppercase;letter-spacing:0.1em;border:1px solid var(--line);padding:3px 9px;border-radius:var(--r-sm);}
-.admin-nav{display:flex;gap:6px;flex-wrap:wrap;}
-.admin-nav a{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gris-plata);transition:all .2s;padding:8px 12px;border-radius:var(--r-sm);}
-.admin-nav a:hover{color:var(--naranja);background:rgba(251,102,36,0.08);}
-.admin-nav a.active{color:var(--naranja);background:rgba(251,102,36,0.1);}
-.admin-topbar-actions{display:flex;align-items:center;gap:10px;}
+.admin-nav{display:flex;gap:22px;flex-wrap:wrap;margin-left:12px;}
+.admin-nav a{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gris-plata);transition:color .2s;padding:4px 0;border-bottom:2px solid transparent;}
+.admin-nav a:hover{color:var(--naranja);}
+.admin-nav a.active{color:var(--naranja);border-bottom-color:var(--naranja);}
+.admin-topbar-actions{display:flex;align-items:center;gap:6px;}
+.admin-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:var(--r-sm);background:none;border:none;color:var(--gris-plata);cursor:pointer;transition:all .15s;flex-shrink:0;}
+.admin-icon-btn:hover{color:var(--naranja);background:rgba(251,102,36,0.08);}
+.admin-topbar-actions .search-field{width:180px;max-width:180px;}
+.admin-topbar-actions .search-field input{padding-top:9px;padding-bottom:9px;}
 .admin-view-site{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--line);color:var(--naranja);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;padding:9px 16px;border-radius:var(--r-md);transition:border-color .2s;}
 .admin-view-site:hover{border-color:var(--naranja);}
 .admin-user{display:flex;align-items:center;gap:10px;}

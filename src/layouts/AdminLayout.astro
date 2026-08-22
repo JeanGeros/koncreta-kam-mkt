@@ -35,10 +35,6 @@ const showChrome = user && path !== '/admin/login';
 							<a href="/admin/blog" class={path.startsWith('/admin/blog') ? 'active' : ''}>Blog</a>
 						</nav>
 						<div class="admin-topbar-actions">
-							<div class="search-field">
-								<Icon name="material-symbols:search" class="icon" />
-								<input type="text" id="header-search" placeholder="Buscar..." />
-							</div>
 							<button type="button" class="admin-icon-btn" title="Notificaciones" aria-label="Notificaciones">
 								<Icon name="material-symbols:notifications" class="icon" />
 							</button>
@@ -73,20 +69,6 @@ const showChrome = user && path !== '/admin/login';
 						</div>
 					</div>
 				</footer>
-			)
-		}
-		{
-			showChrome && (
-				<script is:inline>
-					const headerSearch = document.getElementById('header-search');
-					const pageSearch = document.getElementById('filter-search');
-					if (headerSearch && pageSearch) {
-						headerSearch.addEventListener('input', () => {
-							pageSearch.value = headerSearch.value;
-							pageSearch.dispatchEvent(new Event('input'));
-						});
-					}
-				</script>
 			)
 		}
 	</body>

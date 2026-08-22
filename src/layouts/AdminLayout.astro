@@ -35,17 +35,24 @@ const showChrome = user && path !== '/admin/login';
 							<a href="/admin/blog" class={path.startsWith('/admin/blog') ? 'active' : ''}>Blog</a>
 						</nav>
 						<div class="admin-topbar-actions">
-							<button type="button" class="admin-icon-btn" title="Configuración" aria-label="Configuración">
-								<Icon name="material-symbols:settings" class="icon" />
-							</button>
 							<a href="/" target="_blank" class="admin-view-site">Ver sitio ↗</a>
 							<div class="admin-user">
-								<div class="who">
+								<button type="button" class="avatar-btn" id="user-menu-btn" aria-haspopup="true" aria-expanded="false">
 									<span class="avatar">{user.email[0]?.toUpperCase()}</span>
+								</button>
+								<div class="user-dropdown" id="user-dropdown" hidden>
+									<div class="user-dropdown-email">{user.email}</div>
+									<button type="button" class="user-dropdown-item">
+										<Icon name="material-symbols:settings" class="icon" />
+										Configuración
+									</button>
+									<form method="POST" action={actions.logout}>
+										<button type="submit" class="user-dropdown-item">
+											<Icon name="material-symbols:logout" class="icon" />
+											Salir
+										</button>
+									</form>
 								</div>
-								<form method="POST" action={actions.logout}>
-									<button type="submit">Salir</button>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -66,6 +73,34 @@ const showChrome = user && path !== '/admin/login';
 						</div>
 					</div>
 				</footer>
+			)
+		}
+		{
+			showChrome && (
+				<script is:inline>
+					const menuBtn = document.getElementById('user-menu-btn');
+					const dropdown = document.getElementById('user-dropdown');
+					if (menuBtn && dropdown) {
+						menuBtn.addEventListener('click', (e) => {
+							e.stopPropagation();
+							const isOpen = !dropdown.hidden;
+							dropdown.hidden = isOpen;
+							menuBtn.setAttribute('aria-expanded', String(!isOpen));
+						});
+						document.addEventListener('click', (e) => {
+							if (!dropdown.hidden && !dropdown.contains(e.target)) {
+								dropdown.hidden = true;
+								menuBtn.setAttribute('aria-expanded', 'false');
+							}
+						});
+						document.addEventListener('keydown', (e) => {
+							if (e.key === 'Escape' && !dropdown.hidden) {
+								dropdown.hidden = true;
+								menuBtn.setAttribute('aria-expanded', 'false');
+							}
+						});
+					}
+				</script>
 			)
 		}
 	</body>

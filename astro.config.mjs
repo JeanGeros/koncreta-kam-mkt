@@ -3,6 +3,7 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import icon from 'astro-icon';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
@@ -10,7 +11,7 @@ export default defineConfig({
 	site: 'https://example.com',
 	output: 'server',
 	adapter: vercel(),
-	integrations: [mdx(), sitemap()],
+	integrations: [mdx(), sitemap(), icon()],
 	fonts: [
 		{
 			provider: fontProviders.local(),

@@ -3,6 +3,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { actions } from 'astro:actions';
 import { PROJECT_CATEGORIES } from '../../../lib/constants';
 import { getAllProjects } from '../../../lib/projects';
+import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.createProject);
 if (result && !result.error) {
@@ -60,7 +61,7 @@ const nextSortOrder = (await getAllProjects()).length;
 					<div class="field">
 						<div class="dropzone">
 							<label class="dz-label" for="image">
-								<span class="material-symbols-outlined">cloud_upload</span><br />
+								<Icon name="material-symbols:cloud-upload" class="icon" /><br />
 								Arrastra una imagen o haz clic para elegir<br />
 								<small>JPG, PNG o WebP, máx. 5MB</small>
 							</label>

@@ -3,6 +3,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { getAllPosts } from '../../../lib/blog';
 import { BLOG_CATEGORIES } from '../../../lib/constants';
 import { actions } from 'astro:actions';
+import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.deletePost);
 const posts = await getAllPosts();
@@ -21,7 +22,7 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 
 	<div class="controls-bar">
 		<div class="search-field">
-			<span class="material-symbols-outlined">search</span>
+			<Icon name="material-symbols:search" class="icon" />
 			<input type="text" id="filter-search" placeholder="Buscar por título..." />
 		</div>
 		<div class="controls-filters">
@@ -58,7 +59,7 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 										{p.hero_image_url ? (
 											<img src={p.hero_image_url} alt={p.hero_image_alt ?? p.title} />
 										) : (
-											<span class="material-symbols-outlined">article</span>
+											<Icon name="material-symbols:article" class="icon" />
 										)}
 									</div>
 									<div>
@@ -81,12 +82,12 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 							<td>
 								<div class="row-actions">
 									<a href={`/admin/blog/${p.id}`} title="Editar">
-										<span class="material-symbols-outlined">edit</span>
+										<Icon name="material-symbols:edit" class="icon" />
 									</a>
 									<form method="POST" action={actions.deletePost}>
 										<input type="hidden" name="id" value={p.id} />
 										<button type="submit" data-confirm="¿Eliminar este post?" title="Eliminar">
-											<span class="material-symbols-outlined">delete</span>
+											<Icon name="material-symbols:delete" class="icon" />
 										</button>
 									</form>
 								</div>

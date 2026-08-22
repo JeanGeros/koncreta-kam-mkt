@@ -3,6 +3,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { getAllProjects } from '../../../lib/projects';
 import { PROJECT_CATEGORIES } from '../../../lib/constants';
 import { actions } from 'astro:actions';
+import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.deleteProject);
 const projects = await getAllProjects();
@@ -10,17 +11,17 @@ const projects = await getAllProjects();
 const categoryIcon = (category: string) => {
 	switch (category) {
 		case 'Minería':
-			return 'terrain';
+			return 'material-symbols:construction';
 		case 'Infraestructura industrial':
-			return 'factory';
+			return 'material-symbols:factory';
 		case 'Fundaciones':
-			return 'foundation';
+			return 'material-symbols:foundation';
 		case 'Cámaras y registros':
-			return 'plumbing';
+			return 'material-symbols:plumbing';
 		case 'Vial':
-			return 'road';
+			return 'material-symbols:road';
 		default:
-			return 'domain';
+			return 'material-symbols:domain';
 	}
 };
 ---
@@ -37,7 +38,7 @@ const categoryIcon = (category: string) => {
 
 	<div class="controls-bar">
 		<div class="search-field">
-			<span class="material-symbols-outlined">search</span>
+			<Icon name="material-symbols:search" class="icon" />
 			<input type="text" id="filter-search" placeholder="Buscar por título..." />
 		</div>
 		<div class="controls-filters">
@@ -74,7 +75,7 @@ const categoryIcon = (category: string) => {
 										{p.image_url ? (
 											<img src={p.image_url} alt={p.image_alt ?? p.title} />
 										) : (
-											<span class="material-symbols-outlined">{categoryIcon(p.category)}</span>
+											<Icon name={categoryIcon(p.category)} class="icon" />
 										)}
 									</div>
 									<div>
@@ -94,12 +95,12 @@ const categoryIcon = (category: string) => {
 							<td>
 								<div class="row-actions">
 									<a href={`/admin/proyectos/${p.id}`} title="Editar">
-										<span class="material-symbols-outlined">edit</span>
+										<Icon name="material-symbols:edit" class="icon" />
 									</a>
 									<form method="POST" action={actions.deleteProject}>
 										<input type="hidden" name="id" value={p.id} />
 										<button type="submit" data-confirm="¿Eliminar este proyecto?" title="Eliminar">
-											<span class="material-symbols-outlined">delete</span>
+											<Icon name="material-symbols:delete" class="icon" />
 										</button>
 									</form>
 								</div>

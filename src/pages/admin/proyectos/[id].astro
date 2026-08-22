@@ -3,6 +3,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { actions } from 'astro:actions';
 import { PROJECT_CATEGORIES } from '../../../lib/constants';
 import { getProjectById } from '../../../lib/projects';
+import { Icon } from 'astro-icon/components';
 
 const id = Number(Astro.params.id);
 const result = Astro.getActionResult(actions.updateProject);
@@ -70,7 +71,7 @@ if (!project) {
 						<div class="dropzone">
 							{project.image_url && <img src={project.image_url} alt="" />}
 							<label class="dz-label" for="image">
-								<span class="material-symbols-outlined">cloud_upload</span><br />
+								<Icon name="material-symbols:cloud-upload" class="icon" /><br />
 								Arrastra una imagen o haz clic para elegir<br />
 								<small>JPG, PNG o WebP, máx. 5MB</small>
 							</label>

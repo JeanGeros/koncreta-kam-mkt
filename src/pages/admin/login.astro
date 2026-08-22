@@ -1,6 +1,7 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { actions } from 'astro:actions';
+import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.login);
 ---
@@ -18,7 +19,7 @@ const result = Astro.getActionResult(actions.login);
 					<div class="field">
 						<label for="email">Correo</label>
 						<div class="input-icon">
-							<span class="material-symbols-outlined">person</span>
+							<Icon name="material-symbols:person" class="icon" />
 							<input type="email" id="email" name="email" placeholder="correo@koncretaprefabricados.cl" required autofocus />
 						</div>
 					</div>
@@ -28,10 +29,11 @@ const result = Astro.getActionResult(actions.login);
 							<a href="mailto:viveka.guarino@koncretaprefabricados.cl" class="reset-link">Restablecer clave</a>
 						</div>
 						<div class="input-icon">
-							<span class="material-symbols-outlined">key</span>
+							<Icon name="material-symbols:key" class="icon" />
 							<input type="password" id="password" name="password" required />
 							<button type="button" id="toggle-password" aria-label="Mostrar contraseña">
-								<span class="material-symbols-outlined">visibility</span>
+								<span data-eye-on><Icon name="material-symbols:visibility" class="icon" /></span>
+								<span data-eye-off hidden><Icon name="material-symbols:visibility-off" class="icon" /></span>
 							</button>
 						</div>
 					</div>
@@ -41,7 +43,7 @@ const result = Astro.getActionResult(actions.login);
 					</div>
 					<button type="submit" class="btn btn-primary" style="width:100%;margin-top:4px;">
 						Ingresar
-						<span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+						<Icon name="material-symbols:arrow-forward" class="icon" style="width:18px;height:18px;" />
 					</button>
 				</form>
 			</div>
@@ -54,12 +56,13 @@ const result = Astro.getActionResult(actions.login);
 	const toggleBtn = document.getElementById('toggle-password');
 	const passwordInput = document.getElementById('password');
 	if (toggleBtn && passwordInput) {
+		const eyeOn = toggleBtn.querySelector('[data-eye-on]');
+		const eyeOff = toggleBtn.querySelector('[data-eye-off]');
 		toggleBtn.addEventListener('click', () => {
 			const isPassword = passwordInput.getAttribute('type') === 'password';
 			passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
-			toggleBtn.querySelector('.material-symbols-outlined').textContent = isPassword
-				? 'visibility_off'
-				: 'visibility';
+			eyeOn.hidden = isPassword;
+			eyeOff.hidden = !isPassword;
 		});
 	}
 </script>

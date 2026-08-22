@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/admin.css';
 import { actions } from 'astro:actions';
+import { Icon } from 'astro-icon/components';
 
 interface Props {
 	title: string;
@@ -19,7 +20,6 @@ const showChrome = user && path !== '/admin/login';
 		<meta name="robots" content="noindex, nofollow" />
 		<title>{title} — Panel Koncreta</title>
 		<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1&display=swap" rel="stylesheet" />
 	</head>
 	<body class="admin-body">
 		{
@@ -36,14 +36,14 @@ const showChrome = user && path !== '/admin/login';
 						</nav>
 						<div class="admin-topbar-actions">
 							<div class="search-field">
-								<span class="material-symbols-outlined">search</span>
+								<Icon name="material-symbols:search" class="icon" />
 								<input type="text" id="header-search" placeholder="Buscar..." />
 							</div>
 							<button type="button" class="admin-icon-btn" title="Notificaciones" aria-label="Notificaciones">
-								<span class="material-symbols-outlined">notifications</span>
+								<Icon name="material-symbols:notifications" class="icon" />
 							</button>
 							<button type="button" class="admin-icon-btn" title="Configuración" aria-label="Configuración">
-								<span class="material-symbols-outlined">settings</span>
+								<Icon name="material-symbols:settings" class="icon" />
 							</button>
 							<a href="/" target="_blank" class="admin-view-site">Ver sitio ↗</a>
 							<div class="admin-user">

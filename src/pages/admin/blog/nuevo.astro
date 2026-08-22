@@ -2,6 +2,7 @@
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { actions } from 'astro:actions';
 import { BLOG_CATEGORIES } from '../../../lib/constants';
+import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.createPost);
 if (result && !result.error) {
@@ -79,7 +80,7 @@ if (result && !result.error) {
 					<div class="field">
 						<div class="dropzone">
 							<label class="dz-label" for="hero_image">
-								<span class="material-symbols-outlined">cloud_upload</span><br />
+								<Icon name="material-symbols:cloud-upload" class="icon" /><br />
 								Arrastra una imagen o haz clic para elegir<br />
 								<small>JPG, PNG o WebP, máx. 5MB</small>
 							</label>

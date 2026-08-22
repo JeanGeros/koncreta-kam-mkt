@@ -1,21 +1,58 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { getAllProjects } from '../../../lib/projects';
+import { PROJECT_CATEGORIES } from '../../../lib/constants';
 import { actions } from 'astro:actions';
 
 const result = Astro.getActionResult(actions.deleteProject);
 const projects = await getAllProjects();
+
+const categoryIcon = (category: string) => {
+	switch (category) {
+		case 'Minería':
+			return 'terrain';
+		case 'Infraestructura industrial':
+			return 'factory';
+		case 'Fundaciones':
+			return 'foundation';
+		case 'Cámaras y registros':
+			return 'plumbing';
+		case 'Vial':
+			return 'road';
+		default:
+			return 'domain';
+	}
+};
 ---
 
 <AdminLayout title="Proyectos">
+	<div class="crumb">KONCRETA ADMIN // PROYECTOS</div>
 	<div class="admin-head">
 		<div>
-			<div class="idx">{projects.length} en total</div>
 			<h1>Proyectos</h1>
 		</div>
 		<a href="/admin/proyectos/nuevo" class="btn btn-primary">+ Nuevo proyecto</a>
 	</div>
 	{result?.error && <p class="action-error">{result.error.message}</p>}
+
+	<div class="controls-bar">
+		<div class="search-field">
+			<span class="material-symbols-outlined">search</span>
+			<input type="text" id="filter-search" placeholder="Buscar por título..." />
+		</div>
+		<div class="controls-filters">
+			<select id="filter-category">
+				<option value="">Todas las categorías</option>
+				{PROJECT_CATEGORIES.map((cat) => <option value={cat}>{cat}</option>)}
+			</select>
+			<select id="filter-status">
+				<option value="">Todos los estados</option>
+				<option value="true">Publicado</option>
+				<option value="false">Borrador</option>
+			</select>
+		</div>
+	</div>
+
 	<div class="admin-card table-card">
 		<table class="admin-table">
 			<thead>
@@ -27,25 +64,42 @@ const projects = await getAllProjects();
 					<th></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="projects-tbody">
 				{
 					projects.map((p) => (
-						<tr>
-							<td>{p.title}</td>
+						<tr data-category={p.category} data-published={String(p.published)} data-title={p.title.toLowerCase()}>
+							<td>
+								<div class="row-title">
+									<div class="row-thumb">
+										{p.image_url ? (
+											<img src={p.image_url} alt={p.image_alt ?? p.title} />
+										) : (
+											<span class="material-symbols-outlined">{categoryIcon(p.category)}</span>
+										)}
+									</div>
+									<div>
+										<div class="t">{p.title}</div>
+										<span class="sub">{p.location}</span>
+									</div>
+								</div>
+							</td>
 							<td><span class="category-pill">{p.category}</span></td>
 							<td>{p.location}</td>
 							<td>
 								<span class={`status-pill ${p.published ? 'on' : 'off'}`}>
+									<span class="dot" />
 									{p.published ? 'Publicado' : 'Borrador'}
 								</span>
 							</td>
 							<td>
 								<div class="row-actions">
-									<a href={`/admin/proyectos/${p.id}`}>Editar</a>
+									<a href={`/admin/proyectos/${p.id}`} title="Editar">
+										<span class="material-symbols-outlined">edit</span>
+									</a>
 									<form method="POST" action={actions.deleteProject}>
 										<input type="hidden" name="id" value={p.id} />
-										<button type="submit" data-confirm="¿Eliminar este proyecto?">
-											Eliminar
+										<button type="submit" data-confirm="¿Eliminar este proyecto?" title="Eliminar">
+											<span class="material-symbols-outlined">delete</span>
 										</button>
 									</form>
 								</div>
@@ -64,6 +118,7 @@ const projects = await getAllProjects();
 				}
 			</tbody>
 		</table>
+		<div class="table-foot">Mostrando {projects.length} proyectos</div>
 	</div>
 </AdminLayout>
 
@@ -73,4 +128,26 @@ const projects = await getAllProjects();
 			if (!confirm(btn.dataset.confirm)) e.preventDefault();
 		});
 	});
+
+	const searchInput = document.getElementById('filter-search');
+	const categorySelect = document.getElementById('filter-category');
+	const statusSelect = document.getElementById('filter-status');
+	const rows = Array.from(document.querySelectorAll('#projects-tbody tr[data-title]'));
+
+	function applyFilters() {
+		const search = (searchInput?.value || '').trim().toLowerCase();
+		const category = categorySelect?.value || '';
+		const status = statusSelect?.value || '';
+
+		rows.forEach((row) => {
+			const matchesSearch = !search || row.dataset.title.includes(search);
+			const matchesCategory = !category || row.dataset.category === category;
+			const matchesStatus = !status || row.dataset.published === status;
+			row.style.display = matchesSearch && matchesCategory && matchesStatus ? '' : 'none';
+		});
+	}
+
+	searchInput?.addEventListener('input', applyFilters);
+	categorySelect?.addEventListener('change', applyFilters);
+	statusSelect?.addEventListener('change', applyFilters);
 </script>

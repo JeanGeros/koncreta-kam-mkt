@@ -30,12 +30,30 @@ import Base from '../layouts/Base.astro';
     <div class="explorer-wrap" data-reveal>
 
       <div class="explorer-tabs" id="explorer-tabs">
-        <button class="explorer-tab active" data-service="0"><span class="et-num mono">01</span><span class="et-title">Asesoría del cambio de obra “in situ” a piezas prefabricadas en tu proyecto</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="1"><span class="et-num mono">02</span><span class="et-title">Ingeniería de modulación e izajes</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="2"><span class="et-num mono">03</span><span class="et-title">Fabricación de piezas de hormigón</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="3"><span class="et-num mono">04</span><span class="et-title">Transporte de piezas de hormigón</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="4"><span class="et-num mono">05</span><span class="et-title">Montaje de piezas en obra</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
-        <button class="explorer-tab" data-service="5"><span class="et-num mono">06</span><span class="et-title">Piezas para proyectos ornamentales y áreas verdes.</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        <div class="explorer-item open">
+          <button class="explorer-tab active" data-service="0"><span class="et-num mono">01</span><span class="et-title">Asesoría del cambio de obra “in situ” a piezas prefabricadas en tu proyecto</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <div class="explorer-mobile-panel"></div>
+        </div>
+        <div class="explorer-item">
+          <button class="explorer-tab" data-service="1"><span class="et-num mono">02</span><span class="et-title">Ingeniería de modulación e izajes</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <div class="explorer-mobile-panel"></div>
+        </div>
+        <div class="explorer-item">
+          <button class="explorer-tab" data-service="2"><span class="et-num mono">03</span><span class="et-title">Fabricación de piezas de hormigón</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <div class="explorer-mobile-panel"></div>
+        </div>
+        <div class="explorer-item">
+          <button class="explorer-tab" data-service="3"><span class="et-num mono">04</span><span class="et-title">Transporte de piezas de hormigón</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <div class="explorer-mobile-panel"></div>
+        </div>
+        <div class="explorer-item">
+          <button class="explorer-tab" data-service="4"><span class="et-num mono">05</span><span class="et-title">Montaje de piezas en obra</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <div class="explorer-mobile-panel"></div>
+        </div>
+        <div class="explorer-item">
+          <button class="explorer-tab" data-service="5"><span class="et-num mono">06</span><span class="et-title">Piezas para proyectos ornamentales y áreas verdes.</span><span class="et-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <div class="explorer-mobile-panel"></div>
+        </div>
       </div>
 
       <div class="explorer-panel" id="explorer-panel">
@@ -199,9 +217,9 @@ const waMessages = [
 ];
 
 const panel = document.getElementById('explorer-panel');
-function renderService(i){
+function panelHTML(i){
   const s = services[i];
-  panel.innerHTML = `
+  return `
     <div class="ep-media"><span class="ep-tag mono">${s.tag}</span><img src="${s.img}" alt="${s.title}"></div>
     <div class="ep-scope">Alcance del servicio</div>
     <h3>${s.title}</h3>
@@ -209,11 +227,24 @@ function renderService(i){
     <div class="ep-cta"><a class="btn btn-primary" href="https://wa.me/56983984326?text=${waMessages[i]}" target="_blank" rel="noopener">Cotizar aquí</a></div>
   `;
 }
+function renderService(i){ panel.innerHTML = panelHTML(i); }
+
+document.querySelectorAll('.explorer-item').forEach(item=>{
+  const i = parseInt(item.querySelector('.explorer-tab').dataset.service);
+  item.querySelector('.explorer-mobile-panel').innerHTML = panelHTML(i);
+});
+
 document.querySelectorAll('.explorer-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
+    const i = parseInt(tab.dataset.service);
     document.querySelectorAll('.explorer-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    renderService(parseInt(tab.dataset.service));
+    renderService(i);
+
+    const item = tab.closest('.explorer-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.explorer-item').forEach(it=>it.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
   });
 });
 renderService(0);

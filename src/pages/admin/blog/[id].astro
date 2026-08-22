@@ -19,60 +19,96 @@ if (!post) {
 <AdminLayout title={`Editar: ${post.title}`}>
 	<div class="admin-head">
 		<div>
-			<div class="idx">Blog</div>
+			<div class="crumb">Blog</div>
 			<h1>Editar post</h1>
+		</div>
+		<div class="form-actions">
+			<a href="/admin/blog" class="btn btn-outline-dark">Cancelar</a>
+			<button type="submit" form="post-form" class="btn btn-primary">Guardar cambios</button>
 		</div>
 	</div>
 	{result?.error && <p class="action-error">{result.error.message}</p>}
-	<div class="admin-card">
-		<form method="POST" action={actions.updatePost} enctype="multipart/form-data" class="admin-form">
-			<input type="hidden" name="id" value={post.id} />
-			<input type="hidden" name="existing_hero_image_url" value={post.hero_image_url ?? ''} />
-			<div class="field">
-				<label for="title">Título</label>
-				<input type="text" id="title" name="title" required value={post.title} />
-			</div>
-			<div class="field">
-				<label for="category">Categoría</label>
-				<select id="category" name="category" required>
-					{BLOG_CATEGORIES.map((c) => (
-						<option value={c.value} selected={c.value === post.category}>{c.label}</option>
-					))}
-				</select>
-			</div>
-			<div class="field">
-				<label for="excerpt">Extracto (resumen corto)</label>
-				<textarea id="excerpt" name="excerpt" rows="2" required>{post.excerpt}</textarea>
-			</div>
-			<div class="field">
-				<label for="content">Contenido (Markdown)</label>
-				<textarea id="content" name="content" rows="14" required class="mono">{post.content}</textarea>
-				<p class="field-hint">Soporta Markdown: títulos con #, listas con -, negritas con **texto**.</p>
-			</div>
-			<div class="field">
-				{post.hero_image_url && <img src={post.hero_image_url} alt="" class="current-image" />}
-				<label for="hero_image">Reemplazar imagen principal</label>
-				<input type="file" id="hero_image" name="hero_image" accept="image/jpeg,image/png,image/webp" />
-				<p class="field-hint">Deja vacío para mantener la imagen actual. JPG, PNG o WebP, máx. 5MB.</p>
-			</div>
-			<div class="field">
-				<label for="hero_image_alt">Texto alternativo de la imagen</label>
-				<input type="text" id="hero_image_alt" name="hero_image_alt" value={post.hero_image_alt ?? ''} />
-			</div>
-			<div class="field-row">
-				<div class="field checkbox-field">
-					<input type="checkbox" id="featured" name="featured" checked={post.featured} />
-					<label for="featured" style="margin:0;">Destacado</label>
+	<form method="POST" action={actions.updatePost} enctype="multipart/form-data" class="admin-form" id="post-form">
+		<input type="hidden" name="id" value={post.id} />
+		<input type="hidden" name="existing_hero_image_url" value={post.hero_image_url ?? ''} />
+		<div class="form-grid">
+			<div class="form-main">
+				<div class="panel">
+					<div class="crumb">Información básica<div class="rule"></div></div>
+					<div class="field">
+						<label for="title">Título</label>
+						<input type="text" id="title" name="title" required value={post.title} />
+					</div>
+					<div class="field">
+						<label for="category">Categoría</label>
+						<select id="category" name="category" required>
+							{BLOG_CATEGORIES.map((c) => (
+								<option value={c.value} selected={c.value === post.category}>{c.label}</option>
+							))}
+						</select>
+					</div>
+					<div class="field">
+						<label for="excerpt">Extracto (resumen corto)</label>
+						<textarea id="excerpt" name="excerpt" rows="2" required>{post.excerpt}</textarea>
+					</div>
 				</div>
-				<div class="field checkbox-field">
-					<input type="checkbox" id="published" name="published" checked={post.published} />
-					<label for="published" style="margin:0;">Publicado</label>
+				<div class="panel">
+					<div class="crumb">Contenido<div class="rule"></div></div>
+					<div class="field">
+						<label for="content">Contenido (Markdown)</label>
+						<textarea id="content" name="content" rows="14" required class="mono">{post.content}</textarea>
+						<p class="field-hint">Soporta Markdown: títulos con #, listas con -, negritas con **texto**.</p>
+					</div>
 				</div>
 			</div>
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Guardar cambios</button>
-				<a href="/admin/blog" class="btn btn-outline-dark">Cancelar</a>
+			<div class="form-aside">
+				<div class="panel">
+					<div class="crumb">Publicación<div class="rule"></div></div>
+					<div class="toggle-row">
+						<div>
+							<div class="label">Destacado</div>
+							<div class="hint">Fijar en el listado principal</div>
+						</div>
+						<label class="toggle-switch">
+							<input type="checkbox" id="featured" name="featured" checked={post.featured} />
+							<span class="track"></span>
+						</label>
+					</div>
+					<div class="toggle-row">
+						<div>
+							<div class="label">Publicado</div>
+							<div class="hint">Visible en el sitio público</div>
+						</div>
+						<label class="toggle-switch">
+							<input type="checkbox" id="published" name="published" checked={post.published} />
+							<span class="track"></span>
+						</label>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="crumb">Imagen<div class="rule"></div></div>
+					<div class="field">
+						<div class="dropzone">
+							{post.hero_image_url && <img src={post.hero_image_url} alt="" />}
+							<label class="dz-label" for="hero_image">
+								<span class="material-symbols-outlined">cloud_upload</span><br />
+								Arrastra una imagen o haz clic para elegir<br />
+								<small>JPG, PNG o WebP, máx. 5MB</small>
+							</label>
+							<input type="file" id="hero_image" name="hero_image" accept="image/jpeg,image/png,image/webp" />
+						</div>
+						<p class="field-hint">Deja vacío para mantener la imagen actual.</p>
+					</div>
+					<div class="field">
+						<label for="hero_image_alt">Texto alternativo de la imagen</label>
+						<input type="text" id="hero_image_alt" name="hero_image_alt" value={post.hero_image_alt ?? ''} />
+					</div>
+				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Guardar cambios</button>
+			<a href="/admin/blog" class="btn btn-outline-dark">Cancelar</a>
+		</div>
+	</form>
 </AdminLayout>

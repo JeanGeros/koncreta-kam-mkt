@@ -200,13 +200,13 @@
 
 /* ===== LOGIN ===== */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--paper);}
-.login-shell{width:100%;max-width:400px;}
+.login-shell{width:100%;max-width:500px;}
 .login-brand{text-align:center;margin-bottom:24px;}
 .login-brand .name{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:1.8rem;color:var(--naranja);display:block;}
 .login-brand .tag{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--gris-plata);text-transform:uppercase;letter-spacing:0.15em;display:block;margin-top:6px;}
 .login-card{background:var(--a-white);border-radius:20px;box-shadow:0 4px 32px rgba(0,0,0,0.06);padding:32px;}
 .login-card .field .input-icon{position:relative;}
-.login-card .field .input-icon .material-symbols-outlined{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gris-plata);font-size:19px;}
+.login-card .field .input-icon > .material-symbols-outlined{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gris-plata);font-size:19px;pointer-events:none;}
 .login-card .field .input-icon input{padding-left:40px;}
 .login-meta{text-align:center;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:0.66rem;color:var(--gris-plata);letter-spacing:0.06em;text-transform:uppercase;}
 

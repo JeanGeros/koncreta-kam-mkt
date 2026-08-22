@@ -60,8 +60,6 @@
 .admin-nav a:hover{color:var(--naranja);}
 .admin-nav a.active{color:var(--naranja);border-bottom-color:var(--naranja);}
 .admin-topbar-actions{display:flex;align-items:center;gap:6px;}
-.admin-view-site{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--line);color:var(--naranja);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;padding:9px 16px;border-radius:var(--r-md);transition:border-color .2s;}
-.admin-view-site:hover{border-color:var(--naranja);}
 .admin-user{position:relative;}
 .avatar-btn{background:none;border:none;padding:0;cursor:pointer;border-radius:50%;}
 .admin-user .avatar{width:34px;height:34px;border-radius:50%;background:var(--naranja);color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:0.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}

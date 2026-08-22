@@ -35,13 +35,16 @@ const showChrome = user && path !== '/admin/login';
 							<a href="/admin/blog" class={path.startsWith('/admin/blog') ? 'active' : ''}>Blog</a>
 						</nav>
 						<div class="admin-topbar-actions">
-							<a href="/" target="_blank" class="admin-view-site">Ver sitio ↗</a>
 							<div class="admin-user">
 								<button type="button" class="avatar-btn" id="user-menu-btn" aria-haspopup="true" aria-expanded="false">
 									<span class="avatar">{user.email[0]?.toUpperCase()}</span>
 								</button>
 								<div class="user-dropdown" id="user-dropdown" hidden>
 									<div class="user-dropdown-email">{user.email}</div>
+									<a href="/" target="_blank" class="user-dropdown-item">
+										<Icon name="material-symbols:open-in-new" class="icon" />
+										Ver sitio
+									</a>
 									<button type="button" class="user-dropdown-item">
 										<Icon name="material-symbols:settings" class="icon" />
 										Configuración

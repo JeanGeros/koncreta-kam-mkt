@@ -14,56 +14,86 @@ const nextSortOrder = (await getAllProjects()).length;
 <AdminLayout title="Nuevo proyecto">
 	<div class="admin-head">
 		<div>
-			<div class="idx">Proyectos</div>
+			<div class="crumb">Proyectos</div>
 			<h1>Nuevo proyecto</h1>
+		</div>
+		<div class="form-actions">
+			<a href="/admin/proyectos" class="btn btn-outline-dark">Cancelar</a>
+			<button type="submit" form="project-form" class="btn btn-primary">Crear proyecto</button>
 		</div>
 	</div>
 	{result?.error && <p class="action-error">{result.error.message}</p>}
-	<div class="admin-card">
-		<form method="POST" action={actions.createProject} enctype="multipart/form-data" class="admin-form">
-			<div class="field">
-				<label for="title">Título</label>
-				<input type="text" id="title" name="title" required />
-			</div>
-			<div class="field-row">
-				<div class="field">
-					<label for="category">Categoría</label>
-					<select id="category" name="category" required>
-						{PROJECT_CATEGORIES.map((c) => <option value={c}>{c}</option>)}
-					</select>
+	<form method="POST" action={actions.createProject} enctype="multipart/form-data" class="admin-form" id="project-form">
+		<div class="form-grid">
+			<div class="form-main">
+				<div class="panel">
+					<div class="crumb">Información general<div class="rule"></div></div>
+					<div class="field">
+						<label for="title">Título</label>
+						<input type="text" id="title" name="title" required />
+					</div>
+					<div class="field-row">
+						<div class="field">
+							<label for="category">Categoría</label>
+							<select id="category" name="category" required>
+								{PROJECT_CATEGORIES.map((c) => <option value={c}>{c}</option>)}
+							</select>
+						</div>
+						<div class="field">
+							<label for="location">Ubicación</label>
+							<input type="text" id="location" name="location" placeholder="Ej: Planta Antofagasta" required />
+						</div>
+					</div>
 				</div>
-				<div class="field">
-					<label for="location">Ubicación</label>
-					<input type="text" id="location" name="location" placeholder="Ej: Planta Antofagasta" required />
-				</div>
-			</div>
-			<div class="field">
-				<label for="bullets">Detalles (uno por línea)</label>
-				<textarea id="bullets" name="bullets" rows="5" required></textarea>
-			</div>
-			<div class="field">
-				<label for="image">Imagen</label>
-				<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" />
-				<p class="field-hint">JPG, PNG o WebP, máx. 5MB.</p>
-			</div>
-			<div class="field">
-				<label for="image_alt">Texto alternativo de la imagen</label>
-				<input type="text" id="image_alt" name="image_alt" />
-			</div>
-			<div class="field-row">
-				<div class="field">
-					<label for="sort_order">Orden</label>
-					<input type="number" id="sort_order" name="sort_order" value={nextSortOrder} />
-				</div>
-				<div class="field checkbox-field" style="align-self:end;padding-bottom:13px;">
-					<input type="checkbox" id="published" name="published" checked />
-					<label for="published" style="margin:0;">Publicado</label>
+				<div class="panel">
+					<div class="crumb">Detalles<div class="rule"></div></div>
+					<div class="field">
+						<label for="bullets">Detalles del proyecto</label>
+						<textarea id="bullets" name="bullets" rows="5" required></textarea>
+						<p class="field-hint">Uno por línea.</p>
+					</div>
 				</div>
 			</div>
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Crear proyecto</button>
-				<a href="/admin/proyectos" class="btn btn-outline-dark">Cancelar</a>
+			<div class="form-aside">
+				<div class="panel">
+					<div class="crumb">Imagen<div class="rule"></div></div>
+					<div class="field">
+						<div class="dropzone">
+							<label class="dz-label" for="image">
+								<span class="material-symbols-outlined">cloud_upload</span><br />
+								Arrastra una imagen o haz clic para elegir<br />
+								<small>JPG, PNG o WebP, máx. 5MB</small>
+							</label>
+							<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" />
+						</div>
+					</div>
+					<div class="field">
+						<label for="image_alt">Texto alternativo de la imagen</label>
+						<input type="text" id="image_alt" name="image_alt" />
+					</div>
+				</div>
+				<div class="panel">
+					<div class="crumb">Publicación<div class="rule"></div></div>
+					<div class="field">
+						<label for="sort_order">Orden</label>
+						<input type="number" id="sort_order" name="sort_order" value={nextSortOrder} />
+					</div>
+					<div class="toggle-row">
+						<div>
+							<div class="label">Publicado</div>
+							<div class="hint">Visible en el sitio público</div>
+						</div>
+						<label class="toggle-switch">
+							<input type="checkbox" id="published" name="published" checked />
+							<span class="track"></span>
+						</label>
+					</div>
+				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Crear proyecto</button>
+			<a href="/admin/proyectos" class="btn btn-outline-dark">Cancelar</a>
+		</div>
+	</form>
 </AdminLayout>

@@ -27,6 +27,9 @@
 	color:var(--negro);
 	background:var(--paper);min-height:100vh;
 }
+/* global.css estiliza cualquier <form> como card (bg/borde/padding) para el sitio público;
+   dentro del admin cada form define su propio contenedor (.panel/.login-card/etc), así que lo neutralizamos. */
+.admin-body form{background:none;border:none;padding:0;border-radius:0;}
 .admin-body h1,.admin-body h2,.admin-body h3,.admin-body h4{font-family:'Hanken Grotesk','Century Gothic',sans-serif;font-weight:700;letter-spacing:-0.02em;}
 
 .material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;font-size:20px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}
@@ -40,7 +43,7 @@
 
 /* ===== TOPBAR ===== */
 .admin-bar{background:var(--a-white);border-bottom:1px solid var(--line);box-shadow:var(--a-shadow-sm);position:sticky;top:0;z-index:50;}
-.admin-bar-inner{display:flex;align-items:center;justify-content:space-between;padding:0 32px;max-width:1280px;margin:0 auto;gap:24px;height:64px;flex-wrap:wrap;}
+.admin-bar-inner{display:flex;align-items:center;justify-content:space-between;padding:0 32px;max-width:1280px;margin:0 auto;gap:24px;height:80px;flex-wrap:wrap;}
 .admin-brand{display:flex;align-items:center;gap:14px;}
 .admin-brand .name{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:1.15rem;color:var(--naranja);letter-spacing:-0.01em;}
 .admin-brand .tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--gris-plata);text-transform:uppercase;letter-spacing:0.1em;border:1px solid var(--line);padding:3px 9px;border-radius:var(--r-sm);}

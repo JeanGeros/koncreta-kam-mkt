@@ -10,14 +10,33 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 ---
 
 <AdminLayout title="Blog">
+	<div class="crumb">KONCRETA ADMIN // BLOG</div>
 	<div class="admin-head">
 		<div>
-			<div class="idx">{posts.length} en total</div>
 			<h1>Blog</h1>
 		</div>
 		<a href="/admin/blog/nuevo" class="btn btn-primary">+ Nuevo post</a>
 	</div>
 	{result?.error && <p class="action-error">{result.error.message}</p>}
+
+	<div class="controls-bar">
+		<div class="search-field">
+			<span class="material-symbols-outlined">search</span>
+			<input type="text" id="filter-search" placeholder="Buscar por título..." />
+		</div>
+		<div class="controls-filters">
+			<select id="filter-category">
+				<option value="">Todas las categorías</option>
+				{BLOG_CATEGORIES.map((cat) => <option value={cat.value}>{cat.label}</option>)}
+			</select>
+			<select id="filter-status">
+				<option value="">Todos los estados</option>
+				<option value="true">Publicado</option>
+				<option value="false">Borrador</option>
+			</select>
+		</div>
+	</div>
+
 	<div class="admin-card table-card">
 		<table class="admin-table">
 			<thead>
@@ -29,25 +48,45 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 					<th></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="posts-tbody">
 				{
 					posts.map((p) => (
-						<tr>
-							<td>{p.title}</td>
+						<tr data-category={p.category} data-published={String(p.published)} data-title={p.title.toLowerCase()}>
+							<td>
+								<div class="row-title">
+									<div class="row-thumb">
+										{p.hero_image_url ? (
+											<img src={p.hero_image_url} alt={p.hero_image_alt ?? p.title} />
+										) : (
+											<span class="material-symbols-outlined">article</span>
+										)}
+									</div>
+									<div>
+										<div class="t">
+											{p.title}
+											{p.featured && <span title="Destacado"> ★</span>}
+										</div>
+										<span class="sub">{categoryLabel(p.category)}</span>
+									</div>
+								</div>
+							</td>
 							<td><span class="category-pill">{categoryLabel(p.category)}</span></td>
 							<td>
 								<span class={`status-pill ${p.published ? 'on' : 'off'}`}>
+									<span class="dot" />
 									{p.published ? 'Publicado' : 'Borrador'}
 								</span>
 							</td>
 							<td>{p.featured ? '★' : ''}</td>
 							<td>
 								<div class="row-actions">
-									<a href={`/admin/blog/${p.id}`}>Editar</a>
+									<a href={`/admin/blog/${p.id}`} title="Editar">
+										<span class="material-symbols-outlined">edit</span>
+									</a>
 									<form method="POST" action={actions.deletePost}>
 										<input type="hidden" name="id" value={p.id} />
-										<button type="submit" data-confirm="¿Eliminar este post?">
-											Eliminar
+										<button type="submit" data-confirm="¿Eliminar este post?" title="Eliminar">
+											<span class="material-symbols-outlined">delete</span>
 										</button>
 									</form>
 								</div>
@@ -66,6 +105,7 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 				}
 			</tbody>
 		</table>
+		<div class="table-foot">Mostrando {posts.length} posts</div>
 	</div>
 </AdminLayout>
 
@@ -75,4 +115,26 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 			if (!confirm(btn.dataset.confirm)) e.preventDefault();
 		});
 	});
+
+	const searchInput = document.getElementById('filter-search');
+	const categorySelect = document.getElementById('filter-category');
+	const statusSelect = document.getElementById('filter-status');
+	const rows = Array.from(document.querySelectorAll('#posts-tbody tr[data-title]'));
+
+	function applyFilters() {
+		const search = (searchInput?.value || '').trim().toLowerCase();
+		const category = categorySelect?.value || '';
+		const status = statusSelect?.value || '';
+
+		rows.forEach((row) => {
+			const matchesSearch = !search || row.dataset.title.includes(search);
+			const matchesCategory = !category || row.dataset.category === category;
+			const matchesStatus = !status || row.dataset.published === status;
+			row.style.display = matchesSearch && matchesCategory && matchesStatus ? '' : 'none';
+		});
+	}
+
+	searchInput?.addEventListener('input', applyFilters);
+	categorySelect?.addEventListener('change', applyFilters);
+	statusSelect?.addEventListener('change', applyFilters);
 </script>

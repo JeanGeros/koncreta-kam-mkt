@@ -39,33 +39,58 @@ const { title, description, pubDate, categoryLabel, heroImage, heroImageAlt } = 
 				color: var(--gris-oscuro);
 				line-height: 1.75;
 			}
-			.prose h1,
-			.prose h2,
-			.prose h3 {
+			/* El contenido del post entra por set:html, así que no lleva el
+			   atributo de scope de Astro: estas reglas deben ser :global. */
+			.prose :global(h1),
+			.prose :global(h2),
+			.prose :global(h3) {
 				color: var(--negro);
 				margin: 1.6em 0 0.6em;
 			}
-			.prose p {
+			.prose :global(p) {
 				margin: 0 0 1.2em;
 			}
-			.prose ul,
-			.prose ol {
+			.prose :global(ul),
+			.prose :global(ol) {
 				margin: 0 0 1.2em;
 				padding-left: 1.4em;
 			}
-			.prose li {
+			.prose :global(li) {
 				list-style: initial;
 				margin-bottom: 0.5em;
 			}
-			.prose a {
+			.prose :global(a) {
 				color: var(--naranja);
 				text-decoration: underline;
 			}
-			.prose img,
-			.prose video {
+			.prose :global(img),
+			.prose :global(video) {
 				width: 100%;
 				border-radius: 12px;
 				margin: 1.6em 0;
+			}
+			.prose :global([data-columns]) {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 32px;
+				margin: 1.6em 0;
+				align-items: start;
+			}
+			/* min-width:0 evita que una imagen o palabra larga desborde la columna */
+			.prose :global([data-column]) {
+				min-width: 0;
+			}
+			.prose :global([data-column] > :last-child) {
+				margin-bottom: 0;
+			}
+			.prose :global([data-column] img) {
+				margin: 0 0 1em;
+			}
+			@media (max-width: 640px) {
+				.prose :global([data-columns]) {
+					grid-template-columns: 1fr;
+					gap: 20px;
+				}
 			}
 			.title {
 				max-width: 720px;

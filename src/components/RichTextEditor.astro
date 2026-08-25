@@ -24,6 +24,7 @@ const { name, id = name, value = '', required = false } = Astro.props;
 		<span class="rte-sep"></span>
 		<button type="button" data-cmd="image" title="Imagen"><Icon name="material-symbols:image" class="icon" /></button>
 		<button type="button" data-cmd="video" title="Video"><Icon name="material-symbols:videocam" class="icon" /></button>
+		<button type="button" data-cmd="columns" title="Bloque de dos columnas"><Icon name="material-symbols:view-column" class="icon" /></button>
 		<span class="rte-status" data-rte-status></span>
 	</div>
 	<div class="rte-editor" data-rte-editor></div>
@@ -39,6 +40,33 @@ const { name, id = name, value = '', required = false } = Astro.props;
 	import Link from '@tiptap/extension-link';
 	import Placeholder from '@tiptap/extension-placeholder';
 	import { actions } from 'astro:actions';
+
+	// Bloque de dos columnas: cada columna acepta lo mismo que el cuerpo del
+	// post (texto, títulos, listas, o una imagen insertada con su botón).
+	const Column = Node.create({
+		name: 'column',
+		content: 'block+',
+		isolating: true,
+		parseHTML() {
+			return [{ tag: 'div[data-column]' }];
+		},
+		renderHTML({ HTMLAttributes }) {
+			return ['div', mergeAttributes(HTMLAttributes, { 'data-column': '' }), 0];
+		},
+	});
+
+	const Columns = Node.create({
+		name: 'columns',
+		group: 'block',
+		content: 'column column',
+		isolating: true,
+		parseHTML() {
+			return [{ tag: 'div[data-columns]' }];
+		},
+		renderHTML({ HTMLAttributes }) {
+			return ['div', mergeAttributes(HTMLAttributes, { 'data-columns': '' }), 0];
+		},
+	});
 
 	const Video = Node.create({
 		name: 'video',
@@ -70,6 +98,8 @@ const { name, id = name, value = '', required = false } = Astro.props;
 				StarterKit,
 				Image,
 				Video,
+				Columns,
+				Column,
 				Link.configure({ openOnClick: false }),
 				Placeholder.configure({ placeholder: 'Escribe el contenido del post…' }),
 			],
@@ -116,6 +146,11 @@ const { name, id = name, value = '', required = false } = Astro.props;
 					case 'video':
 						fileVideoEl?.click();
 						break;
+					case 'columns': {
+						const col = () => ({ type: 'column', content: [{ type: 'paragraph' }] });
+						chain.insertContent({ type: 'columns', content: [col(), col()] }).run();
+						break;
+					}
 				}
 			});
 		});

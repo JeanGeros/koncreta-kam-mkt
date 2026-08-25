@@ -18,7 +18,9 @@ export function verifyPassword(password: string, stored: string): boolean {
 }
 
 function sign(payload: string): string {
-	return createHmac('sha256', import.meta.env.SESSION_SECRET).update(payload).digest('hex');
+	const secret = process.env.SESSION_SECRET || import.meta.env.SESSION_SECRET;
+	if (!secret) throw new Error('Falta SESSION_SECRET en el entorno');
+	return createHmac('sha256', secret).update(payload).digest('hex');
 }
 
 export function createSessionToken(userId: number): string {

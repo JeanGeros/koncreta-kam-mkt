@@ -32,7 +32,7 @@ async function uploadImageIfPresent(image: File | undefined): Promise<string | n
 	}
 	const blob = await put(`uploads/${Date.now()}-${image.name}`, image, {
 		access: 'public',
-		token: import.meta.env.BLOB_READ_WRITE_TOKEN,
+		token: process.env.BLOB_READ_WRITE_TOKEN || import.meta.env.BLOB_READ_WRITE_TOKEN,
 	});
 	return blob.url;
 }
@@ -241,7 +241,7 @@ export const server = {
 			}
 			const blob = await put(`uploads/${Date.now()}-${file.name}`, file, {
 				access: 'public',
-				token: import.meta.env.BLOB_READ_WRITE_TOKEN,
+				token: process.env.BLOB_READ_WRITE_TOKEN || import.meta.env.BLOB_READ_WRITE_TOKEN,
 			});
 			return { url: blob.url, kind: isVideo ? 'video' : 'image' };
 		},

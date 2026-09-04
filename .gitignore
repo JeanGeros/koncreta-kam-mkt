@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # bocetos HTML originales (ya migrados a src/ y public/img/)
 origin-template/
+
+# Video pesado: se sirve desde public/ sin versionar
+public/vision_mision.mp4

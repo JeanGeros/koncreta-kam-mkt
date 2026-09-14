@@ -1,6 +1,7 @@
 import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro:schema';
 import { put } from '@vercel/blob';
+import sharp from 'sharp';
 import {
 	createSessionToken,
 	SESSION_COOKIE_NAME,
@@ -11,7 +12,11 @@ import { getUserByEmail } from '../lib/users';
 import { createProject, deleteProject, updateProject } from '../lib/projects';
 import { createPost, deletePost, updatePost } from '../lib/blog';
 
-const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+// Las fotos de cámara/celular pesan 6-12MB. Con un tope bajo la gente las
+// pasaba por compresores online y subía imágenes destrozadas; aceptamos el
+// original y lo normalizamos aquí con sharp.
+const MAX_IMAGE_BYTES = 30 * 1024 * 1024;
+const MAX_IMAGE_WIDTH = 2000;
 const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
 const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
 const ALLOWED_VIDEO_TYPES = new Set(['video/mp4', 'video/webm']);
@@ -22,19 +27,36 @@ function requireUser(locals: App.Locals) {
 	}
 }
 
+function blobToken() {
+	return process.env.BLOB_READ_WRITE_TOKEN || import.meta.env.BLOB_READ_WRITE_TOKEN;
+}
+
+// Reencodea a WebP con tope de ancho: subir el original y dejar que el
+// navegador lo escale es lo que hacía que se vieran mal.
+async function uploadImage(image: File): Promise<string> {
+	const optimized = await sharp(await image.arrayBuffer())
+		.rotate() // respeta el EXIF de orientación, que se pierde al reencodear
+		.resize({ width: MAX_IMAGE_WIDTH, withoutEnlargement: true })
+		.webp({ quality: 88 })
+		.toBuffer();
+	const name = image.name.replace(/\.[^.]+$/, '') || 'imagen';
+	const blob = await put(`uploads/${Date.now()}-${name}.webp`, optimized, {
+		access: 'public',
+		contentType: 'image/webp',
+		token: blobToken(),
+	});
+	return blob.url;
+}
+
 async function uploadImageIfPresent(image: File | undefined): Promise<string | null> {
 	if (!image || image.size === 0) return null;
 	if (!ALLOWED_IMAGE_TYPES.has(image.type)) {
 		throw new ActionError({ code: 'BAD_REQUEST', message: 'Formato de imagen no permitido (usa JPG, PNG o WebP).' });
 	}
 	if (image.size > MAX_IMAGE_BYTES) {
-		throw new ActionError({ code: 'BAD_REQUEST', message: 'La imagen supera los 5MB.' });
+		throw new ActionError({ code: 'BAD_REQUEST', message: 'La imagen supera los 30MB.' });
 	}
-	const blob = await put(`uploads/${Date.now()}-${image.name}`, image, {
-		access: 'public',
-		token: process.env.BLOB_READ_WRITE_TOKEN || import.meta.env.BLOB_READ_WRITE_TOKEN,
-	});
-	return blob.url;
+	return uploadImage(image);
 }
 
 function linesToBullets(text: string): string[] {
@@ -236,14 +258,17 @@ export const server = {
 			if (file.size > maxBytes) {
 				throw new ActionError({
 					code: 'BAD_REQUEST',
-					message: `El archivo supera el máximo permitido (${isVideo ? '50MB' : '5MB'}).`,
+					message: `El archivo supera el máximo permitido (${isVideo ? '50MB' : '30MB'}).`,
 				});
+			}
+			if (!isVideo) {
+				return { url: await uploadImage(file), kind: 'image' };
 			}
 			const blob = await put(`uploads/${Date.now()}-${file.name}`, file, {
 				access: 'public',
-				token: process.env.BLOB_READ_WRITE_TOKEN || import.meta.env.BLOB_READ_WRITE_TOKEN,
+				token: blobToken(),
 			});
-			return { url: blob.url, kind: isVideo ? 'video' : 'image' };
+			return { url: blob.url, kind: 'video' };
 		},
 	}),
 };

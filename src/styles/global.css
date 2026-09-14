@@ -117,10 +117,14 @@
     }
     .selector-visual .ph-text{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--gris-plata);text-transform:uppercase;letter-spacing:0.06em;}
     .selector-tag{position:absolute;top:16px;left:16px;background:rgba(0,0,0,0.6);color:#fff;font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.06em;padding:7px 14px;z-index:3;border-radius:var(--r-pill);}
-    .selector-info{padding:36px 34px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--line-dark);}
-    @media(min-width:900px){.selector-info{border-top:none;border-left:1px solid var(--line-dark);}}
-    .selector-info h4{font-size:1.4rem;margin-bottom:14px;}
-    .selector-info p{color:#b8b8b8;font-size:0.9rem;line-height:1.65;margin-bottom:24px;}
+    /* Padding y margenes apretados en movil, donde esta card se come media
+       pantalla; a partir de 900px vuelven a los valores amplios. */
+    .selector-info{padding:20px 20px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--line-dark);}
+    @media(min-width:900px){.selector-info{padding:36px 34px;border-top:none;border-left:1px solid var(--line-dark);}}
+    .selector-info h4{font-size:1.15rem;margin-bottom:10px;}
+    @media(min-width:900px){.selector-info h4{font-size:1.4rem;margin-bottom:14px;}}
+    .selector-info p{color:#b8b8b8;font-size:0.9rem;line-height:1.65;margin-bottom:16px;}
+    @media(min-width:900px){.selector-info p{margin-bottom:24px;}}
     .selector-info .btn{align-self:flex-start;}
     .selector-track{display:flex;gap:10px;overflow-x:auto;margin-top:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
     .selector-track::-webkit-scrollbar{height:4px;}

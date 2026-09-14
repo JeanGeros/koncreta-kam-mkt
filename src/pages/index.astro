@@ -50,8 +50,12 @@ import MapasPlantas from '../components/MapasPlantas.astro';
 <!-- ===================== MISION Y VISION ===================== -->
 <!-- ponytail: <video controls> nativo a pantalla completa, sin overlay ni JS -->
 <section class="mv-section">
-  <video controls playsinline preload="metadata">
-    <source src="/vision_mision.mp4" type="video/mp4">
+  <!-- muted es obligatorio: sin el, los navegadores bloquean el autoplay.
+       controls se queda para poder pausarlo (WCAG 2.2.2).
+       Apunta a la version web (1.7MB): con autoplay el master de 66MB se
+       descargaba entero en cada visita, y ademas esta gitignorado. -->
+  <video controls playsinline autoplay muted preload="auto">
+    <source src="/vision_mision-web.mp4" type="video/mp4">
   </video>
 </section>
 

@@ -1,4 +1,7 @@
-button, input, textarea, select{
+/* :not(.btn) es imprescindible: global.css vive entero dentro de @layer base,
+   y este archivo no lleva capa, asi que sin la exclusion este reset le gana a
+   .btn-primary y deja el boton transparente con texto negro sobre negro. */
+  button:not(.btn), input, textarea, select{
     font-family:inherit;font-size:inherit;color:inherit;
     background:none;border:none;appearance:none;-webkit-appearance:none;-moz-appearance:none;
     border-radius:0;box-shadow:none;

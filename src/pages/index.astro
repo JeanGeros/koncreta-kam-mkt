@@ -264,7 +264,7 @@ try {
 
 <script is:inline define:vars={{ selectorProjects }}>
 const reveals = document.querySelectorAll('[data-reveal]');
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0});
 reveals.forEach(el=>io.observe(el));
 
 // Selector de proyectos

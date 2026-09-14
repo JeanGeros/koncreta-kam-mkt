@@ -51,12 +51,13 @@ import MapasPlantas from '../components/MapasPlantas.astro';
 <!-- ponytail: <video controls> nativo a pantalla completa, sin overlay ni JS -->
 <section class="mv-section">
   <!-- muted es obligatorio: sin el, los navegadores bloquean el autoplay.
-       Sin controls, el clic sobre el video hace de pausa: WCAG 2.2.2 exige
-       poder detener algo que arranca solo y dura mas de 5 segundos.
-       Apunta a la version web (1.7MB): con autoplay el master de 66MB se
-       descargaba entero en cada visita, y ademas esta gitignorado. -->
-  <video playsinline autoplay muted preload="auto" style="cursor:pointer"
-    onclick="this.paused ? this.play() : this.pause()">
+       En bucle y sin pausa por decision de diseno. Unica salvedad: si el
+       sistema pide menos animacion se detiene, que es lo que evita marear a
+       quien lo activo por vertigo o migrana.
+       Apunta a la version web (9.1MB): el master de 66MB se descargaba
+       entero en cada visita, y ademas esta gitignorado. -->
+  <video playsinline autoplay muted loop preload="auto"
+    onloadeddata="if(matchMedia('(prefers-reduced-motion:reduce)').matches) this.pause()">
     <source src="/vision_mision-web.mp4" type="video/mp4">
   </video>
 </section>

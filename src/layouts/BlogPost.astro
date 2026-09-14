@@ -83,6 +83,11 @@ const { title, description, pubDate, categoryLabel, heroImage, heroImageAlt } = 
 			.prose :global([data-column] > :last-child) {
 				margin-bottom: 0;
 			}
+			/* Sin esto un h2 al inicio de columna cae desfasado respecto a la
+			   imagen de la columna vecina, por su margin-top. */
+			.prose :global([data-column] > :first-child) {
+				margin-top: 0;
+			}
 			.prose :global([data-column] img) {
 				margin: 0 0 1em;
 			}

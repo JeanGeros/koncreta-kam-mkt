@@ -97,7 +97,7 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 
 <script is:inline>
 const reveals = document.querySelectorAll('[data-reveal]');
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.08});
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0});
 reveals.forEach(el=>io.observe(el));
 
 // Category filter

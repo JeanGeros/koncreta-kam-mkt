@@ -3,7 +3,28 @@ export const prerender = true;
 
 import Base from '../layouts/Base.astro';
 import MapasPlantas from '../components/MapasPlantas.astro';
+import { getPublishedProjects } from '../lib/projects';
 
+// El selector mostraba 4 proyectos escritos a mano que ya no existen. Ahora
+// sale de la base: un proyecto por categoria, que mantiene el mismo formato.
+// try/catch porque la pagina es prerenderizada: sin el, una base caida al
+// momento del build tumba el deploy entero.
+let selectorProjects: { tag: string; title: string; desc: string; img: string | null }[] = [];
+try {
+	const porCategoria = new Map<string, (typeof selectorProjects)[number]>();
+	for (const p of await getPublishedProjects()) {
+		if (porCategoria.has(p.category)) continue; // el primero de cada una
+		porCategoria.set(p.category, {
+			tag: p.category.toUpperCase(),
+			title: p.title,
+			desc: p.bullets?.[0] ?? '',
+			img: p.image_url,
+		});
+	}
+	selectorProjects = [...porCategoria.values()];
+} catch (e) {
+	console.warn('No se pudieron cargar los proyectos del selector:', e);
+}
 ---
 
 <Base title="Koncreta Prefabricados — Ingeniería de hormigón a medida">
@@ -50,8 +71,15 @@ import MapasPlantas from '../components/MapasPlantas.astro';
 <!-- ===================== MISION Y VISION ===================== -->
 <!-- ponytail: <video controls> nativo a pantalla completa, sin overlay ni JS -->
 <section class="mv-section">
-  <video controls playsinline preload="metadata">
-    <source src="/vision_mision.mp4" type="video/mp4">
+  <!-- muted es obligatorio: sin el, los navegadores bloquean el autoplay.
+       En bucle y sin pausa por decision de diseno. Unica salvedad: si el
+       sistema pide menos animacion se detiene, que es lo que evita marear a
+       quien lo activo por vertigo o migrana.
+       Apunta a la version web (9.1MB): el master de 66MB se descargaba
+       entero en cada visita, y ademas esta gitignorado. -->
+  <video playsinline autoplay muted loop preload="auto"
+    onloadeddata="if(matchMedia('(prefers-reduced-motion:reduce)').matches) this.pause()">
+    <source src="/vision_mision-web.mp4" type="video/mp4">
   </video>
 </section>
 
@@ -62,12 +90,13 @@ import MapasPlantas from '../components/MapasPlantas.astro';
     <div class="section-head" data-reveal><h3>Explora los proyectos disponibles</h3></div>
     <div class="selector-wrap" data-reveal>
       <div class="selector-visual">
-        <span class="selector-tag mono" id="sel-tag">FUNDACIONES</span>
-        <img src="/img/k-21fdd5a6.jpg" id="sel-image" alt="Fundaciones con pedestales">
+        <span class="selector-tag mono" id="sel-tag">{selectorProjects[0]?.tag}</span>
+        <img src={selectorProjects[0]?.img} id="sel-image" alt={selectorProjects[0]?.title} />
       </div>
       <div class="selector-info">
-        <h4 id="sel-title">Fundaciones con pedestales</h4>
-        <p id="sel-desc">Base estructural prefabricada para baterías y equipos industriales, fabricada bajo especificación exacta de tu ingeniería.</p>
+        <h4 id="sel-title">{selectorProjects[0]?.title}</h4>
+        {/* Los proyectos importados no traen descripcion: el <p> se oculta solo */}
+        <p id="sel-desc" style={selectorProjects[0]?.desc ? '' : 'display:none'}>{selectorProjects[0]?.desc}</p>
         <a class="btn btn-primary" href="https://wa.me/56983984326">Cotizar Proyectos</a>
       </div>
     </div>
@@ -95,15 +124,15 @@ import MapasPlantas from '../components/MapasPlantas.astro';
   </div>
   <div class="plantas-grid">
     <figure class="big" data-reveal>
-      <img src="/img/k-21fdd5a6.jpg" alt="Piezas de hormigón prefabricado Koncreta con marca en pallets, listas para despacho en la planta">
-      <div class="fig-caption"><span class="tag">Fig. 01</span>Planta Antofagasta</div>
+      <img src="/img/terreno-equipo.webp" alt="Equipo de Koncreta trabajando en faena junto a piezas de hormigón prefabricado">
+      <div class="fig-caption"><span class="tag">Fig. 01</span>Equipo en faena</div>
     </figure>
     <figure data-reveal>
-      <img src="/img/k-debd514c.jpg" alt="Cámara cilíndrica de hormigón prefabricado sobre camión plano, lista para transporte a faena minera">
+      <img src="/img/terreno-transporte.webp" alt="Camión plano cargado con piezas de hormigón prefabricado Koncreta listas para despacho a faena">
       <div class="fig-caption"><span class="tag">Fig. 02</span>Transporte homologado</div>
     </figure>
     <figure data-reveal>
-      <img src="/img/k-188c1eba.jpg" alt="Piezas de hormigón Koncreta apiladas en patio de acopio de la planta, con montaje en curso al fondo">
+      <img src="/img/terreno-montaje.webp" alt="Operarios montando muros de contención prefabricados Koncreta en terreno, junto a un parque fotovoltaico">
       <div class="fig-caption"><span class="tag">Fig. 03</span>Montaje en obra</div>
     </figure>
   </div>
@@ -178,12 +207,12 @@ import MapasPlantas from '../components/MapasPlantas.astro';
       <span class="lk-banner-shape lk-shape-2"></span>
       <span class="lk-banner-shape lk-shape-3"></span>
       <div class="lk-banner-inner">
-        <div class="lk-banner-left">
-          <span class="lk-logo">in</span>
-          <div>
+        <div class="lk-banner-text">
+          <div class="lk-banner-left">
+            <span class="lk-logo">in</span>
             <h3>Síguenos en LinkedIn</h3>
-            <p>Casos de éxito, novedades de planta y avances de proyectos — directo desde la página oficial de Koncreta Prefabricados.</p>
           </div>
+          <p>Casos de éxito, novedades de planta y avances de proyectos — directo desde la página oficial de Koncreta Prefabricados.</p>
         </div>
         <a class="lk-banner-btn" href="https://www.linkedin.com/search/results/all/?keywords=koncreta%20prefabricados&origin=TYPEAHEAD_HISTORY&position=0" target="_blank" rel="noopener">
           Ver LinkedIn de Koncreta
@@ -233,18 +262,13 @@ import MapasPlantas from '../components/MapasPlantas.astro';
   </div>
 </section>
 
-<script is:inline>
+<script is:inline define:vars={{ selectorProjects }}>
 const reveals = document.querySelectorAll('[data-reveal]');
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0});
 reveals.forEach(el=>io.observe(el));
 
 // Selector de proyectos
-const projects = [
-  {tag:'FUNDACIONES', title:'Fundaciones con pedestales', desc:'Base estructural prefabricada para baterías y equipos industriales, fabricada bajo especificación exacta de tu ingeniería.', img:'/img/k-21fdd5a6.jpg'},
-  {tag:'CÁMARAS MINERAS', title:'Cámaras cilíndricas mineras', desc:'Cámara prefabricada para instalaciones eléctricas y de servicios en faena, con insertos metálicos embebidos.', img:'/img/k-debd514c.jpg'},
-  {tag:'MONTAJE', title:'Muros y dados de fundación', desc:'Piezas de contención y anclaje fabricadas a medida, con montaje realizado por nuestro propio equipo en terreno.', img:'/img/k-188c1eba.jpg'},
-  {tag:'BARRERAS', title:'Barreras New Jersey', desc:'Barreras de contención vial prefabricadas bajo especificación de proyecto. Imagen referencial disponible en levantamiento fotográfico.', img:null}
-];
+const projects = selectorProjects;
 const track = document.getElementById('sel-track');
 const selImage = document.getElementById('sel-image');
 const selVisual = document.querySelector('.selector-visual');
@@ -257,7 +281,7 @@ function renderThumbs(){
   projects.forEach((p, i)=>{
     const div = document.createElement('div');
     div.className = 'selector-thumb' + (i===0 ? ' active' : '');
-    div.innerHTML = (p.img ? `<img src="${p.img}" alt="${p.title}">` : `<div class="ph-mini"></div>`) + `<span class="thumb-label mono">${p.tag}</span>`;
+    div.innerHTML = (p.img ? `<img src="${p.img}" alt="${p.title}" loading="lazy">` : `<div class="ph-mini"></div>`) + `<span class="thumb-label mono">${p.tag}</span>`;
     div.addEventListener('click', ()=> selectProject(i));
     track.appendChild(div);
   });
@@ -267,6 +291,7 @@ function selectProject(i){
   selTag.textContent = p.tag;
   selTitle.textContent = p.title;
   selDesc.textContent = p.desc;
+  selDesc.style.display = p.desc ? '' : 'none';
   if(p.img){
     selVisual.querySelector('.placeholder-pattern')?.remove();
     if(!selVisual.querySelector('img')){ selVisual.appendChild(selImage); }

@@ -31,13 +31,17 @@ const { title, description, pubDate, categoryLabel, heroImage, heroImageAlt } = 
 				height: 100%;
 				object-fit: cover;
 			}
+			/* El cuerpo va a 18px y no a los 16px heredados del body: a 16px daban
+			   ~88 caracteres por linea, sobre el tope de 80 de WCAG 1.4.8; a 18px
+			   quedan ~80. El ancho se mantiene en los 720px de siempre. */
 			.prose {
 				width: 720px;
 				max-width: calc(100% - 2.5rem);
 				margin: 0 auto;
 				padding: 48px 0 90px;
 				color: var(--gris-oscuro);
-				line-height: 1.75;
+				font-size: 1.125rem;
+				line-height: 1.7;
 			}
 			/* El contenido del post entra por set:html, así que no lleva el
 			   atributo de scope de Astro: estas reglas deben ser :global. */
@@ -83,6 +87,11 @@ const { title, description, pubDate, categoryLabel, heroImage, heroImageAlt } = 
 			.prose :global([data-column] > :last-child) {
 				margin-bottom: 0;
 			}
+			/* Sin esto un h2 al inicio de columna cae desfasado respecto a la
+			   imagen de la columna vecina, por su margin-top. */
+			.prose :global([data-column] > :first-child) {
+				margin-top: 0;
+			}
 			.prose :global([data-column] img) {
 				margin: 0 0 1em;
 			}
@@ -92,8 +101,10 @@ const { title, description, pubDate, categoryLabel, heroImage, heroImageAlt } = 
 					gap: 20px;
 				}
 			}
+			/* 760 = los 720px de .prose + los 20px de padding de cada lado. Antes
+			   estaba en 720 y el titulo quedaba 40px mas angosto que el cuerpo. */
 			.title {
-				max-width: 720px;
+				max-width: 760px;
 				margin: 0 auto;
 				padding: 48px 20px 0;
 			}

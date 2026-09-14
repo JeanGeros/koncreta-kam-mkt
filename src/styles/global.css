@@ -16,6 +16,10 @@
       --naranja:#FB6624;--naranja-deep:#D14E12;
       --blanco:#FFFFFF;--paper:#FBFAF8;--line:#DEDDD8;--line-dark:rgba(255,255,255,0.12);
       --r-sm:8px;--r-md:14px;--r-lg:22px;--r-pill:999px;
+      /* Alto real del header: logo 50px + 10px de padding arriba y abajo + 1px
+         de borde. En variable porque el hero lo resta y ya se desincronizo una
+         vez al cambiar el tamaño del logo. */
+      --header-h:71px;
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
@@ -36,10 +40,10 @@
 
     /* ===== HEADER ===== */
     header{position:sticky;top:0;z-index:1000;background:rgba(251,250,248,0.86);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line);}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;max-width:1280px;margin:0 auto;}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 32px;max-width:1280px;margin:0 auto;}
     .logo{color:var(--negro);font-family:'Century Gothic',sans-serif;font-weight:700;font-size:1rem;display:flex;align-items:center;gap:11px;}
     .logo .mark{width:26px;height:26px;color:var(--negro);display:flex;}
-    .logo img{height:34px;width:auto;display:block;}
+    .logo img{height:50px;width:auto;display:block;}
     .logo span.pref{color:var(--gris-plata);font-family:'JetBrains Mono',monospace;font-weight:400;font-size:0.52em;display:block;letter-spacing:0.2em;margin-top:3px;text-transform:uppercase;}
     nav.desktop-nav{display:none;}
     nav.desktop-nav ul{display:flex;gap:34px;}
@@ -59,8 +63,11 @@
 
 
     /* ===== HERO — imagen oficial del cliente ===== */
-    .hero{position:relative;min-height:calc(100vh - 75px);display:flex;align-items:flex-end;background:var(--negro);overflow:hidden;}
-    @media(min-width:700px){.hero{min-height:96vh;}}
+    /* dvh y no vh: en movil la barra de direcciones se recoge al hacer scroll y
+       con vh el hero queda mas alto que la pantalla, empujando los botones
+       fuera de vista. El vh va primero como respaldo. */
+    .hero{position:relative;min-height:calc(100vh - var(--header-h));min-height:calc(100dvh - var(--header-h));display:flex;align-items:flex-end;background:var(--negro);overflow:hidden;}
+    @media(min-width:700px){.hero{min-height:calc(100vh - var(--header-h));}}
     .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
     .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.92) 100%);}
     .hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;z-index:2;background:var(--naranja);}
@@ -110,10 +117,14 @@
     }
     .selector-visual .ph-text{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--gris-plata);text-transform:uppercase;letter-spacing:0.06em;}
     .selector-tag{position:absolute;top:16px;left:16px;background:rgba(0,0,0,0.6);color:#fff;font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.06em;padding:7px 14px;z-index:3;border-radius:var(--r-pill);}
-    .selector-info{padding:36px 34px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--line-dark);}
-    @media(min-width:900px){.selector-info{border-top:none;border-left:1px solid var(--line-dark);}}
-    .selector-info h4{font-size:1.4rem;margin-bottom:14px;}
-    .selector-info p{color:#b8b8b8;font-size:0.9rem;line-height:1.65;margin-bottom:24px;}
+    /* Padding y margenes apretados en movil, donde esta card se come media
+       pantalla; a partir de 900px vuelven a los valores amplios. */
+    .selector-info{padding:20px 20px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--line-dark);}
+    @media(min-width:900px){.selector-info{padding:36px 34px;border-top:none;border-left:1px solid var(--line-dark);}}
+    .selector-info h4{font-size:1.15rem;margin-bottom:10px;}
+    @media(min-width:900px){.selector-info h4{font-size:1.4rem;margin-bottom:14px;}}
+    .selector-info p{color:#b8b8b8;font-size:0.9rem;line-height:1.65;margin-bottom:16px;}
+    @media(min-width:900px){.selector-info p{margin-bottom:24px;}}
     .selector-info .btn{align-self:flex-start;}
     .selector-track{display:flex;gap:10px;overflow-x:auto;margin-top:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
     .selector-track::-webkit-scrollbar{height:4px;}
@@ -144,8 +155,11 @@
 
     /* ===== GALERIA / PLANTAS ===== */
     .plantas{padding:0 0 110px;background:var(--paper);}
-    .plantas-grid{display:grid;grid-template-columns:1fr;gap:10px;padding:0 32px;}
-    @media(min-width:820px){.plantas-grid{grid-template-columns:1.5fr 1fr;grid-template-rows:280px 280px;padding:0;}}
+    /* Mismo ancho y padding que .container para que la galeria alinee con el
+       rotulo "En terreno"; antes el padding:0 de >=820px la soltaba a todo
+       el ancho de la ventana. */
+    .plantas-grid{display:grid;grid-template-columns:1fr;gap:10px;padding:0 32px;max-width:1280px;margin:0 auto;}
+    @media(min-width:820px){.plantas-grid{grid-template-columns:1.5fr 1fr;grid-template-rows:280px 280px;}}
     .plantas-grid .big{grid-row:1/3;}
     .plantas-grid figure{position:relative;overflow:hidden;height:280px;background:#111;border-radius:var(--r-md);}
     @media(min-width:820px){.plantas-grid .big{height:562px;}}
@@ -186,14 +200,18 @@
     @keyframes lk-float-2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(20px,-18px) scale(1.08);}}
     .lk-banner-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:30px;}
     @media(min-width:800px){.lk-banner-inner{flex-direction:row;align-items:center;justify-content:space-between;gap:40px;}}
-    .lk-banner-left{display:flex;align-items:flex-start;gap:20px;}
+    /* El parrafo salio de al lado del logo y quedo bajo el icono y el titulo.
+       .lk-banner-text lo agrupa para que en escritorio siga siendo un solo
+       bloque frente al boton. */
+    .lk-banner-text{display:flex;flex-direction:column;gap:14px;}
+    .lk-banner-left{display:flex;align-items:center;gap:16px;}
     .lk-banner .lk-logo{
       width:52px;height:52px;background:#fff;border-radius:12px;flex-shrink:0;
       display:flex;align-items:center;justify-content:center;color:#0A66C2;
       font-family:'Century Gothic',sans-serif;font-weight:700;font-size:1.35rem;
       box-shadow:0 8px 20px rgba(0,0,0,0.2);
     }
-    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:8px;}
+    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:0;}
     .lk-banner p{color:rgba(255,255,255,0.78);font-size:0.92rem;max-width:420px;line-height:1.6;}
     .lk-banner-btn{
       flex-shrink:0;display:inline-flex;align-items:center;gap:10px;background:#fff;color:#0A66C2;

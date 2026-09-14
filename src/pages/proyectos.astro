@@ -15,7 +15,7 @@ const projects = await getPublishedProjects();
     <div class="idx">Casos de éxito</div>
     <h1>Proyectos Ejecutados</h1>
     <p>Soluciones a la medida de tu ingeniería con Rechazo 0 en terreno.</p>
-    <div class="rechazo-chip"><b>Rechazo 0</b>&nbsp; en recepción de obra — cumplimiento verificado en cada entrega</div>
+    <div class="rechazo-chip"><b>Rechazo 0</b><span>en recepción de obra — cumplimiento verificado en cada entrega</span></div>
   </div>
 </section>
 
@@ -105,7 +105,7 @@ const projects = await getPublishedProjects();
 
 <script is:inline>
 const reveals = document.querySelectorAll('[data-reveal]');
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1});
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0});
 reveals.forEach(el=>io.observe(el));
 
 const chips = document.querySelectorAll('#proyectos-filter-track .filter-chip');

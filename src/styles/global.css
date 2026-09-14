@@ -200,14 +200,18 @@
     @keyframes lk-float-2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(20px,-18px) scale(1.08);}}
     .lk-banner-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:30px;}
     @media(min-width:800px){.lk-banner-inner{flex-direction:row;align-items:center;justify-content:space-between;gap:40px;}}
-    .lk-banner-left{display:flex;align-items:flex-start;gap:20px;}
+    /* El parrafo salio de al lado del logo y quedo bajo el icono y el titulo.
+       .lk-banner-text lo agrupa para que en escritorio siga siendo un solo
+       bloque frente al boton. */
+    .lk-banner-text{display:flex;flex-direction:column;gap:14px;}
+    .lk-banner-left{display:flex;align-items:center;gap:16px;}
     .lk-banner .lk-logo{
       width:52px;height:52px;background:#fff;border-radius:12px;flex-shrink:0;
       display:flex;align-items:center;justify-content:center;color:#0A66C2;
       font-family:'Century Gothic',sans-serif;font-weight:700;font-size:1.35rem;
       box-shadow:0 8px 20px rgba(0,0,0,0.2);
     }
-    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:8px;}
+    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:0;}
     .lk-banner p{color:rgba(255,255,255,0.78);font-size:0.92rem;max-width:420px;line-height:1.6;}
     .lk-banner-btn{
       flex-shrink:0;display:inline-flex;align-items:center;gap:10px;background:#fff;color:#0A66C2;

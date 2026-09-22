@@ -77,7 +77,8 @@
   .newsletter-inner h3{color:#fff;font-size:clamp(1.4rem,2.8vw,1.9rem);max-width:440px;letter-spacing:-0.02em;}
   .newsletter-inner p{color:#b0b0b0;font-size:0.88rem;margin-top:10px;max-width:400px;}
   .newsletter-form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:380px;}
-  @media(min-width:460px){.newsletter-form{flex-direction:row;}}
+  @media(min-width:460px){.newsletter-form{flex-direction:row;flex-wrap:wrap;}.newsletter-form input[type=email]{flex:1;}}
+  .newsletter-form .cf-turnstile{flex-basis:100%;}
   .newsletter-form input{
     flex:1;background:#161616;border:1px solid #2a2a2a;color:#fff;padding:14px 18px;
     border-radius:var(--r-pill);font-family:'Avalon',sans-serif;font-size:0.9rem;

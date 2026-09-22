@@ -235,19 +235,22 @@ try {
       <p>La Oficina Técnica revisa tu requerimiento y te responde en menos de 24 horas.</p>
       <div class="contact-alt">¿Prefieres hablar directo? <a href="tel:+56983984326">+56 9 8398 4326</a> · <a href="https://wa.me/56983984326">WhatsApp</a></div>
     </div>
-    <form data-reveal onsubmit="event.preventDefault(); alert('Formulario de demostración — boceto de diseño.');">
+    <form data-reveal data-contact-form>
+      <input type="hidden" name="tipo" value="contacto">
       <div class="field-row">
-        <div class="field"><label for="nombre">Nombre</label><input type="text" id="nombre" required></div>
-        <div class="field"><label for="empresa">Empresa</label><input type="text" id="empresa" required></div>
+        <div class="field"><label for="nombre">Nombre</label><input type="text" id="nombre" name="nombre" required></div>
+        <div class="field"><label for="empresa">Empresa</label><input type="text" id="empresa" name="empresa" required></div>
       </div>
       <div class="field-row">
-        <div class="field"><label for="correo">Correo</label><input type="email" id="correo" required></div>
-        <div class="field"><label for="telefono">Teléfono</label><input type="tel" id="telefono" required></div>
+        <div class="field"><label for="correo">Correo</label><input type="email" id="correo" name="correo" required></div>
+        <div class="field"><label for="telefono">Teléfono</label><input type="tel" id="telefono" name="telefono" required></div>
       </div>
-      <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" placeholder="Cuéntanos sobre tu proyecto"></textarea></div>
-      <input type="hidden" id="url_origen">
+      <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu proyecto"></textarea></div>
+      <input type="hidden" id="url_origen" name="url_origen">
       <script is:inline>document.getElementById('url_origen').value = window.location.href;</script>
+      <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} style="margin-bottom:16px"></div>
       <button type="submit" class="submit-btn">Enviar mensaje</button>
+      <p data-form-status role="status" aria-live="polite" style="margin-top:12px;font-size:0.85rem"></p>
     </form>
   </div>
 </section>
@@ -310,4 +313,6 @@ function selectProject(i){
 }
 renderThumbs();
 </script>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>import '../scripts/contact-form';</script>
 </Base>

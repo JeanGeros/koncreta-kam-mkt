@@ -39,22 +39,26 @@ import Base from '../layouts/Base.astro';
       <div data-reveal>
         <div class="form-card-minimal">
           <div class="fc-label">Ponte en contacto con nosotros</div>
-          <form onsubmit="event.preventDefault(); alert('Formulario de demostración — boceto de diseño.');">
+          <form data-contact-form>
+            <input type="hidden" name="tipo" value="contacto">
+            <input type="hidden" name="url_origen" value="/contacto">
             <div class="uline-row">
-              <div class="uline-field"><label>Nombre <span class="req">*</span></label><input type="text" required></div>
-              <div class="uline-field"><label>Empresa</label><input type="text"></div>
+              <div class="uline-field"><label>Nombre <span class="req">*</span></label><input type="text" name="nombre" required></div>
+              <div class="uline-field"><label>Empresa</label><input type="text" name="empresa"></div>
             </div>
             <div class="uline-row">
-              <div class="uline-field"><label>Email <span class="req">*</span></label><input type="email" required></div>
-              <div class="uline-field"><label>Teléfono</label><input type="tel"></div>
+              <div class="uline-field"><label>Email <span class="req">*</span></label><input type="email" name="correo" required></div>
+              <div class="uline-field"><label>Teléfono</label><input type="tel" name="telefono"></div>
             </div>
-            <div class="uline-field"><label>Escribe un mensaje</label><textarea placeholder="Cuéntanos sobre tu proyecto: tipo de pieza, cantidad y plazo estimado"></textarea></div>
+            <div class="uline-field"><label>Escribe un mensaje</label><textarea name="mensaje" placeholder="Cuéntanos sobre tu proyecto: tipo de pieza, cantidad y plazo estimado"></textarea></div>
             <div class="uline-field file-field">
               <label>Adjuntar planos o memorias de cálculo</label>
-              <div class="fh">Opcional — formatos PDF, DWG o imagen</div>
-              <input type="file">
+              <div class="fh">Opcional — formatos PDF, DWG o imagen (máx. 4MB)</div>
+              <input type="file" name="adjunto" accept=".pdf,.dwg,image/*">
             </div>
+            <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} style="margin:8px 0 16px"></div>
             <button type="submit" class="uline-submit">Enviar</button>
+            <p data-form-status role="status" aria-live="polite" style="margin-top:12px;font-size:0.85rem"></p>
           </form>
 
           <div class="form-below-contact">
@@ -108,4 +112,6 @@ const reveals = document.querySelectorAll('[data-reveal]');
 const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0});
 reveals.forEach(el=>io.observe(el));
 </script>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>import '../scripts/contact-form';</script>
 </Base>

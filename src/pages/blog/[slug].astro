@@ -17,7 +17,6 @@ const categoryLabel = BLOG_CATEGORIES.find((c) => c.value === post.category)?.la
 	pubDate={new Date(post.published_at)}
 	categoryLabel={categoryLabel}
 	heroImage={post.hero_image_url}
-	heroImageAlt={post.hero_image_alt}
 >
 	<Fragment set:html={post.content} />
 </BlogPost>

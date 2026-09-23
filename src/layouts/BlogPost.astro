@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { SITE_TITLE, ORGANIZACION } from '../consts';
 
 interface Props {
 	title: string;
@@ -14,11 +15,32 @@ interface Props {
 }
 
 const { title, description, pubDate, categoryLabel, heroImage, heroImageAlt } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const articuloJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description,
+	datePublished: pubDate.toISOString(),
+	articleSection: categoryLabel,
+	image: heroImage ? new URL(heroImage, Astro.site).href : new URL('/img/og-default.jpg', Astro.site).href,
+	mainEntityOfPage: canonicalURL.href,
+	author: { '@type': 'Organization', name: SITE_TITLE, url: ORGANIZACION.url },
+	publisher: { '@id': `${ORGANIZACION.url}/#empresa` },
+};
 ---
 
 <html lang="es">
 	<head>
-		<BaseHead title={`${title} — Koncreta Prefabricados`} description={description} />
+		<BaseHead
+			title={`${title} — Koncreta Prefabricados`}
+			description={description}
+			image={heroImage}
+			type="article"
+			publishedTime={pubDate.toISOString()}
+		/>
+		<script type="application/ld+json" set:html={JSON.stringify(articuloJsonLd)} is:inline />
 		<style>
 			.hero-image {
 				width: 100%;

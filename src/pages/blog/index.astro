@@ -10,7 +10,10 @@ const { featured, rest } = await getBlogHome();
 const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value === value)?.label ?? value;
 ---
 
-<Base title="Blog — Koncreta Prefabricados">
+<Base
+  title="Blog — Koncreta Prefabricados"
+  description="Artículos sobre hormigón prefabricado, innovación en construcción industrial y sostenibilidad, escritos por el equipo técnico de Koncreta Prefabricados."
+>
 <!-- ===================== BLOG HERO ===================== -->
 <section class="blog-hero" id="inicio">
   <div class="container">

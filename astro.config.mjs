@@ -8,10 +8,14 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	site: 'https://www.koncretaprefabricados.cl',
 	output: 'server',
 	adapter: vercel(),
-	integrations: [mdx(), sitemap(), icon()],
+	redirects: {
+		'/prefabricados': { status: 301, destination: '/servicios' },
+		'/about-2': { status: 301, destination: '/proyectos' },
+	},
+	integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/admin') }), icon()],
 	fonts: [
 		{
 			provider: fontProviders.local(),

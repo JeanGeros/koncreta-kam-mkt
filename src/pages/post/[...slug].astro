@@ -1,0 +1,58 @@
+---
+const REDIRECCIONES: Record<string, string> = {
+	'novedades-tecnologicas-en-prefabricados-de-hormigon-tendencias-para-2025':
+		'tendencias-2025-2026-en-prefabricados-de-hormigon-bim-automatizacion-y-materiales-inteligentes',
+	'reflexiones-del-1-congreso-nacional-de-cemento-y-hormigon-sostenibilidad-innovacion-y-productivid':
+		'reflexiones-del-1-congreso-nacional-de-cemento-y-hormigon-sostenibilidad-innovacion-y-productividad-como-eje-del-futuro',
+	'transporte-eficiente-de-piezas-prefabricadas-como-lo-hacemos-en-koncreta':
+		'transporte-eficiente-de-piezas-prefabricadas-como-lo-hacemos-en-koncreta',
+	'hormigon-prefabricado-para-acelerar-tiempos-de-construccion-ahorra-tiempo-y-costos':
+		'hormigon-prefabricado-como-reducir-hasta-un-40-los-tiempos-de-obra-en-chile',
+	'como-puedes-mejorar-el-valor-de-tu-prefabricado-mas-alla-de-la-resistencia-optimizacion-y-eficienc':
+		'como-aumentar-el-valor-de-tus-prefabricados-de-hormigon-mas-alla-de-la-resistencia',
+	'por-que-los-prefabricados-de-hormigon-son-clave-en-la-construccion-moderna':
+		'por-que-el-hormigon-prefabricado-es-clave-en-la-infraestructura-moderna-de-chile',
+	'factores-clave-en-el-diseno-y-fabricacion-de-prefabricados-de-hormigon':
+		'factores-clave-en-el-diseno-y-fabricacion-de-prefabricados-de-hormigon',
+	'koncreta-y-la-nueva-era-del-hormigon-prefabricado':
+		'koncreta-y-la-nueva-era-del-hormigon-prefabricado',
+	'la-evolucion-del-hormigon-prefabricado-tendencias-para-el-futuro':
+		'evolucion-del-hormigon-prefabricado-historia-estado-actual-y-tendencias-futuras',
+	'innovacion-en-hormigon-prefabricado-conoce-las-ultimas-tendencias-con-koncreta':
+		'innovacion-en-hormigon-prefabricado-conoce-las-ultimas-tendencias-con-koncreta',
+	'beneficios-y-aplicaciones-de-los-prefabricados-de-hormigon-descubre-como-optimizar-tus-proyectos-c':
+		'prefabricados-de-hormigon-beneficios-tipos-y-aplicaciones-en-proyectos-de-chile',
+	'arquitectura-y-urbanismo-la-evolucion-del-prefabricado-en-la-construccion-moderna':
+		'arquitectura-y-urbanismo-la-evolucion-del-prefabricado-en-la-construccion-moderna',
+	'sostenibilidad-en-la-construccion-prefabricados-de-hormigon-como-clave-para-reducir-la-huella-de-ca':
+		'prefabricados-de-hormigon-y-huella-de-carbono-cuanto-co-se-ahorra-vs-construccion-tradicional',
+	'el-impacto-del-hormigon-prefabricado-en-la-eficiencia-de-la-construccion':
+		'hormigon-prefabricado-su-impacto-real-en-la-eficiencia-y-costos-de-construccion',
+	'recomendaciones-tecnicas-para-maximizar-la-eficiencia-en-proyectos-con-prefabricados-de-hormigon':
+		'recomendaciones-tecnicas-para-maximizar-la-eficiencia-en-proyectos-con-prefabricados-de-hormigon',
+	'reutilizando-tubos-cilindricos-koncreta-transforma-restos-de-hormigon-prefabricado-en-piezas-sosten':
+		'economia-circular-en-hormigon-koncreta-reutiliza-tubos-para-crear-piezas-sostenibles',
+	'hormigon-prefabricado-o-construccion-tradicional-cual-es-mas-rentable':
+		'hormigon-prefabricado-o-construccion-tradicional-cual-es-mas-rentable',
+	'transformacion-digital-en-la-construccion-el-futuro-del-hormigon-prefabricado':
+		'transformacion-digital-en-la-construccion-el-futuro-del-hormigon-prefabricado',
+	'por-que-las-constructoras-lideres-estan-apostando-por-los-prefabricados-de-hormigon-el-uso-de-hormi':
+		'por-que-las-constructoras-lideres-de-chile-eligen-el-hormigon-prefabricado',
+	'maquinarias-y-equipos-que-optimizan-la-produccion-y-montaje-de-prefabricados-de-hormigon':
+		'maquinaria-para-prefabricados-de-hormigon-equipos-que-optimizan-produccion-y-montaje',
+	'como-la-prefabricacion-aumenta-la-sostenibilidad-en-proyectos-de-infraestructura':
+		'como-la-prefabricacion-aumenta-la-sostenibilidad-en-proyectos-de-infraestructura',
+	'innovaciones-en-impresion-3d-de-hormigon-prefabricado-y-su-impacto-en-la-construccion-una-tecnologi':
+		'innovacion-en-hormigon-prefabricado-tendencias-que-lideran-la-construccion-en-chile',
+	'como-elegir-al-proveedor-adecuado-de-prefabricados-de-hormigon-para-su-proyecto':
+		'como-elegir-al-proveedor-adecuado-de-prefabricados-de-hormigon-para-su-proyecto',
+	'cuales-son-las-ventajas-del-hormigon-prefabricado-en-la-construccion-moderna':
+		'por-que-elegir-prefabricados-de-hormigon-para-su-construccion-ventajas-y-aplicaciones',
+};
+
+const sinTildes = (s: string) =>
+	decodeURIComponent(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+const destino = REDIRECCIONES[sinTildes(Astro.params.slug ?? '')];
+return Astro.redirect(destino ? `/blog/${destino}` : '/blog', 301);
+---

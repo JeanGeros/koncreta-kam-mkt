@@ -10,16 +10,19 @@ const projects = await getAllProjects();
 
 const categoryIcon = (category: string) => {
 	switch (category) {
-		case 'Minería':
-			return 'material-symbols:construction';
-		case 'Infraestructura industrial':
-			return 'material-symbols:factory';
 		case 'Fundaciones':
+		case 'Fundaciones y Canaletas':
 			return 'material-symbols:foundation';
-		case 'Cámaras y registros':
+		case 'Cámaras':
 			return 'material-symbols:plumbing';
-		case 'Vial':
-			return 'material-symbols:road';
+		case 'Cerco perimetral':
+			return 'material-symbols:fence';
+		case 'Canaletas':
+			return 'material-symbols:water';
+		case 'Dados':
+			return 'material-symbols:deployed-code';
+		case 'Tapas':
+			return 'material-symbols:disc-full';
 		default:
 			return 'material-symbols:domain';
 	}

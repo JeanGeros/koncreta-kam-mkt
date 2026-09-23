@@ -33,4 +33,10 @@ origin-template/
 public/vision_mision.mp4
 public/CONOCENOS-KONCRETA.mp4
 
+FOTOS_LISTAS/
+fotos_servicios/
+DESIGN_STITCH/
+stitch-admin-prompt.md
+.env copy.example
+
 .vercel

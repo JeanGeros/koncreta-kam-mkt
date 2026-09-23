@@ -87,9 +87,12 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
         <h3>Novedades de la industria, directo a tu correo</h3>
         <p>Un correo ocasional con nuevos artículos técnicos y noticias del sector. Sin spam.</p>
       </div>
-      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Formulario de demostración — boceto de diseño.');">
-        <input type="email" placeholder="Tu correo" required>
+      <form class="newsletter-form" data-contact-form>
+        <input type="hidden" name="tipo" value="newsletter">
+        <input type="email" name="correo" placeholder="Tu correo" aria-label="Tu correo" required>
         <button type="submit" class="btn btn-primary">Suscribirme</button>
+        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-appearance="interaction-only"></div>
+        <p data-form-status role="status" aria-live="polite" style="flex-basis:100%;font-size:0.85rem"></p>
       </form>
     </div>
   </div>
@@ -119,4 +122,6 @@ chips.forEach(chip=>{
   });
 });
 </script>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>import '../../scripts/contact-form';</script>
 </Base>

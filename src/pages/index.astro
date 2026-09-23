@@ -5,23 +5,18 @@ import Base from '../layouts/Base.astro';
 import MapasPlantas from '../components/MapasPlantas.astro';
 import { getPublishedProjects } from '../lib/projects';
 
-// El selector mostraba 4 proyectos escritos a mano que ya no existen. Ahora
-// sale de la base: un proyecto por categoria, que mantiene el mismo formato.
+// La tira de miniaturas mostraba solo un proyecto por categoria y dejaba los
+// otros 19 escondidos. Ahora van todos los publicados.
 // try/catch porque la pagina es prerenderizada: sin el, una base caida al
 // momento del build tumba el deploy entero.
 let selectorProjects: { tag: string; title: string; desc: string; img: string | null }[] = [];
 try {
-	const porCategoria = new Map<string, (typeof selectorProjects)[number]>();
-	for (const p of await getPublishedProjects()) {
-		if (porCategoria.has(p.category)) continue; // el primero de cada una
-		porCategoria.set(p.category, {
-			tag: p.category.toUpperCase(),
-			title: p.title,
-			desc: p.bullets?.[0] ?? '',
-			img: p.image_url,
-		});
-	}
-	selectorProjects = [...porCategoria.values()];
+	selectorProjects = (await getPublishedProjects()).map((p) => ({
+		tag: p.category.toUpperCase(),
+		title: p.title,
+		desc: p.bullets?.[0] ?? '',
+		img: p.image_url,
+	}));
 } catch (e) {
 	console.warn('No se pudieron cargar los proyectos del selector:', e);
 }
@@ -110,9 +105,8 @@ try {
     <div class="idx" data-reveal>Conócenos</div>
     <div class="section-head" data-reveal><h3>Koncreta en 60 segundos</h3></div>
     <div class="video-frame frame" data-reveal onclick="this.querySelector('.video-play').style.display='none'; this.innerHTML='<video controls autoplay style=\'width:100%;height:100%;object-fit:cover;\'><source src=\'/CONOCENOS-KONCRETA-web.mp4\' type=\'video/mp4\'></video>';">
-      <img src="/img/k-7aebb69b.jpg" alt="Fotograma del video institucional de Koncreta Prefabricados, equipo técnico en faena">
+      <img src="/img/poster-conocenos.jpg" alt="Portada del video institucional: Así trabajamos en Koncreta">
       <div class="video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      <span class="video-caption mono">Video institucional — reproducir</span>
     </div>
   </div>
 </section>

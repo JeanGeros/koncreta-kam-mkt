@@ -180,6 +180,7 @@ export const server = {
 			correo: z.string().email(),
 			telefono: z.string().max(50).optional(),
 			mensaje: z.string().max(5000).optional(),
+			tipo_proyecto: z.string().max(200).optional(),
 			url_origen: z.string().max(500).optional(),
 			adjunto: z.instanceof(File).optional(),
 			'cf-turnstile-response': z.string().min(1, 'Completa el captcha.'),
@@ -205,6 +206,7 @@ export const server = {
 				['Empresa', input.empresa ?? ''],
 				['Correo', input.correo, `mailto:${input.correo}`],
 				['Teléfono', input.telefono ?? ''],
+				['Tipo de proyecto', input.tipo_proyecto ?? ''],
 				// El archivo va adjunto al correo; aquí solo se avisa que viene.
 				['Adjunto', input.adjunto?.size ? `📎 ${input.adjunto.name} (${Math.ceil(input.adjunto.size / 1024)} KB)` : ''],
 			];
@@ -258,7 +260,7 @@ export const server = {
 		input: z.object({
 			title: z.string().min(1),
 			category: z.string().min(1),
-			location: z.string().min(1),
+			location: z.string().default(''),
 			bullets: z.string(),
 			image: z.instanceof(File).optional(),
 			image_alt: z.string().optional(),
@@ -287,7 +289,7 @@ export const server = {
 			id: z.coerce.number(),
 			title: z.string().min(1),
 			category: z.string().min(1),
-			location: z.string().min(1),
+			location: z.string().default(''),
 			bullets: z.string(),
 			image: z.instanceof(File).optional(),
 			existing_image_url: z.string().optional(),

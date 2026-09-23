@@ -51,7 +51,7 @@ if (!project) {
 						</div>
 						<div class="field">
 							<label for="location">Ubicación</label>
-							<input type="text" id="location" name="location" required value={project.location} />
+							<input type="text" id="location" name="location" value={project.location} />
 						</div>
 					</div>
 				</div>
@@ -59,7 +59,7 @@ if (!project) {
 					<div class="crumb">Detalles<div class="rule"></div></div>
 					<div class="field">
 						<label for="bullets">Detalles del proyecto</label>
-						<textarea id="bullets" name="bullets" rows="5" required>{project.bullets.join('\n')}</textarea>
+						<textarea id="bullets" name="bullets" rows="5">{project.bullets.join('\n')}</textarea>
 						<p class="field-hint">Uno por línea.</p>
 					</div>
 				</div>

@@ -75,33 +75,37 @@ const projects = await getPublishedProjects();
 <!-- ===================== FORMULARIO INTEGRADO ===================== -->
 <section class="proyectos-form-section" id="form-proyecto">
   <div class="container">
-    <form class="proyectos-form-wrap" data-reveal onsubmit="event.preventDefault(); alert('Formulario de demostración — boceto de diseño.');">
-      <div class="field"><label for="p-nombre">Nombre</label><input type="text" id="p-nombre" required></div>
-      <div class="field"><label for="p-empresa">Empresa</label><input type="text" id="p-empresa" required></div>
-      <div class="field"><label for="p-correo">Correo</label><input type="email" id="p-correo" required></div>
-      <div class="field"><label for="p-telefono">Teléfono</label><input type="tel" id="p-telefono" required></div>
+    <form class="proyectos-form-wrap" data-reveal data-contact-form>
+      <input type="hidden" name="tipo" value="contacto">
+      <input type="hidden" name="url_origen" value="/proyectos">
+      <div class="field"><label for="p-nombre">Nombre</label><input type="text" id="p-nombre" name="nombre" required></div>
+      <div class="field"><label for="p-empresa">Empresa</label><input type="text" id="p-empresa" name="empresa"></div>
+      <div class="field"><label for="p-correo">Correo</label><input type="email" id="p-correo" name="correo" required></div>
+      <div class="field"><label for="p-telefono">Teléfono</label><input type="tel" id="p-telefono" name="telefono"></div>
       <div class="field field-full">
         <label for="p-tipo">Tipo de proyecto</label>
-        <select id="p-tipo">
-          <option>Fundaciones y pedestales</option>
-          <option>Cámaras cilíndricas mineras</option>
-          <option>Barreras New Jersey</option>
-          <option>Muros y dados de fundación</option>
+        <select id="p-tipo" name="tipo_proyecto">
+          {PROJECT_CATEGORIES.map((c) => <option>{c}</option>)}
           <option>Otro / a definir con Oficina Técnica</option>
         </select>
       </div>
       <div class="field field-full">
         <label for="p-mensaje">Detalle de tu requerimiento</label>
-        <textarea id="p-mensaje" placeholder="Cantidad de piezas, plazo estimado y planta de despacho preferida"></textarea>
+        <textarea id="p-mensaje" name="mensaje" placeholder="Cantidad de piezas, plazo estimado y planta de despacho preferida"></textarea>
       </div>
       <div class="field field-full">
         <label for="p-planos">Adjuntar planos (opcional)</label>
-        <input type="file" id="p-planos">
+        <div class="fh">Formatos PDF, DWG o imagen (máx. 4MB)</div>
+        <input type="file" id="p-planos" name="adjunto" accept=".pdf,.dwg,image/*">
+      </div>
+      <div class="field field-full">
+        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}></div>
       </div>
       <div class="submit-row">
         <p class="submit-note">Respuesta de la Oficina Técnica en menos de 24 horas hábiles.</p>
         <button type="submit" class="submit-btn" style="width:auto;padding:16px 34px;">Cotiza la ingeniería de tu proyecto</button>
       </div>
+      <p data-form-status role="status" aria-live="polite" class="field-full" style="margin-top:12px;font-size:0.85rem"></p>
     </form>
   </div>
 </section>
@@ -129,4 +133,6 @@ chips.forEach(chip=>{
   });
 });
 </script>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>import '../scripts/contact-form';</script>
 </Base>

@@ -86,6 +86,10 @@ try {
   <div class="container">
     <div class="idx" data-reveal>Nuestra capacidad</div>
     <div class="section-head" data-reveal><h3>Explora los proyectos disponibles</h3></div>
+    <div class="selector-stage">
+    <button class="selector-nav prev" type="button" aria-label="Proyecto anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
     <div class="selector-wrap" data-reveal>
       <div class="selector-visual">
         <span class="selector-tag mono" id="sel-tag">{selectorProjects[0]?.tag}</span>
@@ -97,6 +101,10 @@ try {
         <p id="sel-desc" style={selectorProjects[0]?.desc ? '' : 'display:none'}>{selectorProjects[0]?.desc}</p>
         <a class="btn btn-primary" href="https://wa.me/56983984326">Cotizar Proyectos</a>
       </div>
+    </div>
+    <button class="selector-nav next" type="button" aria-label="Proyecto siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
     </div>
     <div class="selector-track" id="sel-track"></div>
   </div>
@@ -266,6 +274,7 @@ reveals.forEach(el=>io.observe(el));
 
 // Selector de proyectos
 const projects = selectorProjects;
+let actual = 0;
 const track = document.getElementById('sel-track');
 const selImage = document.getElementById('sel-image');
 const selVisual = document.querySelector('.selector-visual');
@@ -304,7 +313,16 @@ function selectProject(i){
     }
   }
   document.querySelectorAll('.selector-thumb').forEach((t,idx)=> t.classList.toggle('active', idx===i));
+  actual = i;
 }
+function mover(paso){
+  if(!projects.length) return;
+  const i = (actual + paso + projects.length) % projects.length;
+  selectProject(i);
+  document.querySelectorAll('.selector-thumb')[i]?.scrollIntoView({behavior:'smooth', inline:'nearest', block:'nearest'});
+}
+document.querySelector('.selector-nav.prev').addEventListener('click', ()=> mover(-1));
+document.querySelector('.selector-nav.next').addEventListener('click', ()=> mover(1));
 renderThumbs();
 </script>
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>

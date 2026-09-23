@@ -107,6 +107,18 @@
     /* ===== SELECTOR DE PROYECTOS ===== */
     .selector{padding:90px 0 110px;background:var(--negro);color:#fff;}
     .selector .section-head h3{color:#fff;}
+    .selector-stage{position:relative;}
+    .selector-nav{
+      position:absolute;top:50%;transform:translateY(-50%);z-index:5;display:none;
+      width:46px;height:46px;border-radius:50%;border:1px solid var(--line-dark);
+      background:rgba(0,0,0,0.6);color:#fff;cursor:pointer;align-items:center;justify-content:center;
+      transition:background .25s ease,border-color .25s ease;
+    }
+    @media(min-width:1180px){.selector-nav{display:flex;}}
+    .selector-nav:hover{background:var(--naranja);border-color:var(--naranja);}
+    .selector-nav svg{width:22px;height:22px;}
+    .selector-nav.prev{left:-62px;}
+    .selector-nav.next{right:-62px;}
     .selector-wrap{display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--line-dark);border-radius:var(--r-lg);overflow:hidden;}
     @media(min-width:900px){.selector-wrap{grid-template-columns:1.3fr 1fr;}}
     .selector-visual{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0a0a0a;}

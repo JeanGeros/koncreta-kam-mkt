@@ -165,8 +165,6 @@
     @media(min-width:820px){.plantas-grid .big{height:562px;}}
     .plantas-grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .5s;filter:grayscale(55%) contrast(1.05);}
     .plantas-grid figure:hover img{transform:scale(1.045);filter:grayscale(0%) contrast(1.05);}
-    .fig-caption{position:absolute;left:16px;bottom:16px;z-index:4;color:#fff;font-size:0.78rem;background:rgba(0,0,0,0.45);padding:10px 14px;border-radius:var(--r-sm);}
-    .fig-caption .tag{display:block;color:var(--naranja);font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.64rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
 
     /* ===== CONFIANZA ===== */
     .confianza{background:var(--negro);padding:100px 0;color:var(--blanco);}

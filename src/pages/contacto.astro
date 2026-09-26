@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = process.env.MAINTENANCE_MODE !== 'true';
 
 import MapasPlantas from '../components/MapasPlantas.astro';
 import '../styles/global.css';

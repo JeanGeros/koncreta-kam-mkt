@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = process.env.MAINTENANCE_MODE !== 'true';
 
 import '../styles/global.css';
 import '../styles/servicios.css';

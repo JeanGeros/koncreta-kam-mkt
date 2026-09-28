@@ -360,6 +360,12 @@
       footer h5{margin-bottom:10px;}
       footer li{margin-bottom:6px;}
       .footer-bottom{padding-top:16px;}
+      /* mapas: bajo padding a 40px como el footer, y aprieta cada tarjeta
+         (head/cta) para que las dos plantas no se sientan tan largas */
+      .mapas{padding-bottom:40px;}
+      .mapas-grid{gap:12px;}
+      .mapa-head{padding:16px 18px;}
+      .mapa-cta{padding:12px 18px;}
     }
 
     section{scroll-margin-top:80px;}

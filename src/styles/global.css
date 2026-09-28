@@ -169,7 +169,6 @@
     .video-frame:hover .video-play{transform:translate(-50%,-50%) scale(1.08);}
     .video-play svg{width:26px;height:26px;fill:#fff}
     @media(max-width:640px){
-    .video-section{padding:56px 0;}
     .video-section .section-head{margin-bottom:24px;}
     .video-play{width:36px;height:36px;top:82%;}
     .video-play svg{width:15px;height:15px;}
@@ -331,6 +330,24 @@
     .blog-card h4{font-size:1rem;line-height:1.35;margin-bottom:14px;}
     .blog-card .blog-link{font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.75rem;color:#fff;display:inline-flex;align-items:center;gap:6px;}
     .blog-card .blog-link svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;}
+
+    /* ponytail: en movil las secciones bajan de ~100px a 56px. Con dos
+       secciones seguidas del mismo fondo, 100+100 dejaba un vacio de casi
+       una pantalla entera (el caso confianza -> blog). */
+    @media(max-width:640px){
+      .diff{padding:56px 0 44px;}
+      .selector{padding:52px 0 56px;}
+      .video-section,
+      .confianza,
+      .linkedin-section,
+      .mapas,
+      .form-section,
+      .cta-final,
+      .blog-section{padding:56px 0;}
+      /* confianza y blog son negro sobre negro: la costura no necesita aire doble */
+      .confianza{padding-bottom:36px;}
+      .section-head{margin-bottom:28px;}
+    }
 
     section{scroll-margin-top:80px;}
     @media(prefers-reduced-motion: reduce){.wa-float::before{animation:none;} [data-reveal]{opacity:1;transform:none;}}

@@ -352,6 +352,14 @@
       .cta-final .container{gap:22px;}
       .cta-final .ctas{flex-direction:column;gap:12px;}
       .cta-final .ctas .btn{width:100%;}
+      /* footer: 4 bloques apilados a 40px de gap + margenes de escritorio
+         sumaban una pantalla completa de scroll solo para llegar al final */
+      footer{padding:40px 0 20px;}
+      .footer-grid{gap:26px 16px;margin-bottom:26px;grid-template-columns:1fr 1fr;}
+      .footer-grid>div:first-child{grid-column:1 / -1;}
+      footer h5{margin-bottom:10px;}
+      footer li{margin-bottom:6px;}
+      .footer-bottom{padding-top:16px;}
     }
 
     section{scroll-margin-top:80px;}

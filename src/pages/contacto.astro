@@ -59,7 +59,7 @@ import Base from '../layouts/Base.astro';
               <div class="fh">Opcional — formatos PDF, DWG o imagen (máx. 4MB)</div>
               <input type="file" name="adjunto" accept=".pdf,.dwg,image/*">
             </div>
-            <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} style="margin:8px 0 16px"></div>
+            <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-size="flexible" style="margin:8px 0 16px"></div>
             <button type="submit" class="uline-submit">Enviar</button>
             <p data-form-status role="status" aria-live="polite" style="margin-top:12px;font-size:0.85rem"></p>
           </form>

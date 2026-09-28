@@ -250,7 +250,7 @@ try {
       <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu proyecto"></textarea></div>
       <input type="hidden" id="url_origen" name="url_origen">
       <script is:inline>document.getElementById('url_origen').value = window.location.href;</script>
-      <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} style="margin-bottom:16px"></div>
+      <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-size="flexible" style="margin-bottom:16px"></div>
       <button type="submit" class="submit-btn">Enviar mensaje</button>
       <p data-form-status role="status" aria-live="polite" style="margin-top:12px;font-size:0.85rem"></p>
     </form>

@@ -66,12 +66,13 @@
     /* dvh y no vh: en movil la barra de direcciones se recoge al hacer scroll y
        con vh el hero queda mas alto que la pantalla, empujando los botones
        fuera de vista. El vh va primero como respaldo. */
-    .hero{position:relative;min-height:calc(100vh - var(--header-h));min-height:calc(100dvh - var(--header-h));display:flex;align-items:flex-end;background:var(--negro);overflow:hidden;}
-    @media(min-width:700px){.hero{min-height:calc(100vh - var(--header-h));}}
+    .hero{position:relative;min-height:calc(100vh - var(--header-h));min-height:calc(100dvh - var(--header-h));display:flex;align-items:center;background:var(--negro);overflow:hidden;}
+    @media(min-width:700px){.hero{min-height:calc(100vh - var(--header-h));align-items:flex-end;}}
     .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
     .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.92) 100%);}
     .hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;z-index:2;background:var(--naranja);}
-    .hero-content{position:relative;z-index:3;padding:60px 32px 64px;max-width:1280px;margin:0 auto;width:100%;}
+    .hero-content{position:relative;z-index:3;padding:32px 32px 48px;max-width:1280px;margin:0 auto;width:100%;}
+    @media(min-width:700px){.hero-content{padding:60px 32px 64px;}}
     .hero h1{color:var(--blanco);font-size:clamp(2.3rem,5.8vw,4rem);line-height:1.05;margin:0 0 30px;max-width:800px;font-weight:700;letter-spacing:-0.025em;}
     .hero h1 .accent{color:var(--naranja);}
     .hero-ctas{display:flex;flex-direction:column;gap:12px;max-width:460px;}
@@ -166,8 +167,12 @@
     .video-frame img{width:100%;height:100%;object-fit:cover;}
     .video-play{position:absolute;top:80%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;background:var(--naranja);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.4);transition:transform .25s ease;}
     .video-frame:hover .video-play{transform:translate(-50%,-50%) scale(1.08);}
-    @media(max-width:640px){.video-play{width:62px;height:62px;top:76%;}}
     .video-play svg{width:26px;height:26px;fill:#fff}
+    @media(max-width:640px){
+    .video-section .section-head{margin-bottom:24px;}
+    .video-play{width:36px;height:36px;top:82%;}
+    .video-play svg{width:15px;height:15px;}
+    }
 
     /* ===== GALERIA / PLANTAS ===== */
     .plantas{padding:0 0 110px;background:var(--paper);}
@@ -252,6 +257,10 @@
     /* ===== FORMULARIO CONTACTO ===== */
     .form-section{padding:100px 0;background:var(--paper);}
     .form-wrap{display:grid;grid-template-columns:1fr;gap:44px;}
+    /* los items de grid tienen min-width:auto por defecto: si algo adentro
+       (el widget de Turnstile, por ejemplo) pide mas ancho que la columna,
+       el track crece y desborda la pagina en vez de recortar el contenido. */
+    .form-wrap>*{min-width:0;}
     @media(min-width:900px){.form-wrap{grid-template-columns:0.85fr 1.15fr;}}
     .form-copy p{color:var(--gris-oscuro);max-width:380px;margin-bottom:24px;font-size:0.92rem;line-height:1.7;}
     .form-copy .contact-alt{border-top:1px solid var(--line);padding-top:20px;font-size:0.85rem;color:var(--gris-oscuro);}
@@ -264,6 +273,11 @@
     .field-row{display:grid;grid-template-columns:1fr;gap:14px;}
     @media(min-width:700px){.field-row{grid-template-columns:1fr 1fr;}}
     .field textarea{resize:vertical;min-height:90px;}
+    /* Turnstile por defecto renderiza a 300px fijos; en formularios angostos
+       eso desborda la pagina. data-size="flexible" en el markup lo hace
+       responsive, esto es solo el respaldo si el widget entrega algo mas
+       ancho que su contenedor. */
+    .cf-turnstile{max-width:100%;}
     .submit-btn{width:100%;background:var(--negro);color:#fff;border:none;padding:16px;font-family:'Century Gothic',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:0.75rem;cursor:pointer;transition:background .25s;border-radius:var(--r-pill);}
     .submit-btn:hover{background:var(--naranja);}
 
@@ -325,6 +339,43 @@
     .blog-card h4{font-size:1rem;line-height:1.35;margin-bottom:14px;}
     .blog-card .blog-link{font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.75rem;color:#fff;display:inline-flex;align-items:center;gap:6px;}
     .blog-card .blog-link svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;}
+
+    /* ponytail: en movil las secciones bajan de ~100px a 56px. Con dos
+       secciones seguidas del mismo fondo, 100+100 dejaba un vacio de casi
+       una pantalla entera (el caso confianza -> blog). */
+    @media(max-width:640px){
+      .diff{padding:56px 0 44px;}
+      .selector{padding:52px 0 56px;}
+      .video-section,
+      .confianza,
+      .linkedin-section,
+      .mapas,
+      .form-section,
+      .cta-final,
+      .blog-section{padding:56px 0;}
+      /* confianza y blog son negro sobre negro: la costura no necesita aire doble */
+      .confianza{padding-bottom:36px;}
+      .section-head{margin-bottom:28px;}
+      /* cierre de pagina: menos aire y botones a ancho completo, como en el hero */
+      .cta-final{padding:44px 0;}
+      .cta-final .container{gap:22px;}
+      .cta-final .ctas{flex-direction:column;gap:12px;}
+      .cta-final .ctas .btn{width:100%;}
+      /* footer: 4 bloques apilados a 40px de gap + margenes de escritorio
+         sumaban una pantalla completa de scroll solo para llegar al final */
+      footer{padding:40px 0 20px;}
+      .footer-grid{gap:26px 16px;margin-bottom:26px;grid-template-columns:1fr 1fr;}
+      .footer-grid>div:first-child{grid-column:1 / -1;}
+      footer h5{margin-bottom:10px;}
+      footer li{margin-bottom:6px;}
+      .footer-bottom{padding-top:16px;}
+      /* mapas: bajo padding a 40px como el footer, y aprieta cada tarjeta
+         (head/cta) para que las dos plantas no se sientan tan largas */
+      .mapas{padding-bottom:40px;}
+      .mapas-grid{gap:12px;}
+      .mapa-head{padding:16px 18px;}
+      .mapa-cta{padding:12px 18px;}
+    }
 
     section{scroll-margin-top:80px;}
     @media(prefers-reduced-motion: reduce){.wa-float::before{animation:none;} [data-reveal]{opacity:1;transform:none;}}

@@ -94,7 +94,7 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
         <input type="hidden" name="tipo" value="newsletter">
         <input type="email" name="correo" placeholder="Tu correo" aria-label="Tu correo" required>
         <button type="submit" class="btn btn-primary">Suscribirme</button>
-        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-appearance="interaction-only"></div>
+        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-appearance="interaction-only" data-size="flexible"></div>
         <p data-form-status role="status" aria-live="polite" style="flex-basis:100%;font-size:0.85rem"></p>
       </form>
     </div>

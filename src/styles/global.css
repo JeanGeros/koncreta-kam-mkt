@@ -171,7 +171,7 @@
     @media(max-width:640px){
     .video-section{padding:56px 0;}
     .video-section .section-head{margin-bottom:24px;}
-    .video-play{width:46px;height:46px;top:78%;}
+    .video-play{width:41px;height:41px;top:78%;}
     .video-play svg{width:18px;height:18px;}
     }
 

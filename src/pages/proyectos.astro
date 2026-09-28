@@ -99,7 +99,7 @@ const projects = await getPublishedProjects();
         <input type="file" id="p-planos" name="adjunto" accept=".pdf,.dwg,image/*">
       </div>
       <div class="field field-full">
-        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}></div>
+        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-size="flexible"></div>
       </div>
       <div class="submit-row">
         <p class="submit-note">Respuesta de la Oficina Técnica en menos de 24 horas hábiles.</p>

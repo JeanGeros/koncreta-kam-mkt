@@ -269,6 +269,11 @@
     .field-row{display:grid;grid-template-columns:1fr;gap:14px;}
     @media(min-width:700px){.field-row{grid-template-columns:1fr 1fr;}}
     .field textarea{resize:vertical;min-height:90px;}
+    /* Turnstile por defecto renderiza a 300px fijos; en formularios angostos
+       eso desborda la pagina. data-size="flexible" en el markup lo hace
+       responsive, esto es solo el respaldo si el widget entrega algo mas
+       ancho que su contenedor. */
+    .cf-turnstile{max-width:100%;}
     .submit-btn{width:100%;background:var(--negro);color:#fff;border:none;padding:16px;font-family:'Century Gothic',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:0.75rem;cursor:pointer;transition:background .25s;border-radius:var(--r-pill);}
     .submit-btn:hover{background:var(--naranja);}
 

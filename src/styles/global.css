@@ -257,6 +257,10 @@
     /* ===== FORMULARIO CONTACTO ===== */
     .form-section{padding:100px 0;background:var(--paper);}
     .form-wrap{display:grid;grid-template-columns:1fr;gap:44px;}
+    /* los items de grid tienen min-width:auto por defecto: si algo adentro
+       (el widget de Turnstile, por ejemplo) pide mas ancho que la columna,
+       el track crece y desborda la pagina en vez de recortar el contenido. */
+    .form-wrap>*{min-width:0;}
     @media(min-width:900px){.form-wrap{grid-template-columns:0.85fr 1.15fr;}}
     .form-copy p{color:var(--gris-oscuro);max-width:380px;margin-bottom:24px;font-size:0.92rem;line-height:1.7;}
     .form-copy .contact-alt{border-top:1px solid var(--line);padding-top:20px;font-size:0.85rem;color:var(--gris-oscuro);}

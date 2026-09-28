@@ -2,10 +2,13 @@
   .contact-hero{background:var(--negro);padding:150px 0 90px;position:relative;overflow:hidden;}
   .contact-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--naranja);}
   .contact-hero-grid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;}
+  /* mismo motivo que .form-wrap en global.css: sin esto el formulario de la
+     derecha (con Turnstile adentro) puede empujar todo el grid de ancho. */
+  .contact-hero-grid>*{min-width:0;}
   @media(min-width:960px){.contact-hero-grid{grid-template-columns:0.9fr 1.1fr;gap:64px;}}
 
   @media(max-width:699px){
-    .contact-hero{padding:110px 0 60px;}
+    .contact-hero{padding:64px 0 40px;}
     .contact-hero-left h1{margin-bottom:16px;}
     .contact-hero-left .sub{margin-bottom:26px;}
     .form-card-minimal{padding:10px 10px;}

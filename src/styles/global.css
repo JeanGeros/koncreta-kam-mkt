@@ -347,6 +347,11 @@
       /* confianza y blog son negro sobre negro: la costura no necesita aire doble */
       .confianza{padding-bottom:36px;}
       .section-head{margin-bottom:28px;}
+      /* cierre de pagina: menos aire y botones a ancho completo, como en el hero */
+      .cta-final{padding:44px 0;}
+      .cta-final .container{gap:22px;}
+      .cta-final .ctas{flex-direction:column;gap:12px;}
+      .cta-final .ctas .btn{width:100%;}
     }
 
     section{scroll-margin-top:80px;}

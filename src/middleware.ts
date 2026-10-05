@@ -1,6 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { verifySessionToken, SESSION_COOKIE_NAME } from './lib/auth';
 import { getUserById } from './lib/users';
+import { env } from './lib/env';
 
 const MAINTENANCE_HTML = `<!doctype html>
 <html lang="es"><head><meta charset="utf-8">
@@ -13,14 +14,14 @@ const MAINTENANCE_HTML = `<!doctype html>
 </body></html>`;
 
 export const onRequest = defineMiddleware(async (context, next) => {
-	// ponytail: gate global, togglear MAINTENANCE_MODE=true en Vercel y redeployar.
-	// /admin queda afuera para poder seguir trabajando durante la migración.
-	if (process.env.MAINTENANCE_MODE === 'true' && !context.url.pathname.startsWith('/admin')) {
+	// Gate global para mantenciones
+	if (env.MAINTENANCE_MODE && !context.url.pathname.startsWith('/admin')) {
 		return new Response(MAINTENANCE_HTML, {
 			status: 503,
 			headers: { 'Content-Type': 'text/html; charset=utf-8', 'Retry-After': '3600' },
 		});
 	}
+
 
 	// Páginas estáticas (marketing) no necesitan sesión ni tocan la DB.
 	if (context.isPrerendered) {

@@ -1,4 +1,5 @@
 import { randomBytes, scryptSync, timingSafeEqual, createHmac } from 'node:crypto';
+import { env } from './env';
 
 const SESSION_COOKIE = 'admin_session';
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7; // 7 días
@@ -18,10 +19,9 @@ export function verifyPassword(password: string, stored: string): boolean {
 }
 
 function sign(payload: string): string {
-	const secret = process.env.SESSION_SECRET || import.meta.env.SESSION_SECRET;
-	if (!secret) throw new Error('Falta SESSION_SECRET en el entorno');
-	return createHmac('sha256', secret).update(payload).digest('hex');
+	return createHmac('sha256', env.SESSION_SECRET).update(payload).digest('hex');
 }
+
 
 export function createSessionToken(userId: number): string {
 	const payload = `${userId}.${Date.now() + SESSION_TTL_MS}`;

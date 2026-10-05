@@ -1,31 +1,9 @@
 import { sql } from './db';
 import { uniqueSlug } from './slugify';
+import type { Project, ProjectInput } from '../types';
 
-export type Project = {
-	id: number;
-	title: string;
-	slug: string;
-	category: string;
-	location: string;
-	bullets: string[];
-	image_url: string | null;
-	image_alt: string | null;
-	published: boolean;
-	sort_order: number;
-	created_at: string;
-	updated_at: string;
-};
+export type { Project, ProjectInput };
 
-export type ProjectInput = {
-	title: string;
-	category: string;
-	location: string;
-	bullets: string[];
-	image_url: string | null;
-	image_alt: string | null;
-	published: boolean;
-	sort_order: number;
-};
 
 // El pooler de algunos proveedores (ej. Supabase en modo transacción) hace
 // que jsonb vuelva como string en vez de ya parseado. Normalizamos acá.

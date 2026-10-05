@@ -1,32 +1,9 @@
 import { sql } from './db';
 import { uniqueSlug } from './slugify';
+import type { BlogPost, BlogPostInput } from '../types';
 
-export type BlogPost = {
-	id: number;
-	title: string;
-	slug: string;
-	category: string;
-	excerpt: string;
-	content: string;
-	hero_image_url: string | null;
-	hero_image_alt: string | null;
-	featured: boolean;
-	published: boolean;
-	published_at: string;
-	created_at: string;
-	updated_at: string;
-};
+export type { BlogPost, BlogPostInput };
 
-export type BlogPostInput = {
-	title: string;
-	category: string;
-	excerpt: string;
-	content: string;
-	hero_image_url: string | null;
-	hero_image_alt: string | null;
-	featured: boolean;
-	published: boolean;
-};
 
 export async function getBlogHome(): Promise<{ featured: BlogPost | null; rest: BlogPost[] }> {
 	const posts = (await sql`

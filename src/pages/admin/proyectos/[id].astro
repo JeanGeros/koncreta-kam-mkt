@@ -68,16 +68,28 @@ if (!project) {
 				<div class="panel">
 					<div class="crumb">Imagen<div class="rule"></div></div>
 					<div class="field">
-						<div class="dropzone">
-							{project.image_url && <img src={project.image_url} alt="" />}
-							<label class="dz-label" for="image">
-								<Icon name="material-symbols:cloud-upload" class="icon" /><br />
-								Arrastra una imagen o haz clic para elegir<br />
-								<small>JPG, PNG o WebP, máx. 5MB</small>
-							</label>
-							<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" />
+						<div class="image-uploader" data-image-uploader>
+							{project.image_url ? (
+								<div class="dz-preview-wrap">
+									<span class="dz-badge badge-current"><span class="badge-dot"></span> Imagen actual</span>
+									<img src={project.image_url} alt={project.image_alt ?? project.title} />
+									<div class="dz-actions-bar">
+										<button type="button" class="dz-btn-action btn-change" data-action="change">Cambiar imagen</button>
+										<button type="button" class="dz-btn-action btn-danger" data-action="remove">Quitar imagen</button>
+									</div>
+								</div>
+							) : null}
+							<div class="dropzone" style={project.image_url ? 'display:none;' : ''}>
+								<div class="dz-content">
+									<div class="dz-icon">
+										<Icon name="material-symbols:cloud-upload" class="icon" />
+									</div>
+									<div class="dz-title">Arrastra una imagen o haz clic aquí</div>
+									<div class="dz-hint">JPG, PNG o WebP — máx. 5MB</div>
+								</div>
+								<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" />
+							</div>
 						</div>
-						<p class="field-hint">Deja vacío para mantener la imagen actual.</p>
 					</div>
 					<div class="field">
 						<label for="image_alt">Texto alternativo de la imagen</label>

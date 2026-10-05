@@ -188,19 +188,181 @@
 .toggle-switch input:checked + .track{background:var(--naranja);}
 .toggle-switch input:checked + .track::before{transform:translateX(18px);}
 
-/* Dropzone imagen */
-.dropzone{position:relative;border:2px dashed var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--paper);text-align:center;min-height:140px;display:flex;align-items:center;justify-content:center;}
-.dropzone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.dropzone .dz-label{position:relative;z-index:1;padding:20px;font-size:0.78rem;color:var(--gris-oscuro);}
-.dropzone:has(img){min-height:210px;}
-.dropzone:has(img) .dz-label{
-  position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;z-index:2;
-  background:linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0));color:#fff;font-size:0.72rem;
+/* Dropzone imagen — Estados: Vacío, Dragging, Con imagen actual, Nueva imagen seleccionada */
+.dropzone{
+	position:relative;
+	border:2px dashed var(--line);
+	border-radius:var(--r-md);
+	background:var(--paper);
+	transition:all .2s ease;
+	min-height:160px;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+	overflow:hidden;
+	padding:24px 20px;
+	text-align:center;
+	cursor:pointer;
 }
-.dropzone:has(img) .dz-label .icon{width:18px;height:18px;margin-bottom:2px;}
-.dropzone:has(img) .dz-label small{display:none;}
-.dropzone .dz-label .icon{color:var(--naranja);width:28px;height:28px;margin-bottom:6px;}
-.dropzone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+
+.dropzone:hover{
+	border-color:var(--gris-plata);
+	background:var(--a-surface-low);
+}
+
+/* Estado 2: Arrastrando encima */
+.dropzone.is-dragging{
+	border-color:var(--naranja) !important;
+	border-style:solid !important;
+	background:rgba(251,102,36,0.08) !important;
+	transform:scale(1.01);
+	box-shadow:0 0 0 4px rgba(251,102,36,0.15);
+}
+
+.dropzone input[type="file"]{
+	position:absolute;
+	inset:0;
+	opacity:0;
+	cursor:pointer;
+	z-index:5;
+}
+
+.dropzone .dz-content{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	gap:8px;
+	pointer-events:none;
+}
+
+.dropzone .dz-icon{
+	width:44px;
+	height:44px;
+	border-radius:50%;
+	background:var(--a-surface-variant);
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	color:var(--naranja);
+	margin-bottom:4px;
+	transition:transform .2s ease;
+}
+
+.dropzone.is-dragging .dz-icon{
+	transform:scale(1.15);
+	background:var(--naranja);
+	color:#fff;
+}
+
+.dropzone .dz-title{
+	font-family:'Hanken Grotesk',sans-serif;
+	font-weight:600;
+	font-size:0.88rem;
+	color:var(--negro);
+}
+
+.dropzone .dz-hint{
+	font-size:0.75rem;
+	color:var(--gris-plata);
+}
+
+/* Estado 3 & 4: Vista previa de imagen */
+.dz-preview-wrap{
+	position:relative;
+	border-radius:var(--r-md);
+	overflow:hidden;
+	background:#000;
+	border:1px solid var(--line);
+	box-shadow:var(--a-shadow-sm);
+}
+
+.dz-preview-wrap img{
+	width:100%;
+	height:auto;
+	max-height:300px;
+	object-fit:cover;
+	display:block;
+}
+
+.dz-badge{
+	position:absolute;
+	top:12px;
+	left:12px;
+	z-index:2;
+	padding:4px 10px;
+	border-radius:999px;
+	font-family:'JetBrains Mono',monospace;
+	font-size:0.65rem;
+	font-weight:500;
+	text-transform:uppercase;
+	letter-spacing:0.04em;
+	display:inline-flex;
+	align-items:center;
+	gap:6px;
+	backdrop-filter:blur(8px);
+}
+
+.dz-badge.badge-current{
+	background:rgba(0,0,0,0.7);
+	color:#fff;
+	border:1px solid rgba(255,255,255,0.2);
+}
+
+.dz-badge.badge-new{
+	background:var(--naranja);
+	color:#fff;
+	box-shadow:0 2px 8px rgba(251,102,36,0.4);
+}
+
+.dz-badge .badge-dot{
+	width:6px;
+	height:6px;
+	border-radius:50%;
+	background:#fff;
+}
+
+.dz-actions-bar{
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	gap:10px;
+	margin-top:10px;
+	flex-wrap:wrap;
+}
+
+.dz-btn-action{
+	display:inline-flex;
+	align-items:center;
+	gap:6px;
+	padding:8px 14px;
+	font-family:'JetBrains Mono',monospace;
+	font-size:0.7rem;
+	font-weight:600;
+	border-radius:var(--r-sm);
+	cursor:pointer;
+	background:var(--a-white);
+	border:1px solid var(--line);
+	color:var(--gris-oscuro);
+	transition:all .15s ease;
+}
+
+.dz-btn-action:hover{
+	border-color:var(--naranja);
+	color:var(--naranja);
+}
+
+.dz-btn-action.btn-danger:hover{
+	border-color:var(--a-error);
+	color:var(--a-error);
+	background:var(--a-error-container);
+}
+
+.dz-file-info{
+	font-size:0.75rem;
+	color:var(--gris-plata);
+	font-family:'JetBrains Mono',monospace;
+}
 
 /* Repeater (bullets de proyecto) */
 .repeater-row{display:flex;align-items:center;gap:10px;}

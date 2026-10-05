@@ -104,31 +104,131 @@ const showChrome = user && path !== '/admin/login';
 						});
 					}
 
-					// Previsualización y validación inmediata al elegir o arrastrar una imagen en la dropzone
-					document.querySelectorAll('.dropzone input[type="file"]').forEach((input) => {
-						const dropzone = input.closest('.dropzone');
-						if (!dropzone) return;
+					// Controlador de Uploader de Imágenes con 4 Estados:
+					// 1. Vacío (empty)
+					// 2. Arrastrando archivo (is-dragging)
+					// 3. Con imagen actual guardada (has-current)
+					// 4. Con nueva imagen seleccionada lista para guardar (preview-ready)
+					document.querySelectorAll('[data-image-uploader]').forEach((uploader) => {
+						const dropzone = uploader.querySelector('.dropzone');
+						const input = dropzone?.querySelector('input[type="file"]');
+						let previewWrap = uploader.querySelector('.dz-preview-wrap');
+						const form = uploader.closest('form');
+						const existingInput = form?.querySelector('input[name="existing_image_url"]');
+						const originalExistingUrl = existingInput ? existingInput.value : '';
+
+						if (!dropzone || !input) return;
 
 						function showError(msg) {
-							let errEl = dropzone.parentElement?.querySelector('.dz-error-msg');
+							let errEl = uploader.querySelector('.dz-error-msg');
 							if (!errEl) {
 								errEl = document.createElement('div');
 								errEl.className = 'dz-error-msg action-error';
 								errEl.style.marginTop = '10px';
 								errEl.style.marginBottom = '10px';
-								dropzone.parentElement?.appendChild(errEl);
+								uploader.appendChild(errEl);
 							}
 							errEl.textContent = msg;
 						}
 
 						function clearError() {
-							const errEl = dropzone.parentElement?.querySelector('.dz-error-msg');
+							const errEl = uploader.querySelector('.dz-error-msg');
 							if (errEl) errEl.remove();
 						}
 
-						function updatePreview(file) {
-							if (!file) return;
+						function renderNewPreview(file) {
 							clearError();
+							const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+							
+							if (!previewWrap) {
+								previewWrap = document.createElement('div');
+								previewWrap.className = 'dz-preview-wrap';
+								uploader.prepend(previewWrap);
+							}
+
+							previewWrap.innerHTML = `
+								<span class="dz-badge badge-new"><span class="badge-dot"></span> Nueva imagen seleccionada</span>
+								<img src="" alt="Previsualización" />
+								<div class="dz-actions-bar">
+									<span class="dz-file-info">${file.name} (${sizeMb} MB)</span>
+									<button type="button" class="dz-btn-action btn-danger" data-action="revert">Deshacer</button>
+								</div>
+							`;
+
+							const img = previewWrap.querySelector('img');
+							const reader = new FileReader();
+							reader.onload = (e) => {
+								if (e.target?.result && img) img.src = e.target.result;
+							};
+							reader.readAsDataURL(file);
+
+							dropzone.style.display = 'none';
+							bindPreviewActions();
+						}
+
+						function restoreOriginal() {
+							clearError();
+							input.value = '';
+							if (originalExistingUrl) {
+								if (existingInput) existingInput.value = originalExistingUrl;
+								if (!previewWrap) {
+									previewWrap = document.createElement('div');
+									previewWrap.className = 'dz-preview-wrap';
+									uploader.prepend(previewWrap);
+								}
+								previewWrap.innerHTML = `
+									<span class="dz-badge badge-current"><span class="badge-dot"></span> Imagen actual</span>
+									<img src="${originalExistingUrl}" alt="" />
+									<div class="dz-actions-bar">
+										<button type="button" class="dz-btn-action" data-action="change">Cambiar imagen</button>
+										<button type="button" class="dz-btn-action btn-danger" data-action="remove">Quitar imagen</button>
+									</div>
+								`;
+								dropzone.style.display = 'none';
+								bindPreviewActions();
+							} else {
+								if (previewWrap) {
+									previewWrap.remove();
+									previewWrap = null;
+								}
+								dropzone.style.display = 'flex';
+							}
+						}
+
+						function removeImageCompletely() {
+							clearError();
+							input.value = '';
+							if (existingInput) existingInput.value = '';
+							if (previewWrap) {
+								previewWrap.remove();
+								previewWrap = null;
+							}
+							dropzone.style.display = 'flex';
+						}
+
+						function bindPreviewActions() {
+							if (!previewWrap) return;
+							const changeBtn = previewWrap.querySelector('[data-action="change"]');
+							const removeBtn = previewWrap.querySelector('[data-action="remove"]');
+							const revertBtn = previewWrap.querySelector('[data-action="revert"]');
+
+							changeBtn?.addEventListener('click', () => {
+								input.click();
+							});
+
+							removeBtn?.addEventListener('click', () => {
+								if (confirm('¿Quitar la imagen de este registro?')) {
+									removeImageCompletely();
+								}
+							});
+
+							revertBtn?.addEventListener('click', () => {
+								restoreOriginal();
+							});
+						}
+
+						function validateAndProcess(file) {
+							if (!file) return;
 							if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
 								showError('Formato no permitido. Por favor selecciona una imagen JPG, PNG o WebP.');
 								input.value = '';
@@ -136,33 +236,23 @@ const showChrome = user && path !== '/admin/login';
 							}
 							if (file.size > 5 * 1024 * 1024) {
 								const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
-								showError(`La imagen pesa ${sizeMb}MB y supera el límite de 5MB permitidos. Por favor sube una imagen de menor peso.`);
+								showError(`La imagen seleccionada pesa ${sizeMb}MB y supera el máximo de 5MB permitidos.`);
 								input.value = '';
 								return;
 							}
-							let img = dropzone.querySelector('img');
-							if (!img) {
-								img = document.createElement('img');
-								img.alt = '';
-								dropzone.prepend(img);
-							}
-							const reader = new FileReader();
-							reader.onload = (e) => {
-								if (e.target?.result) img.src = e.target.result;
-							};
-							reader.readAsDataURL(file);
+							renderNewPreview(file);
 						}
 
 						input.addEventListener('change', () => {
 							const file = input.files?.[0];
-							if (file) updatePreview(file);
+							if (file) validateAndProcess(file);
 						});
 
 						['dragenter', 'dragover'].forEach((eventName) => {
 							dropzone.addEventListener(eventName, (e) => {
 								e.preventDefault();
 								e.stopPropagation();
-								dropzone.style.borderColor = 'var(--naranja)';
+								dropzone.classList.add('is-dragging');
 							});
 						});
 
@@ -170,7 +260,7 @@ const showChrome = user && path !== '/admin/login';
 							dropzone.addEventListener(eventName, (e) => {
 								e.preventDefault();
 								e.stopPropagation();
-								dropzone.style.borderColor = '';
+								dropzone.classList.remove('is-dragging');
 							});
 						});
 
@@ -179,9 +269,11 @@ const showChrome = user && path !== '/admin/login';
 							const file = dt?.files?.[0];
 							if (file) {
 								input.files = dt.files;
-								updatePreview(file);
+								validateAndProcess(file);
 							}
 						});
+
+						bindPreviewActions();
 					});
 				</script>
 			)

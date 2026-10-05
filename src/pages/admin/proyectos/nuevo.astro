@@ -59,13 +59,17 @@ const nextSortOrder = (await getAllProjects()).length;
 				<div class="panel">
 					<div class="crumb">Imagen<div class="rule"></div></div>
 					<div class="field">
-						<div class="dropzone">
-							<label class="dz-label" for="image">
-								<Icon name="material-symbols:cloud-upload" class="icon" /><br />
-								Arrastra una imagen o haz clic para elegir<br />
-								<small>JPG, PNG o WebP, máx. 5MB</small>
-							</label>
-							<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" />
+						<div class="image-uploader" data-image-uploader>
+							<div class="dropzone">
+								<div class="dz-content">
+									<div class="dz-icon">
+										<Icon name="material-symbols:cloud-upload" class="icon" />
+									</div>
+									<div class="dz-title">Arrastra una imagen o haz clic aquí</div>
+									<div class="dz-hint">JPG, PNG o WebP — máx. 5MB</div>
+								</div>
+								<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" />
+							</div>
 						</div>
 					</div>
 					<div class="field">

@@ -62,7 +62,7 @@
   }
 
   /* ===== DIFERENCIADORES — full detail interactive ===== */
-  .diff-full{background:var(--paper);padding:100px 0;}
+  .diff-full{background:var(--paper);padding:80px 0;}
   .diff-full-list{border-top:1px solid var(--line);}
   .diff-full-item{border-bottom:1px solid var(--line);}
   .diff-full-trigger{

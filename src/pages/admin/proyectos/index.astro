@@ -6,7 +6,11 @@ import { actions } from 'astro:actions';
 import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.deleteProject);
+if (result && !result.error) {
+	return Astro.redirect('/admin/proyectos');
+}
 const projects = await getAllProjects();
+
 
 const categoryIcon = (category: string) => {
 	switch (category) {

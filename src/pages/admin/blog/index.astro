@@ -6,7 +6,11 @@ import { actions } from 'astro:actions';
 import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.deletePost);
+if (result && !result.error) {
+	return Astro.redirect('/admin/blog');
+}
 const posts = await getAllPosts();
+
 const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value === value)?.label ?? value;
 ---
 

@@ -10,14 +10,13 @@
 /* ===== BLOG HERO ===== */
   .blog-hero{background:var(--negro);padding:100px 0;position:relative;overflow:hidden;}
   .blog-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--naranja);}
-  .blog-hero h1{color:#fff;font-size:clamp(2.1rem,5vw,3.3rem);letter-spacing:-0.025em;max-width:680px;}
-  .blog-hero p{color:#b0b0b0;font-size:0.95rem;max-width:480px;margin-top:14px;line-height:1.6;}
-  /* 150px de top arriba compensaba nada: el header es sticky, no fixed, asi
-     que no hay que "esquivarlo". En movil sobraba una pantalla de negro. */
+  .blog-hero h1{color:#fff;font-size:clamp(2.1rem,5vw,3.4rem);letter-spacing:-0.025em;margin-bottom:18px;max-width:720px;}
+  .blog-hero p{color:#b8b8b8;font-size:1rem;max-width:560px;line-height:1.65;}
+  /* mismo motivo que .page-hero: el header es sticky, no fixed */
   @media(max-width:699px){.blog-hero{padding:50px 0;}}
 
   /* ===== CATEGORY FILTER ===== */
-  .blog-filter-bar{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:73px;z-index:90;}
+  .blog-filter-bar{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:var(--header-h);z-index:90;}
   .blog-filter-track{display:flex;gap:10px;overflow-x:auto;padding:18px 0;-webkit-overflow-scrolling:touch;}
   .blog-chip{
     flex:0 0 auto;padding:10px 20px;border:1px solid var(--line);border-radius:var(--r-pill);
@@ -50,10 +49,10 @@
   .featured-body .btn{align-self:flex-start;}
 
   /* ===== BLOG GRID ===== */
-  .blog-grid-section{padding:50px 0 100px;background:var(--paper);}
+  .blog-grid-section{padding:80px 0 100px;background:var(--paper);}
   .blog-grid{display:grid;grid-template-columns:1fr;gap:22px;}
   @media(min-width:700px){.blog-grid{grid-template-columns:1fr 1fr;}}
-  @media(min-width:1080px){.blog-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(min-width:1100px){.blog-grid{grid-template-columns:repeat(3,1fr);}}
   .post-card{
     background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
     display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease;

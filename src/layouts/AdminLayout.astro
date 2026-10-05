@@ -10,7 +10,7 @@ interface Props {
 const { title } = Astro.props;
 const user = Astro.locals.user;
 const path = Astro.url.pathname;
-const showChrome = user && path !== '/admin/login' && path !== '/admin/restablecer-clave';
+const showChrome = user && path !== '/admin/login';
 ---
 
 <html lang="es">

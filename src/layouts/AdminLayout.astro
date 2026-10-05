@@ -103,6 +103,86 @@ const showChrome = user && path !== '/admin/login';
 							}
 						});
 					}
+
+					// Previsualización y validación inmediata al elegir o arrastrar una imagen en la dropzone
+					document.querySelectorAll('.dropzone input[type="file"]').forEach((input) => {
+						const dropzone = input.closest('.dropzone');
+						if (!dropzone) return;
+
+						function showError(msg) {
+							let errEl = dropzone.parentElement?.querySelector('.dz-error-msg');
+							if (!errEl) {
+								errEl = document.createElement('div');
+								errEl.className = 'dz-error-msg action-error';
+								errEl.style.marginTop = '10px';
+								errEl.style.marginBottom = '10px';
+								dropzone.parentElement?.appendChild(errEl);
+							}
+							errEl.textContent = msg;
+						}
+
+						function clearError() {
+							const errEl = dropzone.parentElement?.querySelector('.dz-error-msg');
+							if (errEl) errEl.remove();
+						}
+
+						function updatePreview(file) {
+							if (!file) return;
+							clearError();
+							if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+								showError('Formato no permitido. Por favor selecciona una imagen JPG, PNG o WebP.');
+								input.value = '';
+								return;
+							}
+							if (file.size > 5 * 1024 * 1024) {
+								const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+								showError(`La imagen pesa ${sizeMb}MB y supera el límite de 5MB permitidos. Por favor sube una imagen de menor peso.`);
+								input.value = '';
+								return;
+							}
+							let img = dropzone.querySelector('img');
+							if (!img) {
+								img = document.createElement('img');
+								img.alt = '';
+								dropzone.prepend(img);
+							}
+							const reader = new FileReader();
+							reader.onload = (e) => {
+								if (e.target?.result) img.src = e.target.result;
+							};
+							reader.readAsDataURL(file);
+						}
+
+						input.addEventListener('change', () => {
+							const file = input.files?.[0];
+							if (file) updatePreview(file);
+						});
+
+						['dragenter', 'dragover'].forEach((eventName) => {
+							dropzone.addEventListener(eventName, (e) => {
+								e.preventDefault();
+								e.stopPropagation();
+								dropzone.style.borderColor = 'var(--naranja)';
+							});
+						});
+
+						['dragleave', 'drop'].forEach((eventName) => {
+							dropzone.addEventListener(eventName, (e) => {
+								e.preventDefault();
+								e.stopPropagation();
+								dropzone.style.borderColor = '';
+							});
+						});
+
+						dropzone.addEventListener('drop', (e) => {
+							const dt = e.dataTransfer;
+							const file = dt?.files?.[0];
+							if (file) {
+								input.files = dt.files;
+								updatePreview(file);
+							}
+						});
+					});
 				</script>
 			)
 		}

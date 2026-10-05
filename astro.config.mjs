@@ -11,6 +11,9 @@ export default defineConfig({
 	site: 'https://www.koncretaprefabricados.cl',
 	output: 'server',
 	adapter: vercel(),
+	security: {
+		actionBodySizeLimit: 35 * 1024 * 1024,
+	},
 	redirects: {
 		'/prefabricados': { status: 301, destination: '/servicios' },
 		'/about-2': { status: 301, destination: '/proyectos' },

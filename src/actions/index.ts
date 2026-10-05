@@ -16,7 +16,7 @@ import { createPost, deletePost, updatePost } from '../lib/blog';
 // Las fotos de cámara/celular pesan 6-12MB. Con un tope bajo la gente las
 // pasaba por compresores online y subía imágenes destrozadas; aceptamos el
 // original y lo normalizamos aquí con sharp.
-const MAX_IMAGE_BYTES = 30 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const MAX_IMAGE_WIDTH = 2000;
 const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
 const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
@@ -55,7 +55,7 @@ async function uploadImageIfPresent(image: File | undefined): Promise<string | n
 		throw new ActionError({ code: 'BAD_REQUEST', message: 'Formato de imagen no permitido (usa JPG, PNG o WebP).' });
 	}
 	if (image.size > MAX_IMAGE_BYTES) {
-		throw new ActionError({ code: 'BAD_REQUEST', message: 'La imagen supera los 30MB.' });
+		throw new ActionError({ code: 'BAD_REQUEST', message: 'La imagen supera los 5MB permitidos. Por favor sube una imagen de menor tamaño.' });
 	}
 	return uploadImage(image);
 }
@@ -413,7 +413,7 @@ export const server = {
 			if (file.size > maxBytes) {
 				throw new ActionError({
 					code: 'BAD_REQUEST',
-					message: `El archivo supera el máximo permitido (${isVideo ? '50MB' : '30MB'}).`,
+					message: `El archivo supera el máximo permitido (${isVideo ? '50MB' : '5MB'}).`,
 				});
 			}
 			if (!isVideo) {

@@ -1,6 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
-import { verifySessionToken, SESSION_COOKIE_NAME } from './lib/auth';
-import { getUserById } from './lib/users';
+import { createSupabaseServerClient } from './lib/supabase';
 import { env } from './lib/env';
 
 const MAINTENANCE_HTML = `<!doctype html>
@@ -22,23 +21,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		});
 	}
 
-
 	// Páginas estáticas (marketing) no necesitan sesión ni tocan la DB.
 	if (context.isPrerendered) {
 		context.locals.user = null;
 		return next();
 	}
 
-	// ponytail: bypass de login SOLO en `astro dev` local, para revisar el
-	// diseño del panel sin tener la DB configurada. import.meta.env.DEV es
-	// falso en cualquier build de producción, así que esto nunca llega a Vercel.
-	// Quitar este bloque cuando se pruebe el login real.
+	// Bypass de dev local opcional
 	if (import.meta.env.DEV && import.meta.env.ADMIN_DEV_BYPASS === 'true') {
-		context.locals.user = { id: 0, email: 'dev@local' };
+		context.locals.user = { id: 'dev-user-id', email: 'dev@local' };
 		return next();
 	}
 
-	const { cookies, url, request, redirect } = context;
+	const { url, request, redirect } = context;
 
 	// CSRF: cualquier POST debe venir del mismo origin (formularios/actions propios).
 	if (request.method === 'POST') {
@@ -48,19 +43,37 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		}
 	}
 
-	const token = cookies.get(SESSION_COOKIE_NAME)?.value;
-	const userId = verifySessionToken(token);
-	const user = userId ? await getUserById(userId) : null;
-	context.locals.user = user ? { id: user.id, email: user.email } : null;
-
 	const isAdminRoute = url.pathname.startsWith('/admin');
 	const isLoginRoute = url.pathname === '/admin/login';
 
-	if (isAdminRoute && !isLoginRoute && !context.locals.user) {
-		return redirect('/admin/login');
-	}
-	if (isLoginRoute && context.locals.user) {
-		return redirect('/admin');
+	// Solo consultamos Supabase Auth en rutas /admin para rendimiento óptimo
+	if (isAdminRoute) {
+		if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) {
+			if (import.meta.env.DEV) {
+				console.warn('Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY en .env');
+			}
+		}
+
+		try {
+			const supabase = createSupabaseServerClient(context);
+			const {
+				data: { user },
+			} = await supabase.auth.getUser();
+
+			context.locals.user = user && user.email ? { id: user.id, email: user.email } : null;
+		} catch (error) {
+			console.error('Error al verificar sesión de Supabase:', error);
+			context.locals.user = null;
+		}
+
+		if (!isLoginRoute && !context.locals.user) {
+			return redirect('/admin/login');
+		}
+		if (isLoginRoute && context.locals.user) {
+			return redirect('/admin');
+		}
+	} else {
+		context.locals.user = null;
 	}
 
 	return next();

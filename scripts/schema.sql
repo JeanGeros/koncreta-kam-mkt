@@ -1,12 +1,8 @@
 -- Ejecutar una sola vez contra la base de datos de producción/desarrollo.
 -- psql "$DATABASE_URL" -f scripts/schema.sql
-
-CREATE TABLE IF NOT EXISTS admin_users (
-	id SERIAL PRIMARY KEY,
-	email TEXT UNIQUE NOT NULL,
-	password_hash TEXT NOT NULL,
-	created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
+--
+-- Nota: La autenticación de administradores ahora es gestionada nativamente
+-- por Supabase Auth (Dashboard -> Authentication -> Users).
 
 CREATE TABLE IF NOT EXISTS projects (
 	id SERIAL PRIMARY KEY,

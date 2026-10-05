@@ -21,9 +21,10 @@ interface ImportMeta {
 }
 
 type AdminUser = {
-	id: number;
+	id: string;
 	email: string;
 };
+
 
 declare namespace App {
 	interface Locals {

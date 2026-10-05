@@ -8,7 +8,14 @@ export const env = {
 		if (!val) throw new Error('Falta DATABASE_URL en el entorno');
 		return val;
 	},
+	get SUPABASE_URL(): string {
+		return readEnv('SUPABASE_URL') || readEnv('PUBLIC_SUPABASE_URL') || '';
+	},
+	get SUPABASE_ANON_KEY(): string {
+		return readEnv('SUPABASE_ANON_KEY') || readEnv('PUBLIC_SUPABASE_ANON_KEY') || '';
+	},
 	get SESSION_SECRET(): string {
+
 		const val = readEnv('SESSION_SECRET');
 		if (!val) {
 			if (import.meta.env.DEV) return 'dev_session_secret_change_in_production_32_chars';

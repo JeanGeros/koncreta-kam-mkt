@@ -1,9 +1,9 @@
 export type AdminUser = {
-	id: number;
+	id: string;
 	email: string;
-	password_hash: string;
-	created_at: string;
+	created_at?: string;
 };
+
 
 export type Project = {
 	id: number;

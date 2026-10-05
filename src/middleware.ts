@@ -45,12 +45,21 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
 	const isAdminRoute = url.pathname.startsWith('/admin');
 	const isLoginRoute = url.pathname === '/admin/login';
+	const isResetPasswordRoute = url.pathname === '/admin/restablecer-clave';
+	const isPublicAdminRoute = isLoginRoute || isResetPasswordRoute;
 
 	// Solo consultamos Supabase Auth en rutas /admin para rendimiento óptimo
 	if (isAdminRoute) {
 		if (isSupabaseConfigured()) {
 			try {
 				const supabase = createSupabaseServerClient(context);
+
+				// Intercambio de código de autenticación (ej: enlaces de recuperación de Supabase)
+				const authCode = url.searchParams.get('code');
+				if (authCode && isResetPasswordRoute) {
+					await supabase.auth.exchangeCodeForSession(authCode);
+				}
+
 				const {
 					data: { user },
 				} = await supabase.auth.getUser();
@@ -64,7 +73,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 			context.locals.user = null;
 		}
 
-		if (!isLoginRoute && !context.locals.user) {
+		if (!isPublicAdminRoute && !context.locals.user) {
 			return redirect('/admin/login');
 		}
 		if (isLoginRoute && context.locals.user) {

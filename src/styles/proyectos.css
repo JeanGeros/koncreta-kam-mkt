@@ -1,12 +1,12 @@
 /* ===== PAGE HERO (interior) ===== */
-  .page-hero{background:var(--negro);padding:150px 0 70px;position:relative;overflow:hidden;}
+  .page-hero{background:var(--negro);padding:100px 0;position:relative;overflow:hidden;}
   .page-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--naranja);}
   .page-hero .idx{margin-bottom:22px;}
   .page-hero h1{color:#fff;font-size:clamp(2.1rem,5vw,3.4rem);letter-spacing:-0.025em;margin-bottom:18px;max-width:720px;}
   .page-hero p{color:#b8b8b8;font-size:1rem;max-width:560px;line-height:1.65;}
   /* mismo motivo que .blog-hero: el header es sticky, no fixed, el padding
      de 150px no esquivaba nada. */
-  @media(max-width:699px){.page-hero{padding:64px 0 40px;}}
+  @media(max-width:699px){.page-hero{padding:50px 0;}}
   /* En movil el texto no cabe en una linea, y un pill de varias lineas se ve
      mal: los extremos redondeados no acompañan al bloque. Asi que aca es una
      caja de esquinas suaves, con "Rechazo 0" fijo a la izquierda y el resto

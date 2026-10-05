@@ -1,5 +1,5 @@
 /* ===== SERVICIOS HERO ===== */
-  .servicios-hero{background:var(--negro);padding:150px 0 70px;position:relative;overflow:hidden;}
+  .servicios-hero{background:var(--negro);padding:100px 0;position:relative;overflow:hidden;}
   .servicios-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--naranja);}
   .servicios-hero-row{display:flex;flex-direction:column;gap:26px;}
   @media(min-width:700px){.servicios-hero-row{flex-direction:row;align-items:flex-end;justify-content:space-between;}}
@@ -99,6 +99,7 @@
   @media(min-width:800px){.servicios-cta-inner .btn{width:auto;}}
 
   @media(max-width:699px){
+    .servicios-hero{padding:50px 0;}
     .servicios-hero-row{align-items:center;text-align:center;}
     .servicios-hero-row .btn{width:100%;justify-content:center;text-align:center;}
   }

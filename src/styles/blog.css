@@ -8,13 +8,13 @@
   }
   button{cursor:pointer;}
 /* ===== BLOG HERO ===== */
-  .blog-hero{background:var(--negro);padding:150px 0 60px;position:relative;overflow:hidden;}
+  .blog-hero{background:var(--negro);padding:100px 0;position:relative;overflow:hidden;}
   .blog-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--naranja);}
   .blog-hero h1{color:#fff;font-size:clamp(2.1rem,5vw,3.3rem);letter-spacing:-0.025em;max-width:680px;}
   .blog-hero p{color:#b0b0b0;font-size:0.95rem;max-width:480px;margin-top:14px;line-height:1.6;}
   /* 150px de top arriba compensaba nada: el header es sticky, no fixed, asi
      que no hay que "esquivarlo". En movil sobraba una pantalla de negro. */
-  @media(max-width:699px){.blog-hero{padding:64px 0 40px;}}
+  @media(max-width:699px){.blog-hero{padding:50px 0;}}
 
   /* ===== CATEGORY FILTER ===== */
   .blog-filter-bar{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:73px;z-index:90;}

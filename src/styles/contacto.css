@@ -1,5 +1,5 @@
 /* ===== CONTACT HERO + FORM (split, minimal) ===== */
-  .contact-hero{background:var(--negro);padding:150px 0 90px;position:relative;overflow:hidden;}
+  .contact-hero{background:var(--negro);padding:100px 0;position:relative;overflow:hidden;}
   .contact-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--naranja);}
   .contact-hero-grid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;}
   /* mismo motivo que .form-wrap en global.css: sin esto el formulario de la
@@ -8,7 +8,7 @@
   @media(min-width:960px){.contact-hero-grid{grid-template-columns:0.9fr 1.1fr;gap:64px;}}
 
   @media(max-width:699px){
-    .contact-hero{padding:64px 0 40px;}
+    .contact-hero{padding:50px 0;}
     .contact-hero-left{text-align:center;}
     .contact-hero-left h1{margin-bottom:16px;text-align:center;}
     .contact-hero-left .sub{margin:0 auto 26px;text-align:center;}

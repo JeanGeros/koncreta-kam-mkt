@@ -8,9 +8,16 @@ interface Props {
 	title: string;
 }
 const { title } = Astro.props;
+
+const logoutResult = Astro.getActionResult(actions.logout);
+if (logoutResult && !logoutResult.error) {
+	return Astro.redirect('/admin/login');
+}
+
 const user = Astro.locals.user;
 const path = Astro.url.pathname;
 const showChrome = user && path !== '/admin/login';
+
 ---
 
 <html lang="es">

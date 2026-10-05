@@ -151,7 +151,10 @@ const showChrome = user && path !== '/admin/login';
 								<img src="" alt="Previsualización" />
 								<div class="dz-actions-bar">
 									<span class="dz-file-info">${file.name} (${sizeMb} MB)</span>
-									<button type="button" class="dz-btn-action btn-danger" data-action="revert">Deshacer</button>
+									<button type="button" class="dz-btn-action btn-revert" data-action="revert">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+										<span>Deshacer</span>
+									</button>
 								</div>
 							`;
 
@@ -180,8 +183,14 @@ const showChrome = user && path !== '/admin/login';
 									<span class="dz-badge badge-current"><span class="badge-dot"></span> Imagen actual</span>
 									<img src="${originalExistingUrl}" alt="" />
 									<div class="dz-actions-bar">
-										<button type="button" class="dz-btn-action" data-action="change">Cambiar imagen</button>
-										<button type="button" class="dz-btn-action btn-danger" data-action="remove">Quitar imagen</button>
+										<button type="button" class="dz-btn-action btn-change" data-action="change">
+											<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+											<span>Cambiar imagen</span>
+										</button>
+										<button type="button" class="dz-btn-action btn-danger" data-action="remove">
+											<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+											<span>Quitar imagen</span>
+										</button>
 									</div>
 								`;
 								dropzone.style.display = 'none';

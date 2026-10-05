@@ -78,8 +78,14 @@ if (!project) {
 									<span class="dz-badge badge-current"><span class="badge-dot"></span> Imagen actual</span>
 									<img src={project.image_url} alt={project.image_alt ?? project.title} />
 									<div class="dz-actions-bar">
-										<button type="button" class="dz-btn-action btn-change" data-action="change">Cambiar imagen</button>
-										<button type="button" class="dz-btn-action btn-danger" data-action="remove">Quitar imagen</button>
+										<button type="button" class="dz-btn-action btn-change" data-action="change">
+											<Icon name="material-symbols:cloud-upload" />
+											<span>Cambiar imagen</span>
+										</button>
+										<button type="button" class="dz-btn-action btn-danger" data-action="remove">
+											<Icon name="material-symbols:delete" />
+											<span>Quitar imagen</span>
+										</button>
 									</div>
 								</div>
 							) : null}

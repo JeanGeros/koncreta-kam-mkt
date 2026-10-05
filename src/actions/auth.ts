@@ -1,6 +1,6 @@
 import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro:schema';
-import { createSupabaseServerClient } from '../lib/supabase';
+import { createSupabaseServerClient, isSupabaseConfigured } from '../lib/supabase';
 
 export const authActions = {
 	login: defineAction({
@@ -11,6 +11,13 @@ export const authActions = {
 			remember: z.string().optional(),
 		}),
 		handler: async ({ email, password }, context) => {
+			if (!isSupabaseConfigured()) {
+				throw new ActionError({
+					code: 'INTERNAL_SERVER_ERROR',
+					message: 'Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY en el archivo .env',
+				});
+			}
+
 			const supabase = createSupabaseServerClient(context);
 			const { error } = await supabase.auth.signInWithPassword({ email, password });
 			if (error) {
@@ -26,6 +33,9 @@ export const authActions = {
 	logout: defineAction({
 		accept: 'form',
 		handler: async (_input, context) => {
+			if (!isSupabaseConfigured()) {
+				return { success: true };
+			}
 			const supabase = createSupabaseServerClient(context);
 			await supabase.auth.signOut();
 			return { success: true };

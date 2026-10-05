@@ -1,5 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
-import { createSupabaseServerClient } from './lib/supabase';
+import { createSupabaseServerClient, isSupabaseConfigured } from './lib/supabase';
 import { env } from './lib/env';
 
 const MAINTENANCE_HTML = `<!doctype html>
@@ -48,21 +48,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
 	// Solo consultamos Supabase Auth en rutas /admin para rendimiento óptimo
 	if (isAdminRoute) {
-		if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) {
-			if (import.meta.env.DEV) {
-				console.warn('Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY en .env');
+		if (isSupabaseConfigured()) {
+			try {
+				const supabase = createSupabaseServerClient(context);
+				const {
+					data: { user },
+				} = await supabase.auth.getUser();
+
+				context.locals.user = user && user.email ? { id: user.id, email: user.email } : null;
+			} catch (error) {
+				console.error('Error al verificar sesión de Supabase:', error);
+				context.locals.user = null;
 			}
-		}
-
-		try {
-			const supabase = createSupabaseServerClient(context);
-			const {
-				data: { user },
-			} = await supabase.auth.getUser();
-
-			context.locals.user = user && user.email ? { id: user.id, email: user.email } : null;
-		} catch (error) {
-			console.error('Error al verificar sesión de Supabase:', error);
+		} else {
 			context.locals.user = null;
 		}
 

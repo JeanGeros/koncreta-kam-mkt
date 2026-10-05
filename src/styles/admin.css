@@ -92,11 +92,11 @@
 .controls-bar{background:var(--a-white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--a-shadow-sm);padding:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:24px;}
 .search-field{position:relative;flex:1;min-width:220px;max-width:360px;}
 .search-field .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gris-plata);width:18px;height:18px;}
-.search-field input{width:100%;padding:11px 14px 11px 38px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);font-family:'Hanken Grotesk',sans-serif;font-size:0.88rem;color:var(--negro);}
-.search-field input:focus{outline:none;border-color:var(--naranja);box-shadow:0 0 0 3px rgba(251,102,36,0.15);background:#fff;}
+.search-field input{width:100%;padding:11px 14px 11px 38px;border:1px solid var(--line);border-radius:var(--r-md);background:#ffffff;font-family:'Hanken Grotesk',sans-serif;font-size:0.88rem;color:var(--negro);}
+.search-field input:focus{outline:none;border-color:var(--naranja);box-shadow:0 0 0 3px rgba(251,102,36,0.15);background:#ffffff;}
 .controls-filters{display:flex;flex-wrap:wrap;gap:10px;}
-.controls-filters select{padding:10px 34px 10px 14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%235e5e5e" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 10px center;background-size:16px;font-family:'Hanken Grotesk',sans-serif;font-size:0.82rem;color:var(--negro);appearance:none;cursor:pointer;}
-.controls-filters select:focus{outline:none;border-color:var(--naranja);}
+.controls-filters select{padding:10px 34px 10px 14px;border:1px solid var(--line);border-radius:var(--r-md);background:#ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%235e5e5e" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 10px center;background-size:16px;font-family:'Hanken Grotesk',sans-serif;font-size:0.82rem;color:var(--negro);appearance:none;cursor:pointer;}
+.controls-filters select:focus{outline:none;border-color:var(--naranja);background-color:#ffffff;}
 
 /* ===== TABLAS ===== */
 .admin-card.table-card{padding:0;overflow:hidden;}
@@ -166,8 +166,9 @@
 
 .admin-body .field{margin-bottom:18px;}
 .admin-body .field label{font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--gris-plata);}
-.admin-body .field input,.admin-body .field textarea,.admin-body .field select{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;font-family:'Hanken Grotesk',sans-serif;background:var(--paper);}
-.admin-body .field input:focus,.admin-body .field textarea:focus,.admin-body .field select:focus{outline:none;border-color:var(--naranja);box-shadow:0 0 0 3px rgba(251,102,36,0.15);background:#fff;}
+.admin-body .field input,.admin-body .field textarea,.admin-body .field select{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;font-family:'Hanken Grotesk',sans-serif;font-size:0.88rem;color:var(--negro);background:#ffffff;width:100%;}
+.admin-body .field select{padding-right:36px;background:#ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%235a4138" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 12px center;background-size:16px;appearance:none;-webkit-appearance:none;cursor:pointer;}
+.admin-body .field input:focus,.admin-body .field textarea:focus,.admin-body .field select:focus{outline:none;border-color:var(--naranja);box-shadow:0 0 0 3px rgba(251,102,36,0.15);background:#ffffff;}
 .admin-form .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media(max-width:520px){.admin-form .field-row{grid-template-columns:1fr;}}
 .admin-form .field-hint{font-size:0.72rem;color:var(--gris-plata);margin-top:6px;}

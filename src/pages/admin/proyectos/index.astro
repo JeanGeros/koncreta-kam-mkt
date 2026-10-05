@@ -63,6 +63,13 @@ const categoryIcon = (category: string) => {
 
 	<div class="admin-card table-card">
 		<table class="admin-table">
+			<colgroup>
+				<col style="width: auto;" />
+				<col style="width: 190px;" />
+				<col style="width: 170px;" />
+				<col style="width: 130px;" />
+				<col style="width: 90px;" />
+			</colgroup>
 			<thead>
 				<tr>
 					<th>Título</th>
@@ -115,6 +122,11 @@ const categoryIcon = (category: string) => {
 						</tr>
 					))
 				}
+				<tr id="projects-empty-filter" style="display:none;">
+					<td colspan="5" class="empty-cell">
+						No se encontraron proyectos con los filtros seleccionados.
+					</td>
+				</tr>
 				{
 					projects.length === 0 && (
 						<tr>
@@ -126,7 +138,7 @@ const categoryIcon = (category: string) => {
 				}
 			</tbody>
 		</table>
-		<div class="table-foot">Mostrando {projects.length} proyectos</div>
+		<div class="table-foot" id="projects-counter">Mostrando {projects.length} proyectos</div>
 	</div>
 </AdminLayout>
 
@@ -141,18 +153,33 @@ const categoryIcon = (category: string) => {
 	const categorySelect = document.getElementById('filter-category');
 	const statusSelect = document.getElementById('filter-status');
 	const rows = Array.from(document.querySelectorAll('#projects-tbody tr[data-title]'));
+	const emptyFilterRow = document.getElementById('projects-empty-filter');
+	const counterEl = document.getElementById('projects-counter');
+	const totalProjects = rows.length;
 
 	function applyFilters() {
 		const search = (searchInput?.value || '').trim().toLowerCase();
 		const category = categorySelect?.value || '';
 		const status = statusSelect?.value || '';
+		let visibleCount = 0;
 
 		rows.forEach((row) => {
 			const matchesSearch = !search || row.dataset.title.includes(search);
 			const matchesCategory = !category || row.dataset.category === category;
 			const matchesStatus = !status || row.dataset.published === status;
-			row.style.display = matchesSearch && matchesCategory && matchesStatus ? '' : 'none';
+			const isVisible = matchesSearch && matchesCategory && matchesStatus;
+			row.style.display = isVisible ? '' : 'none';
+			if (isVisible) visibleCount++;
 		});
+
+		if (emptyFilterRow) {
+			emptyFilterRow.style.display = (visibleCount === 0 && totalProjects > 0) ? '' : 'none';
+		}
+		if (counterEl) {
+			counterEl.textContent = (visibleCount === totalProjects)
+				? `Mostrando ${totalProjects} proyectos`
+				: `Mostrando ${visibleCount} de ${totalProjects} proyectos`;
+		}
 	}
 
 	searchInput?.addEventListener('input', applyFilters);

@@ -99,8 +99,8 @@
 .controls-filters select:focus{outline:none;border-color:var(--naranja);background-color:#ffffff;}
 
 /* ===== TABLAS ===== */
-.admin-card.table-card{padding:0;overflow:hidden;}
-.admin-table{width:100%;border-collapse:collapse;}
+.admin-card.table-card{padding:0;overflow:hidden;width:100%;}
+.admin-table{width:100%;min-width:100%;border-collapse:collapse;table-layout:fixed;}
 .admin-table th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:#4b5563;padding:14px 20px;background:#f3f4f6;border-bottom:1px solid #e5e7eb;}
 .admin-table td{padding:14px 20px;border-bottom:1px solid var(--line);font-size:0.87rem;vertical-align:middle;color:var(--gris-oscuro);}
 .admin-table tr:last-child td{border-bottom:none;}

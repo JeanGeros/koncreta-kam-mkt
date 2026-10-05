@@ -44,6 +44,13 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 
 	<div class="admin-card table-card">
 		<table class="admin-table">
+			<colgroup>
+				<col style="width: auto;" />
+				<col style="width: 190px;" />
+				<col style="width: 140px;" />
+				<col style="width: 110px;" />
+				<col style="width: 90px;" />
+			</colgroup>
 			<thead>
 				<tr>
 					<th>Título</th>
@@ -99,6 +106,11 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 						</tr>
 					))
 				}
+				<tr id="posts-empty-filter" style="display:none;">
+					<td colspan="5" class="empty-cell">
+						No se encontraron posts con los filtros seleccionados.
+					</td>
+				</tr>
 				{
 					posts.length === 0 && (
 						<tr>
@@ -110,7 +122,7 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 				}
 			</tbody>
 		</table>
-		<div class="table-foot">Mostrando {posts.length} posts</div>
+		<div class="table-foot" id="posts-counter">Mostrando {posts.length} posts</div>
 	</div>
 </AdminLayout>
 
@@ -125,18 +137,33 @@ const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value ===
 	const categorySelect = document.getElementById('filter-category');
 	const statusSelect = document.getElementById('filter-status');
 	const rows = Array.from(document.querySelectorAll('#posts-tbody tr[data-title]'));
+	const emptyFilterRow = document.getElementById('posts-empty-filter');
+	const counterEl = document.getElementById('posts-counter');
+	const totalPosts = rows.length;
 
 	function applyFilters() {
 		const search = (searchInput?.value || '').trim().toLowerCase();
 		const category = categorySelect?.value || '';
 		const status = statusSelect?.value || '';
+		let visibleCount = 0;
 
 		rows.forEach((row) => {
 			const matchesSearch = !search || row.dataset.title.includes(search);
 			const matchesCategory = !category || row.dataset.category === category;
 			const matchesStatus = !status || row.dataset.published === status;
-			row.style.display = matchesSearch && matchesCategory && matchesStatus ? '' : 'none';
+			const isVisible = matchesSearch && matchesCategory && matchesStatus;
+			row.style.display = isVisible ? '' : 'none';
+			if (isVisible) visibleCount++;
 		});
+
+		if (emptyFilterRow) {
+			emptyFilterRow.style.display = (visibleCount === 0 && totalPosts > 0) ? '' : 'none';
+		}
+		if (counterEl) {
+			counterEl.textContent = (visibleCount === totalPosts)
+				? `Mostrando ${totalPosts} posts`
+				: `Mostrando ${visibleCount} de ${totalPosts} posts`;
+		}
 	}
 
 	searchInput?.addEventListener('input', applyFilters);

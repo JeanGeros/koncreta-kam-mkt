@@ -9,11 +9,11 @@
 
   @media(max-width:699px){
     .contact-hero{padding:50px 0;}
-    .contact-hero-left{text-align:center;}
-    .contact-hero-left h1{margin-bottom:16px;text-align:center;}
-    .contact-hero-left .sub{margin:0 auto 26px;text-align:center;}
+    .contact-hero-left{text-align:left;}
+    .contact-hero-left h1{margin-bottom:16px;text-align:left;}
+    .contact-hero-left .sub{margin:0 0 26px;text-align:left;}
     .wa-pill-btn{width:100%;justify-content:center;text-align:center;}
-    .form-card-minimal{padding:10px 10px;}
+    .form-card-minimal{padding:24px 20px;}
     .uline-submit{width:100%;justify-content:center;text-align:center;}
   }
 

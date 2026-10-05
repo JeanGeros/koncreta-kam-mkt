@@ -321,6 +321,12 @@
        responsive, esto es solo el respaldo si el widget entrega algo mas
        ancho que su contenedor. */
     .cf-turnstile{max-width:100%;}
+    @media(max-width:480px){
+      .cf-turnstile{
+        transform:scale(0.85);
+        transform-origin:left center;
+      }
+    }
     .submit-btn{width:100%;background:var(--negro);color:#fff;border:none;padding:16px;font-family:'Century Gothic',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:0.75rem;cursor:pointer;transition:background .25s;border-radius:var(--r-pill);}
     .submit-btn:hover{background:var(--naranja);}
 

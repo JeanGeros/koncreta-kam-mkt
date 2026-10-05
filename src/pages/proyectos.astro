@@ -110,29 +110,11 @@ const projects = await getPublishedProjects();
   </div>
 </section>
 
-<script is:inline>
-const reveals = document.querySelectorAll('[data-reveal]');
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0});
-reveals.forEach(el=>io.observe(el));
-
-const chips = document.querySelectorAll('#proyectos-filter-track .filter-chip');
-const cards = document.querySelectorAll('#portfolio-grid .portfolio-card');
-const emptyMsg = document.getElementById('portfolio-empty');
-chips.forEach(chip=>{
-  chip.addEventListener('click', ()=>{
-    chips.forEach(c=>c.classList.remove('active'));
-    chip.classList.add('active');
-    const cat = chip.dataset.cat;
-    let visibleCount = 0;
-    cards.forEach(card=>{
-      const match = cat === 'todos' || card.dataset.cat === cat;
-      card.style.display = match ? '' : 'none';
-      if(match) visibleCount++;
-    });
-    emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
-  });
-});
-</script>
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script>import '../scripts/contact-form';</script>
+<script>
+  import '../scripts/reveal';
+  import '../scripts/project-filters';
+  import '../scripts/contact-form';
+</script>
 </Base>
+

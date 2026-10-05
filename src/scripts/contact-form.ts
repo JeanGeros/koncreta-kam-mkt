@@ -10,6 +10,12 @@ document.querySelectorAll<HTMLFormElement>('form[data-contact-form]').forEach((f
 		e.preventDefault();
 		button.disabled = true;
 		status.textContent = 'Enviando…';
+
+		const originInput = form.querySelector<HTMLInputElement>('input[name="url_origen"]');
+		if (originInput && !originInput.value) {
+			originInput.value = window.location.href;
+		}
+
 		const { error } = await actions.sendContact(new FormData(form));
 		button.disabled = false;
 		if (error) {
@@ -23,3 +29,4 @@ document.querySelectorAll<HTMLFormElement>('form[data-contact-form]').forEach((f
 		if (widget && typeof turnstile !== 'undefined') turnstile.reset(widget);
 	});
 });
+

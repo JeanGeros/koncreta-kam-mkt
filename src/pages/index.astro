@@ -240,8 +240,7 @@ try {
         <div class="field"><label for="telefono">Teléfono</label><input type="tel" id="telefono" name="telefono" required></div>
       </div>
       <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu proyecto"></textarea></div>
-      <input type="hidden" id="url_origen" name="url_origen">
-      <script is:inline>document.getElementById('url_origen').value = window.location.href;</script>
+      <input type="hidden" id="url_origen" name="url_origen" value="/">
       <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-size="flexible" style="margin-bottom:16px"></div>
       <button type="submit" class="submit-btn">Enviar mensaje</button>
       <p data-form-status role="status" aria-live="polite" style="margin-top:12px;font-size:0.85rem"></p>
@@ -259,64 +258,13 @@ try {
   </div>
 </section>
 
-<script is:inline define:vars={{ selectorProjects }}>
-const reveals = document.querySelectorAll('[data-reveal]');
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0});
-reveals.forEach(el=>io.observe(el));
+<script type="application/json" id="selector-projects-data" is:inline set:html={JSON.stringify(selectorProjects)} />
 
-// Selector de proyectos
-const projects = selectorProjects;
-let actual = 0;
-const track = document.getElementById('sel-track');
-const selImage = document.getElementById('sel-image');
-const selVisual = document.querySelector('.selector-visual');
-const selTag = document.getElementById('sel-tag');
-const selTitle = document.getElementById('sel-title');
-const selDesc = document.getElementById('sel-desc');
-
-function renderThumbs(){
-  track.innerHTML = '';
-  projects.forEach((p, i)=>{
-    const div = document.createElement('div');
-    div.className = 'selector-thumb' + (i===0 ? ' active' : '');
-    div.innerHTML = (p.img ? `<img src="${p.img}" alt="${p.title}" loading="lazy">` : `<div class="ph-mini"></div>`) + `<span class="thumb-label mono">${p.tag}</span>`;
-    div.addEventListener('click', ()=> selectProject(i));
-    track.appendChild(div);
-  });
-}
-function selectProject(i){
-  const p = projects[i];
-  selTag.textContent = p.tag;
-  selTitle.textContent = p.title;
-  selDesc.textContent = p.desc;
-  selDesc.style.display = p.desc ? '' : 'none';
-  if(p.img){
-    selVisual.querySelector('.placeholder-pattern')?.remove();
-    if(!selVisual.querySelector('img')){ selVisual.appendChild(selImage); }
-    selImage.src = p.img;
-    selImage.style.display = 'block';
-  } else {
-    selImage.style.display = 'none';
-    if(!selVisual.querySelector('.placeholder-pattern')){
-      const ph = document.createElement('div');
-      ph.className = 'placeholder-pattern';
-      ph.innerHTML = '<span class="ph-text">Imagen referencial<br>disponible en levantamiento fotográfico</span>';
-      selVisual.appendChild(ph);
-    }
-  }
-  document.querySelectorAll('.selector-thumb').forEach((t,idx)=> t.classList.toggle('active', idx===i));
-  actual = i;
-}
-function mover(paso){
-  if(!projects.length) return;
-  const i = (actual + paso + projects.length) % projects.length;
-  selectProject(i);
-  document.querySelectorAll('.selector-thumb')[i]?.scrollIntoView({behavior:'smooth', inline:'nearest', block:'nearest'});
-}
-document.querySelector('.selector-nav.prev').addEventListener('click', ()=> mover(-1));
-document.querySelector('.selector-nav.next').addEventListener('click', ()=> mover(1));
-renderThumbs();
-</script>
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script>import '../scripts/contact-form';</script>
+<script>
+  import '../scripts/reveal';
+  import '../scripts/project-selector';
+  import '../scripts/contact-form';
+</script>
 </Base>
+

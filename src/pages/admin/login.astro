@@ -4,6 +4,10 @@ import { actions } from 'astro:actions';
 import { Icon } from 'astro-icon/components';
 
 const result = Astro.getActionResult(actions.login);
+if (result && !result.error) {
+	return Astro.redirect('/admin');
+}
+
 ---
 
 <AdminLayout title="Iniciar sesión">

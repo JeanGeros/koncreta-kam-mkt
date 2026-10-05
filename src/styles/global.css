@@ -75,8 +75,9 @@
     @media(min-width:700px){.hero-content{padding:48px 32px 150px;}}
     .hero h1{color:var(--blanco);font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;margin:0 0 24px;max-width:800px;font-weight:700;letter-spacing:-0.025em;}
     .hero h1 .accent{color:var(--naranja);}
-    .hero-ctas{display:flex;flex-direction:column;gap:12px;max-width:460px;}
-    @media(min-width:520px){.hero-ctas{flex-direction:row;max-width:none;}}
+    .hero-ctas{display:flex;flex-direction:column;gap:12px;width:100%;max-width:460px;}
+    .hero-ctas .btn{width:100%;justify-content:center;text-align:center;}
+    @media(min-width:520px){.hero-ctas{flex-direction:row;width:auto;max-width:none;} .hero-ctas .btn{width:auto;}}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 30px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;border:1px solid transparent;cursor:pointer;transition:all .25s ease;font-family:'Century Gothic',sans-serif;border-radius:var(--r-pill);}
     .btn-primary{background:var(--naranja);color:#fff;}
     .btn-primary:hover{background:var(--naranja-deep);box-shadow:0 10px 30px rgba(251,102,36,0.35);transform:translateY(-2px);}
@@ -160,13 +161,14 @@
     .selector-tag{position:absolute;top:16px;left:16px;background:rgba(0,0,0,0.6);color:#fff;font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.06em;padding:7px 14px;z-index:3;border-radius:var(--r-pill);}
     /* Padding y margenes apretados en movil, donde esta card se come media
        pantalla; a partir de 900px vuelven a los valores amplios. */
-    .selector-info{padding:20px 20px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--line-dark);}
-    @media(min-width:900px){.selector-info{padding:36px 34px;border-top:none;border-left:1px solid var(--line-dark);}}
+    .selector-info{padding:20px 20px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--line-dark);text-align:center;align-items:center;}
+    @media(min-width:900px){.selector-info{padding:36px 34px;border-top:none;border-left:1px solid var(--line-dark);text-align:left;align-items:flex-start;}}
     .selector-info h4{font-size:1.15rem;margin-bottom:10px;}
     @media(min-width:900px){.selector-info h4{font-size:1.4rem;margin-bottom:14px;}}
     .selector-info p{color:#b8b8b8;font-size:0.9rem;line-height:1.65;margin-bottom:16px;}
     @media(min-width:900px){.selector-info p{margin-bottom:24px;}}
-    .selector-info .btn{align-self:flex-start;}
+    .selector-info .btn{width:100%;justify-content:center;text-align:center;}
+    @media(min-width:900px){.selector-info .btn{width:auto;align-self:flex-start;}}
     .selector-track{display:flex;gap:10px;overflow-x:auto;margin-top:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
     .selector-track::-webkit-scrollbar{height:4px;}
     .selector-track::-webkit-scrollbar-track{background:var(--line-dark);}
@@ -245,26 +247,32 @@
     .lk-shape-3{width:130px;height:130px;top:30%;right:14%;background:rgba(251,102,36,0.16);animation:lk-float-1 10s ease-in-out infinite reverse;}
     @keyframes lk-float-1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-24px,26px) scale(1.06);}}
     @keyframes lk-float-2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(20px,-18px) scale(1.08);}}
-    .lk-banner-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:30px;}
-    @media(min-width:800px){.lk-banner-inner{flex-direction:row;align-items:center;justify-content:space-between;gap:40px;}}
+    .lk-banner-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:30px;align-items:center;text-align:center;}
+    @media(min-width:800px){.lk-banner-inner{flex-direction:row;align-items:center;justify-content:space-between;gap:40px;text-align:left;}}
     /* El parrafo salio de al lado del logo y quedo bajo el icono y el titulo.
        .lk-banner-text lo agrupa para que en escritorio siga siendo un solo
        bloque frente al boton. */
-    .lk-banner-text{display:flex;flex-direction:column;gap:14px;}
-    .lk-banner-left{display:flex;align-items:center;gap:16px;}
+    .lk-banner-text{display:flex;flex-direction:column;gap:14px;align-items:center;}
+    @media(min-width:800px){.lk-banner-text{align-items:flex-start;}}
+    .lk-banner-left{display:flex;align-items:center;gap:16px;justify-content:center;}
+    @media(min-width:800px){.lk-banner-left{justify-content:flex-start;}}
     .lk-banner .lk-logo{
       width:52px;height:52px;background:#fff;border-radius:12px;flex-shrink:0;
       display:flex;align-items:center;justify-content:center;color:#0A66C2;
       font-family:'Century Gothic',sans-serif;font-weight:700;font-size:1.35rem;
       box-shadow:0 8px 20px rgba(0,0,0,0.2);
     }
-    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:0;}
-    .lk-banner p{color:rgba(255,255,255,0.78);font-size:0.92rem;max-width:420px;line-height:1.6;}
+    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:0;text-align:center;}
+    @media(min-width:800px){.lk-banner h3{text-align:left;}}
+    .lk-banner p{color:rgba(255,255,255,0.78);font-size:0.92rem;max-width:420px;line-height:1.6;text-align:center;margin:0 auto;}
+    @media(min-width:800px){.lk-banner p{text-align:left;margin:0;}}
     .lk-banner-btn{
+      width:100%;justify-content:center;text-align:center;
       flex-shrink:0;display:inline-flex;align-items:center;gap:10px;background:#fff;color:#0A66C2;
       padding:16px 30px;border-radius:var(--r-pill);font-family:'Century Gothic',sans-serif;font-weight:700;
       font-size:0.85rem;letter-spacing:0.02em;white-space:nowrap;transition:transform .2s ease,box-shadow .2s ease;
     }
+    @media(min-width:800px){.lk-banner-btn{width:auto;}}
     .lk-banner-btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,0.25);}
     .lk-banner-btn svg{width:18px;height:18px;fill:none;stroke:#0A66C2;stroke-width:2;}
 

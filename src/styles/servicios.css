@@ -59,6 +59,7 @@
     .explorer-mobile-panel li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line-dark);font-size:0.86rem;color:#ccc;line-height:1.5;}
     .explorer-mobile-panel li:last-child{border-bottom:none;}
     .explorer-mobile-panel li::before{content:'';width:5px;height:5px;background:var(--naranja);flex-shrink:0;margin-top:6px;border-radius:1px;}
+    .explorer-mobile-panel .ep-cta .btn{width:100%;justify-content:center;text-align:center;}
   }
 
   /* ===== DIFERENCIADORES — full detail interactive ===== */
@@ -89,7 +90,15 @@
   /* ===== CTA BAND ===== */
   .servicios-cta-band{background:var(--negro);padding:90px 0;}
   .servicios-cta-inner{
-    display:flex;flex-direction:column;gap:26px;align-items:flex-start;
+    display:flex;flex-direction:column;gap:26px;align-items:center;text-align:center;
   }
-  @media(min-width:800px){.servicios-cta-inner{flex-direction:row;align-items:center;justify-content:space-between;}}
-  .servicios-cta-inner h3{font-size:clamp(1.5rem,3vw,2.1rem);max-width:520px;letter-spacing:-0.02em;color:#fff;}
+  @media(min-width:800px){.servicios-cta-inner{flex-direction:row;align-items:center;justify-content:space-between;text-align:left;}}
+  .servicios-cta-inner h3{font-size:clamp(1.5rem,3vw,2.1rem);max-width:520px;letter-spacing:-0.02em;color:#fff;text-align:center;}
+  @media(min-width:800px){.servicios-cta-inner h3{text-align:left;}}
+  .servicios-cta-inner .btn{width:100%;justify-content:center;text-align:center;}
+  @media(min-width:800px){.servicios-cta-inner .btn{width:auto;}}
+
+  @media(max-width:699px){
+    .servicios-hero-row{align-items:center;text-align:center;}
+    .servicios-hero-row .btn{width:100%;justify-content:center;text-align:center;}
+  }

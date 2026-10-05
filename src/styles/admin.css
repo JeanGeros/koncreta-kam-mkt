@@ -273,8 +273,47 @@
 	border-radius:var(--r-md);
 	overflow:hidden;
 	background:#000;
-	border:1px solid var(--line);
+	border:2px solid var(--line);
 	box-shadow:var(--a-shadow-sm);
+	transition:border-color .2s ease;
+}
+
+.dz-preview-wrap.is-dragging{
+	border-color:var(--naranja) !important;
+	border-style:dashed !important;
+}
+
+.dz-drop-overlay{
+	display:none;
+	position:absolute;
+	inset:0;
+	z-index:10;
+	background:rgba(0,0,0,0.75);
+	backdrop-filter:blur(4px);
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+	gap:8px;
+	color:#fff;
+	pointer-events:none;
+	transition:opacity .2s ease;
+}
+
+.dz-preview-wrap.is-dragging .dz-drop-overlay{
+	display:flex;
+}
+
+.dz-drop-overlay .icon{
+	width:36px;
+	height:36px;
+	color:var(--naranja);
+}
+
+.dz-drop-overlay span{
+	font-family:'Hanken Grotesk',sans-serif;
+	font-weight:700;
+	font-size:0.92rem;
+	letter-spacing:-0.01em;
 }
 
 .dz-preview-wrap img{

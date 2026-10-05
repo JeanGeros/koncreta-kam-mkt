@@ -92,6 +92,10 @@ if (!post) {
 						<div class="image-uploader" data-image-uploader>
 							{post.hero_image_url ? (
 								<div class="dz-preview-wrap">
+									<div class="dz-drop-overlay">
+										<Icon name="material-symbols:cloud-upload" class="icon" />
+										<span>Suelta la nueva imagen aquí</span>
+									</div>
 									<span class="dz-badge badge-current"><span class="badge-dot"></span> Imagen actual</span>
 									<img src={post.hero_image_url} alt={post.hero_image_alt ?? post.title} />
 									<div class="dz-actions-bar">

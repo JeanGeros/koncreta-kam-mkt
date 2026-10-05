@@ -71,6 +71,10 @@ if (!project) {
 						<div class="image-uploader" data-image-uploader>
 							{project.image_url ? (
 								<div class="dz-preview-wrap">
+									<div class="dz-drop-overlay">
+										<Icon name="material-symbols:cloud-upload" class="icon" />
+										<span>Suelta la nueva imagen aquí</span>
+									</div>
 									<span class="dz-badge badge-current"><span class="badge-dot"></span> Imagen actual</span>
 									<img src={project.image_url} alt={project.image_alt ?? project.title} />
 									<div class="dz-actions-bar">

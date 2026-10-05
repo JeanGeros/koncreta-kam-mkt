@@ -77,10 +77,12 @@
   .uline-row{display:grid;grid-template-columns:1fr;gap:0 24px;}
   @media(min-width:520px){.uline-row{grid-template-columns:1fr 1fr;}}
   .uline-field{margin-bottom:26px;}
+  @media(max-width:699px){.uline-field{margin-bottom:20px;}}
   .uline-field label{
     display:block;font-family:'Century Gothic',sans-serif;font-weight:700;font-size:0.82rem;
     color:var(--negro);margin-bottom:10px;
   }
+  @media(max-width:699px){.uline-field label{margin-bottom:5px;}}
   .uline-field label .req{color:var(--naranja);}
   .uline-field input, .uline-field textarea, .uline-field select{
     width:100%;border:none;border-bottom:1.5px solid var(--negro);background:transparent;

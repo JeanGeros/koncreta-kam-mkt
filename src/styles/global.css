@@ -66,8 +66,8 @@
     /* dvh y no vh: en movil la barra de direcciones se recoge al hacer scroll y
        con vh el hero queda mas alto que la pantalla, empujando los botones
        fuera de vista. El vh va primero como respaldo. */
-    .hero{position:relative;min-height:calc(100vh - var(--header-h));min-height:calc(100dvh - var(--header-h));display:flex;align-items:flex-end;background:var(--negro);overflow:hidden;}
-    @media(min-width:700px){.hero{min-height:calc(100vh - var(--header-h));align-items:flex-end;}}
+    .hero{position:relative;min-height:calc(70vh - var(--header-h));min-height:calc(70dvh - var(--header-h));display:flex;align-items:flex-end;background:var(--negro);overflow:hidden;}
+    @media(min-width:700px){.hero{min-height:calc(90vh - var(--header-h));min-height:calc(90dvh - var(--header-h));align-items:flex-end;}}
     .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
     .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.92) 100%);}
     .hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;z-index:2;background:var(--naranja);}
@@ -247,14 +247,14 @@
     .lk-shape-3{width:130px;height:130px;top:30%;right:14%;background:rgba(251,102,36,0.16);animation:lk-float-1 10s ease-in-out infinite reverse;}
     @keyframes lk-float-1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-24px,26px) scale(1.06);}}
     @keyframes lk-float-2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(20px,-18px) scale(1.08);}}
-    .lk-banner-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:30px;align-items:center;text-align:center;}
+    .lk-banner-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:30px;align-items:flex-start;text-align:left;}
     @media(min-width:800px){.lk-banner-inner{flex-direction:row;align-items:center;justify-content:space-between;gap:40px;text-align:left;}}
     /* El parrafo salio de al lado del logo y quedo bajo el icono y el titulo.
        .lk-banner-text lo agrupa para que en escritorio siga siendo un solo
        bloque frente al boton. */
-    .lk-banner-text{display:flex;flex-direction:column;gap:14px;align-items:center;}
+    .lk-banner-text{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
     @media(min-width:800px){.lk-banner-text{align-items:flex-start;}}
-    .lk-banner-left{display:flex;align-items:center;gap:16px;justify-content:center;}
+    .lk-banner-left{display:flex;align-items:center;gap:16px;justify-content:flex-start;}
     @media(min-width:800px){.lk-banner-left{justify-content:flex-start;}}
     .lk-banner .lk-logo{
       width:52px;height:52px;background:#fff;border-radius:12px;flex-shrink:0;
@@ -262,17 +262,17 @@
       font-family:'Century Gothic',sans-serif;font-weight:700;font-size:1.35rem;
       box-shadow:0 8px 20px rgba(0,0,0,0.2);
     }
-    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:0;text-align:center;}
+    .lk-banner h3{color:#fff;font-size:clamp(1.35rem,2.8vw,1.8rem);letter-spacing:-0.015em;margin-bottom:0;text-align:left;}
     @media(min-width:800px){.lk-banner h3{text-align:left;}}
-    .lk-banner p{color:rgba(255,255,255,0.78);font-size:0.92rem;max-width:420px;line-height:1.6;text-align:center;margin:0 auto;}
+    .lk-banner p{color:rgba(255,255,255,0.78);font-size:0.92rem;max-width:420px;line-height:1.6;text-align:left;margin:0;}
     @media(min-width:800px){.lk-banner p{text-align:left;margin:0;}}
     .lk-banner-btn{
-      width:100%;justify-content:center;text-align:center;
+      width:100%;justify-content:center;text-align:center;align-self:center;
       flex-shrink:0;display:inline-flex;align-items:center;gap:10px;background:#fff;color:#0A66C2;
       padding:16px 30px;border-radius:var(--r-pill);font-family:'Century Gothic',sans-serif;font-weight:700;
       font-size:0.85rem;letter-spacing:0.02em;white-space:nowrap;transition:transform .2s ease,box-shadow .2s ease;
     }
-    @media(min-width:800px){.lk-banner-btn{width:auto;}}
+    @media(min-width:800px){.lk-banner-btn{width:auto;align-self:center;}}
     .lk-banner-btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,0.25);}
     .lk-banner-btn svg{width:18px;height:18px;fill:none;stroke:#0A66C2;stroke-width:2;}
 
@@ -340,15 +340,16 @@
     .cta-final .btn-outline{border-color:rgba(255,255,255,0.6);}
     .cta-final .btn-outline:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,0.12);}
 
-    footer{background:var(--negro);color:var(--gris-plata);padding:60px 0 28px;font-size:0.85rem;text-align:center;}
-    .footer-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px;text-align:center;}
+    footer{background:var(--negro);color:var(--gris-plata);padding:60px 0 28px;font-size:0.85rem;text-align:left;}
+    .footer-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px;text-align:left;}
     @media(min-width:760px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr;}}
-    .footer-grid .logo{justify-content:center;}
-    .footer-grid p{margin:0 auto;text-align:center;}
-    footer h5{color:var(--blanco);font-family:'JetBrains Mono',monospace;font-size:0.64rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:16px;}
-    footer li{margin-bottom:9px;font-size:0.84rem;}
+    .footer-grid .logo{justify-content:flex-start;}
+    .footer-grid p{margin:0;text-align:left;}
+    footer h5{color:var(--blanco);font-family:'JetBrains Mono',monospace;font-size:0.64rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:16px;text-align:left;}
+    footer ul{list-style:none;padding:0;margin:0;text-align:left;}
+    footer li{margin-bottom:9px;font-size:0.84rem;text-align:left;}
     footer a:hover{color:var(--naranja);}
-    .footer-bottom{border-top:1px solid var(--line-dark);padding-top:22px;font-size:0.66rem;display:flex;flex-wrap:wrap;justify-content:center;gap:12px 28px;color:#5c5c5c;font-family:'JetBrains Mono',monospace;text-transform:uppercase;text-align:center;}
+    .footer-bottom{border-top:1px solid var(--line-dark);padding-top:22px;font-size:0.66rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;color:#5c5c5c;font-family:'JetBrains Mono',monospace;text-transform:uppercase;text-align:left;}
 
     .wa-float{
       position:fixed;bottom:28px;right:28px;z-index:2000;height:56px;
@@ -413,15 +414,16 @@
       .cta-final .ctas .btn{width:100%;}
       /* footer: 4 bloques apilados a 40px de gap + margenes de escritorio
          sumaban una pantalla completa de scroll solo para llegar al final */
-      footer{padding:40px 0 24px;text-align:center;}
-      .footer-grid{gap:20px 16px;margin-bottom:28px;grid-template-columns:1fr 1fr;text-align:center;}
+      footer{padding:40px 0 24px;text-align:left;}
+      .footer-grid{gap:20px 16px;margin-bottom:28px;grid-template-columns:1fr 1fr;text-align:left;}
       .footer-grid>div:first-child{grid-column:1 / -1;}
       .footer-grid>div:nth-child(2){grid-column:1;grid-row:2 / span 2;}
       .footer-grid>div:nth-child(3){grid-column:2;grid-row:2;}
       .footer-grid>div:nth-child(4){grid-column:2;grid-row:3;}
-      footer h5{margin-bottom:10px;}
-      footer li{margin-bottom:6px;}
-      .footer-bottom{padding-top:16px;flex-direction:column;align-items:center;gap:8px;}
+      footer h5{margin-bottom:10px;text-align:left;}
+      footer ul{text-align:left;}
+      footer li{margin-bottom:6px;text-align:left;}
+      .footer-bottom{padding-top:16px;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;}
       /* mapas: bajo padding a 40px como el footer, y aprieta cada tarjeta
          (head/cta) para que las dos plantas no se sientan tan largas */
       .mapas{padding-bottom:40px;}

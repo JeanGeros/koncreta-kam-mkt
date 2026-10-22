@@ -349,6 +349,8 @@
     footer ul{list-style:none;padding:0;margin:0;text-align:left;}
     footer li{margin-bottom:9px;font-size:0.84rem;text-align:left;}
     footer a:hover{color:var(--naranja);}
+    .footer-social{display:flex;gap:16px;margin-top:20px;}
+    .footer-social svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:color .2s;}
     .footer-bottom{border-top:1px solid var(--line-dark);padding-top:22px;font-size:0.66rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;color:#5c5c5c;font-family:'JetBrains Mono',monospace;text-transform:uppercase;text-align:left;}
 
     .wa-float{

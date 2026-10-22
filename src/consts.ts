@@ -15,3 +15,7 @@ export const ORGANIZACION = {
 	},
 	plantas: ['Antofagasta', 'Pozo Almonte'],
 } as const;
+
+// ponytail: la CDN de Vercel sirve estas páginas hasta 5 min sin invocar la función;
+// los cambios del admin tardan hasta 5 min en verse. Bajar s-maxage si molesta.
+export const CDN_CACHE = 'public, s-maxage=300, stale-while-revalidate=86400';

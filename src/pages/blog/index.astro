@@ -2,11 +2,13 @@
 import '../../styles/global.css';
 import '../../styles/blog.css';
 import Base from '../../layouts/Base.astro';
+import { CDN_CACHE } from '../../consts';
 import { getBlogHome } from '../../lib/blog';
 import { BLOG_CATEGORIES } from '../../lib/constants';
 import FormattedDate from '../../components/FormattedDate.astro';
 
 const { featured, rest } = await getBlogHome();
+Astro.response.headers.set('Cache-Control', CDN_CACHE);
 const categoryLabel = (value: string) => BLOG_CATEGORIES.find((c) => c.value === value)?.label ?? value;
 ---
 
